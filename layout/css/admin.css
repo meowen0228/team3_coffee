@@ -1,0 +1,66 @@
+:root{
+    --admin-aside-width: 220px;
+}
+
+/* .admin-logo{
+    width: 60%;
+} */
+/* .login-page{
+    background: url("/images/travel.jpg") center center;
+    background-size: cover;
+}
+.login-panel{
+    width: 360px;
+    background: #fff;
+} */
+
+
+.admin-header img{
+    height: 48px;
+    margin: auto;
+    
+}
+
+.admin-header div{
+    text-align: center;
+    font-size: 36px;
+    background-color: white;
+}
+
+.admin-aside{
+    padding-top: 60px;
+    width: 220px;
+    top:0;
+    bottom:0;
+    overflow: auto;
+    background: #efecea;
+}
+.admin-aside  a {
+    color: black;
+    text-decoration: none;
+    border: 1px transparent solid;
+    transition: 0.2s;
+}
+.admin-aside a:hover{
+    font-weight: bolder;
+    background: #fff;
+   
+}
+
+.admin-aside  .maindir {
+    color: black;
+    font-size: larger;
+    font-weight: bolder;
+    
+}
+.admin-aside li{
+    list-style: none;
+}
+.admin-main{
+    margin-top: 41px;
+    margin-left: var(--admin-aside-width);
+}
+
+.tast{
+    background: rebeccapurple;
+}
