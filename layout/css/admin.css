@@ -1,35 +1,50 @@
+/* -------- 變數 -------- */
 :root{
-    --admin-aside-width: 220px;
+    --admin-aside-width: 190px; /* 有修改 */
+    --admin-header-height: 54px; /* 有修改 */
+
+    --activity-time-block-width: 155px;
 }
 
-/* .admin-logo{
+body{
+    background: #F2F2F2;
+}
+
+
+/* -------- font awesome -------- */
+.fa-trash-can{
+    color: red;
+}
+
+/* -------- header -------- */
+.admin-logo{
     width: 60%;
-} */
-/* .login-page{
+}
+.login-page{
     background: url("/images/travel.jpg") center center;
     background-size: cover;
 }
 .login-panel{
     width: 360px;
     background: #fff;
-} */
-
-
-.admin-header img{
-    height: 48px;
-    margin: auto;
-    
 }
-
+.admin-header{
+    height: var(--admin-header-height); /* 有修改 */
+}
+.admin-header img{
+    height: 36px;
+    margin: auto;
+}
 .admin-header div{
     text-align: center;
     font-size: 36px;
     background-color: white;
 }
 
+/* -------- aside -------- */
 .admin-aside{
     padding-top: 60px;
-    width: 220px;
+    width: var(--admin-aside-width); /* 有修改 */
     top:0;
     bottom:0;
     overflow: auto;
@@ -39,28 +54,213 @@
     color: black;
     text-decoration: none;
     border: 1px transparent solid;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 .admin-aside a:hover{
     font-weight: bolder;
     background: #fff;
    
 }
-
 .admin-aside  .maindir {
     color: black;
     font-size: larger;
     font-weight: bolder;
-    
 }
 .admin-aside li{
     list-style: none;
 }
+
+/* -------- main -------- */
 .admin-main{
-    margin-top: 41px;
+    margin-top: var(--admin-header-height); /* 有修改 */
     margin-left: var(--admin-aside-width);
 }
-
-.tast{
-    background: rebeccapurple;
+.data-search{
+    padding: 0 1rem;
+    border-radius: 20px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-evenly;
+    
 }
+.data-search-input{
+    width: 80%;
+    background: transparent;
+    border: 0;
+    border-radius: 50px;
+}
+.data-search-input:focus {
+    outline: none;
+}
+.main-admin{
+    padding: 50px;
+    margin-top: 1rem;
+    background: #fff;
+    border-radius: 5px;
+}
+/* -------- scrollbar 樣式設定 -------- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #A3A0A0;
+    border-radius: 5px;
+    transition: all .2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #8b8a8a; 
+}
+
+/* -------- total-list-------- */
+.edit-icon {
+    text-align: center;
+    vertical-align: middle;
+
+  }
+
+  .edit-icon i{
+    color: black;
+  }
+
+  .contents-align {
+    text-align: center;
+    vertical-align: middle;
+  }
+/* ------ total-add ------ */
+  .contents-align{
+    text-align: center;
+  }
+  .activity-icon{
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  
+
+  
+
+  .index-add-btn{
+    width: 120px;
+    height: 35px;
+    border-radius: 30px;
+    /* text-align: center; */
+  }
+  .index-add-btn a{
+      color:gray;
+      text-decoration:none;
+  }
+  .index-add-btn a:hover{
+      color:white;
+      text-decoration:none;
+  }
+  .add-submut-btn{
+      background: #fff;
+      color: #555;
+      border-radius: 30px;
+      width: 80px;
+  }
+  .add-submut-btn a{
+      color: #555;
+      text-decoration: none; 
+  }
+  .add-submut-btn a:hover{
+      color: #fff;
+      text-decoration: none; 
+  }
+
+ 
+  .activity-add{
+      padding: 5px;
+      margin-top: 1rem;
+      background: #fff;
+      border-radius: 5px;
+  }
+  .activity-add a{
+    text-decoration:none;
+    color: black;
+}
+.activity-table th{
+    height: 4rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.activity-edit i{
+    color: black;
+}
+.news-add-btn{
+    width: 120px;
+    height: 35px;
+    border-radius: 30px;
+    /* text-align: center; */
+  }
+  .news-add-btn a{
+      color:gray;
+      text-decoration:none;
+  }
+  .news-add-btn a:hover{
+      color:white;
+      text-decoration:none;
+  }
+  .add-submut-btn{
+      background: #fff;
+      color: #555;
+      border-radius: 30px;
+      width: 80px;
+  }
+  .add-submut-btn a{
+      color: #555;
+      text-decoration: none; 
+  }
+  .add-submut-btn a:hover{
+      color: #fff;
+      text-decoration: none; 
+  }
+  .banner-icon {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .contents-align {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  
+  .add-btn{
+    width: 120px;
+    height: 35px;
+    background: #fff;
+    border-radius: 20px;
+    text-align: center;
+  }
+  .add-btn a{
+      color:gray;
+      text-decoration:none;
+  }
+  .add-btn a:hover{
+      color:white;
+      text-decoration:none;
+  }
+  .upload-photo i{
+      border-radius: 15px;
+  }
+  .submut-btn{
+      background: #fff;
+      color: #555;
+      border-radius: 30px;
+      width: 80px;
+  }
+  .submut-btn a{
+      color: #555;
+      text-decoration: none; 
+  }
+  .submut-btn a:hover{
+      color: #fff;
+      text-decoration: none; 
+  }
