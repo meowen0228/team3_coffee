@@ -7,33 +7,39 @@
   $pagename = 'store_list';
 
   // 抓取 search text
-  $text = isset( $_GET['text'] ) ? strval($_GET['text']) : 0;
+  $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
   
   $sql =
-  "SELECT
-  store.id,
-  `store_name`,
-  `city`,
-  `address`,
-  `phone`,
-  group_concat( DISTINCT dow, ':', `status_name`, ' ', LEFT(start_time, 5), '-', LEFT(end_time, 5) ORDER BY store_time.id) AS `time`,
-  group_concat( DISTINCT `icon` ORDER BY ss_ssi.ssi_id) AS `icon_group`,
-  group_concat( DISTINCT `serve_name` ORDER BY ss_ssi.ssi_id) AS `serve_name`
-  FROM `store`
-  LEFT JOIN `store_time` ON store_time.fk_store_id = store.id
-  LEFT JOIN 
-  (SELECT
-  `fk_store_id`,
-  store_serve_icon.id as ssi_id,
-  `icon`,
-  `serve_name`
-  FROM `store_serve`
-  LEFT JOIN `store_serve_icon` on `fk_serve_id` = store_serve_icon.id
-  WHERE serve_status = 1) AS ss_ssi ON ss_ssi.fk_store_id = store.id
-  WHERE store_name  LIKE '%$text%' OR `address` LIKE '%$text%'
-  GROUP BY store.id ORDER BY id";
+    "SELECT
+    store.id,
+    `store_name`,
+    `city`,
+    `address`,
+    `phone`,
+    group_concat( DISTINCT dow, ':', `status_name`, ' ', LEFT(start_time, 5), '-', LEFT(end_time, 5) ORDER BY store_time.id) AS `time`,
+    group_concat( DISTINCT `icon` ORDER BY ss_ssi.ssi_id) AS `icon_group`,
+    group_concat( DISTINCT `serve_name` ORDER BY ss_ssi.ssi_id) AS `serve_name`
+    FROM `store`
+    LEFT JOIN `store_time` ON store_time.fk_store_id = store.id
+    LEFT JOIN 
+    (SELECT
+    `fk_store_id`,
+    store_serve_icon.id as ssi_id,
+    `icon`,
+    `serve_name`
+    FROM `store_serve`
+    LEFT JOIN `store_serve_icon` on `fk_serve_id` = store_serve_icon.id
+    WHERE serve_status = 1) AS ss_ssi ON ss_ssi.fk_store_id = store.id
+    WHERE store_name  LIKE '%$text%' OR `address` LIKE '%$text%'
+    GROUP BY store.id ORDER BY id";
+    
   $rows = $pdo -> query($sql) -> fetchAll(); // 拿到分頁資料
   // $rowsNum = $rows -> rowCount();
+
+  $num = array();
+  foreach($rows as $r) {
+      array_push($num, $r['id']);
+  }
 
 ?>
 
@@ -64,7 +70,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">id</th>
+              <th scope="col">編號</th>
               <th scope="col">門市名稱</th>
               <th scope="col">縣市</th>
               <th scope="col">詳細地址</th>
@@ -111,7 +117,9 @@
             <?php endforeach ?>
           </tbody>
         </table>
+        <div class="text-center"><span></span></div>
       </div>
+      <button type="submit" class="btn btn-outline-secondary store-edit-btn"><a href="store-list.php">回列表</a></button>
     </div> <!-- col-10 end  -->
     <div class="col-1"></div>
   </main>
@@ -136,10 +144,16 @@
     $('.store-search-input').keyup(function () {
       let search = $(this).val();
       if (search != '') {
-        $(this).next().attr("href", "store-list-search.php?text=" + search);
+        $(this).next().attr("href", "store-list-search.php?search-for=" + search);
       }
     });
 
+    let num = <?php echo json_encode($num); ?>;
+    console.log(num);
+
+    if (num == ""){
+      $(".store-table").find("span").text("查詢資料無結果");
+    }
   </script>
   
 <?php include __DIR__. './layout/scripts.php';?>

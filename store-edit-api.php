@@ -12,7 +12,8 @@
     'rowCount' => 0,
     'count' => 0,
   ];
-var_dump($_POST);
+// var_dump($_POST);
+// echo $_POST['status'][3];
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 // TODO: 欄位檢查
@@ -20,8 +21,6 @@ if( empty($_POST['id']) ){
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
-
-
 
 
 
@@ -48,7 +47,6 @@ $stmt_1 -> execute([
 
 // 存取 store_id 供 time_table 及 serve_table 內 sql 語法做查詢
 $id = $_POST['id'];
-
 
 
 
@@ -87,7 +85,17 @@ foreach ($_POST['end_time'] as $key => $value){
   $tid_first += 1;
 }
 
-
+// $tid_first = $_POST['tid_last'] - 6; // 起始值重設
+// for ( $i = 0; i < 8; $i++){
+//   $status = $_POST['status'][$i];
+  // $status_name = $_POST['status_name'][$i];
+  // $start_time = str_replace(":", "", $_POST['start_time'][$i])."00";
+  // $end_time = str_replace(":", "", $_POST['end_time'][$i])."00";
+  // $sql = "UPDATE `store_time` SET `end_time` = " . str_replace(":", "", $value) . "00 WHERE `fk_store_id` = ". $id . " AND `id` =" . $tid_first . ";";
+  // echo $status;
+  // $stmt = $pdo->query($sql)->fetchAll();
+  // $tid_first += 1;
+}
 
 
 
@@ -121,37 +129,37 @@ if($stmt_1->rowCount()){
     $output['error'] = '資料沒有修改成功';
 }
 
-$output['count'] = $stmt_21->count(); // 修改資料的筆數
-if($stmt_21->count()){
-    $output['error'] = '';
-    $output['success'] = true;
-} else {
-    $output['error'] = '資料沒有修改成功';
-}
+// $output['count'] = $stmt_21->count(); // 修改資料的筆數
+// if($stmt_21->count()){
+//     $output['error'] = '';
+//     $output['success'] = true;
+// } else {
+//     $output['error'] = '資料沒有修改成功';
+// }
 
-$output['count'] = $stmt_22->count(); // 修改資料的筆數
-if($stmt_22->count()){
-    $output['error'] = '';
-    $output['success'] = true;
-} else {
-    $output['error'] = '資料沒有修改成功';
-}
+// $output['count'] = $stmt_22->count(); // 修改資料的筆數
+// if($stmt_22->count()){
+//     $output['error'] = '';
+//     $output['success'] = true;
+// } else {
+//     $output['error'] = '資料沒有修改成功';
+// }
 
-$output['count'] = $stmt_23->count(); // 修改資料的筆數
-if($stmt_23->count()){
-    $output['error'] = '';
-    $output['success'] = true;
-} else {
-    $output['error'] = '資料沒有修改成功';
-}
+// $output['count'] = $stmt_23->count(); // 修改資料的筆數
+// if($stmt_23->count()){
+//     $output['error'] = '';
+//     $output['success'] = true;
+// } else {
+//     $output['error'] = '資料沒有修改成功';
+// }
 
-$output['count'] = $stmt_24->count(); // 修改資料的筆數
-if($stmt_24->count()){
-    $output['error'] = '';
-    $output['success'] = true;
-} else {
-    $output['error'] = '資料沒有修改成功';
-}
+// $output['count'] = $stmt_24->count(); // 修改資料的筆數
+// if($stmt_24->count()){
+//     $output['error'] = '';
+//     $output['success'] = true;
+// } else {
+//     $output['error'] = '資料沒有修改成功';
+// }
 
 
 

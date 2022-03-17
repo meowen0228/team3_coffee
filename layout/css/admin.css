@@ -143,6 +143,9 @@ body{
     background: #fff;
     border-radius: 5px;
 }
+.store-table span{
+    text-align: center;
+}
 .store-table tr{
     height: 4rem;
     vertical-align: middle;

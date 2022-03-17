@@ -58,10 +58,8 @@
       // 存取 store_name 進入陣列提供 js 做驗證使用
       
   }
-  $store_name = [];
-  foreach ($rows as $rr) {
-    array_push($store_name, $rr['store_name']);
-  }
+
+
 ?>
 
 <?php include __DIR__. './layout/html-head.php';?>
@@ -91,7 +89,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">id</th>
+              <th scope="col">編號</th>
               <th scope="col">門市名稱</th>
               <th scope="col">縣市</th>
               <th scope="col">詳細地址</th>
@@ -177,12 +175,16 @@
       if(confirm(`確定要刪除編號為 ${id} 的資料嗎?`)){
           location.href = 'store-delete.php?id=' + id;
       }
-    }
+    };
 
-    let initialPosts = <?php echo $r['store_name'] ?>;
-    console.log(initialPosts);
+    // $(".store-search-input").keyup(function () {
+    //   let search = $(this).val();
+    //   if (search != '') {
+    //     $(this).next().attr("href", "store-list-search.php?search-for=" + search);
+    //   }
+    // });
 
-    $('.store-search-input').keyup(function () {
+    $(".store-search-input").on("keyup mouseup contextmenu", function () {
       let search = $(this).val();
       if (search != '') {
         $(this).next().attr("href", "store-list-search.php?search-for=" + search);
