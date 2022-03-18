@@ -31,9 +31,7 @@ $pagename = 'activity-add';
       <div class="mb-3">
         <h5><strong>新增活動項目</strong></h5>
       </div>
-
-
-      <div class="grid rows-2 mb-3">
+     <div class="grid rows-2 mb-3">
         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;" action="">
           <div class="g-col-6">
             <div class="mb-3">

@@ -1,139 +1,132 @@
 <?php
 require __DIR__ . '/layout/connect_db.php';
 
-$title = '消息修改';
-$pageName ='news-edit';
+$title = '首頁/消息修改';
+$pageName = 'news-edit';
 
-$sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$sql = "SELECT * FROM address_book WHERE sid=$sid";
+$sql = "SELECT * FROM news WHERE id=$id";
 $row = $pdo->query($sql)->fetch();
-if(empty($row)){
-    header('Location: ab-list.php'); // 找不到資炓轉向列表頁
+if (empty($row)) {
+    header('Location: news-list.php'); // 找不到資炓轉向列表頁
     exit;
 }
 ?>
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/navbar.php'; ?>
 <style>
-    form .mb-3 .form-text{
+    form .mb-3 .form-text {
         color: red;
     }
-
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">修改資料</h5>
-                    <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
-                        <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">* name</label>
-                            <input type="text" class="form-control" id="name" name="name" required
-                            value="<?= htmlentities($row['name']) ?>">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">email</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                            value="<?= htmlentities($row['email']) ?>">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mobile" class="form-label">mobile</label>
-                            <input type="tel" class="form-control" id="mobile" name="mobile"
-                                value="<?= htmlentities($row['mobile']) ?>"
-                                pattern="09\d{2}-?\d{3}-?\d{3}">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="birthday" class="form-label">birthday</label>
-                            <input type="date" class="form-control" id="birthday" name="birthday"
-                            value="<?= $row['birthday'] ?>">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">address</label>
-                            <textarea class="form-control" name="address"
-                            id="address" 
-                            cols="30" 
-                            rows="3"><?= $row['address'] ?></textarea>
-
-                            <div class="form-text"></div>
-                        </div>
+<?php include __DIR__ . '/layout/html-head.php'; ?>
+<?php include __DIR__ . '/layout/html-head.php'; ?>
+<?php include __DIR__ . '/layout/header.php'; ?>
+<?php include __DIR__ . '/layout/aside.php'; ?>
 
 
 
-                        <button type="submit" class="btn btn-primary">修改</button>
-                    </form>
-
-                </div>
+<main class="admin-main px-5 py-5 d-flex">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="d-flex justify-content-between">
+            <div class="col-6">
+                <h4>最新消息</h4>
+            </div>
+            <!-- <div class="add-button col-1">
+        <button type="button" class="index-add-btn btn btn-outline-secondary"><a href="">新增消息</a></button>
+      </div> -->
+            <div class="data-search col-2.5">
+                <input class="data-search-input" list="" id="">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
-    </div>
+        <div class="main-admin">
+            <div class="mb-3">
+                <h5><strong>修改消息項目</strong></h5>
+            </div>
 
 
+            <div class="grid rows-2 mb-3">
+                <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;" action="">
+                        <div class="mb-3">
+                            <label class="form-label" for="title">標題：</label>
+                            <input type="text" class="form-control" id="title" name="title" required value="<?= $row['title'] ?>">
+                            <div class="form-text"></div>
+                        </div>
 
+                    <div class="mb-3">
+                        <label for="contents" class="form-label">內容：</label><br>
+                        <textarea class="form-control" name="contents" id="contents" rows="3"><?= $row['contents'] ?></textarea>
+                        <div class="form-text"></div>
+                    </div>
+                    <input type="hidden" id="id" name="id" value="<?= $row['id'] ?>">
+                    <button type="submit" class="submut-btn btn btn-secondary">修改</button>
+                    <button type="button" class="submut-btn btn btn-secondary me-2"><a href="javascript: back()"> 取消</button>
 
+                </form>
+            </div>
 
-</div>
+        </div>
+
+    </div> <!-- col-10 end  -->
+    <div class="col-1"></div>
+
+</main>
+
 <?php include __DIR__ . '/layout/scripts.php'; ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
 <script>
-    const mobile = document.form1.mobile; // DOM element
-    const mobile_msg = mobile.closest('.mb-3').querySelector('.form-text');
+    const title = document.form1.title; // DOM element
+    const title_msg = title.closest('.mb-3').querySelector('.form-text');
 
-    const name = document.form1.name;
-    const name_msg = name.closest('.mb-3').querySelector('.form-text');
-
-    function checkForm(){
+    function checkForm() {
         let isPass = true; // 有沒有通過檢查
 
-        name_msg.innerText = '';  // 清空訊息
-        mobile_msg.innerText = '';  // 清空訊息
+        // name_msg.innerText = ''; // 清空訊息
+        // mobile_msg.innerText = ''; // 清空訊息
 
         // TODO: 表單資料送出之前, 要做格式檢查
 
-        if(name.value.length<2){
-            isPass = false;
-            name_msg.innerText = '請填寫正確的姓名'
-        }
+        // if (name.value.length < 2) {
+        //     isPass = false;
+        //     name_msg.innerText = '請填寫正確的姓名'
+        // }
 
-        const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
-        if(mobile.value){
-            // 如果不是空字串就檢查格式
-            if(! mobile_re.test(mobile.value)){
-                mobile_msg.innerText = '請輸入正確的手機號碼';
-                isPass = false;
-            }
-        }
+        // const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
+        // if (mobile.value) {
+        //     // 如果不是空字串就檢查格式
+        //     if (!mobile_re.test(mobile.value)) {
+        //         mobile_msg.innerText = '請輸入正確的手機號碼';
+        //         isPass = false;
+        //     }
+        // }
 
-        if(isPass){
+        if (isPass) {
             const fd = new FormData(document.form1);
 
-            fetch('ab-edit-api.php', {
-                method: 'POST',
-                body: fd
-            }).then(r => r.json())
-            .then(obj => {
-                console.log(obj);
-                if(obj.success){
-                    alert('修改成功');
-                    // location.href = 'ab-list.php';
-                } else {
-                    alert('沒有修改');
-                }
-
-            })
-
-
+            fetch('news-edit-api.php', {
+                    method: 'POST',
+                    body: fd
+                }).then(r => r.json())
+                .then(obj => {
+                    console.log(obj);
+                    if (obj.success) {
+                        alert('修改成功');
+                        location.href = 'news-list.php';
+                    } else {
+                        alert('沒有修改');
+                    }
+                })
         }
-
-
     }
-
-
+</script>
+<script>
+    function back() {
+        if (confirm(`確定要取消修改嗎?`)) {
+            location.href = 'news-list.php';
+        }
+    }
 </script>
 <?php include __DIR__ . '/layout/html-foot.php'; ?>

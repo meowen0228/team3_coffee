@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/layout/connect_db.php';
 
-$title = '活動修改';
+$title = '首頁/活動修改';
 $pageName = 'activity-edit';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -41,7 +41,7 @@ if (empty($row)) {
         </div>
         <div class="main-admin">
             <div class="mb-3">
-                <h5><strong>新增活動項目</strong></h5>
+                <h5><strong>修改活動項目</strong></h5>
             </div>
 
 

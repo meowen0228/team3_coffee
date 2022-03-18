@@ -42,7 +42,7 @@ if ($totalRows) {
         <h4>最新消息</h4>
       </div>
       <div class="add-button col-1">
-            <button type="button" class="rounded-pill add-btn btn btn-outline-secondary"><a href="">新增橫幅</a></button>
+            <button type="button" class="rounded-pill add-btn btn btn-outline-secondary"><a href="news-add.php">新增消息</a></button>
         </div>
         <div class="data-search col-2.5">
           <input class="data-search-input" list="" id="" >

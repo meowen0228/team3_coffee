@@ -45,7 +45,7 @@ if ($totalRows) {
         <h4>橫幅管理</h4>
       </div>
       <div class="d-flex flex-row">
-      <div class="add-btn col-2 d-block me-2"><a class="" href="">新增活動</a></div>
+      <div class="add-btn col-2 d-block me-2"><a class="" href="banner-add.php">新增活動</a></div>
       <div class="data-search col-2.5">
           <input class="data-search-input" list="" id="" >
           <i class="fa-solid fa-magnifying-glass"></i>

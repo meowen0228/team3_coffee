@@ -12,7 +12,7 @@ $output = [
     'rowCount' => 0,
 ];
 
-var_dump($_POST);
+// var_dump($_POST);
 
 if(empty($_POST['title'])){
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -30,10 +30,11 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 //       ) VALUES (?, ?, ?, ?, ?, NOW())";
 
 $sql = "INSERT INTO `banner`
-    (`photo`,`title`,`status`)  VALUES(?,?,'0')";
+    (`photo`,`title`,`status`)  VALUES(?,?,?)";
 
-echo $sql;
-// $stmt = $pdo->prepare($sql);
+
+// echo $sql;
+$stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     $_POST['photo'],
@@ -52,4 +53,3 @@ if($stmt->rowCount()){
 
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
-
