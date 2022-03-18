@@ -7,11 +7,11 @@
 
           <div class="col-9"></div>
           <div class="col-1 ">
-            <img  src="./layout/icon/bell-icon.png" alt="">
-        </div>
+          <i class="fa-solid fa-bell rightIcon"></i>
+                </div>
          
         <div class="col-1 ">
-            <i class="fa-solid fa-user "></i>
+            <i class="fa-solid fa-user rightIcon"></i>
           </div>
                   <!-- <input type="text" class="form-control rounded-0"> -->
       </header>
