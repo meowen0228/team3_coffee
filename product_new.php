@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/php_part/connect_db.php';
+require __DIR__ . '/layout/connect_db.php';
 
 $title = '商品管理';
 $pageName = 'product1_';
@@ -12,11 +12,12 @@ p_name,
 price,
 fk_product_types,
 content,
-products.id
-from products
-join product_types on product_types.id = products.fk_product_types
-join product_photos on product_photos.id = fk_product_photos_id
-where products.id = $id";
+`url`,
+products2.id
+from products2
+join product_types on product_types.id = products2.fk_product_types
+where products2.id = $id";
+
 $row = $pdo->query($sql1)->fetch();
 // if (empty($row)) {
 //     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
@@ -132,7 +133,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
                             <div class="box">
                                 <button type="button" onclick="img_url.click()">上傳圖片</button>
                                 <img id="preview_img1" src="" style="width: 100%;">
-                                <input type="hidden" name="img_url_post" value="">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="">
                             </div>
                         </div>
                     </div>
@@ -194,8 +195,10 @@ $row2 = $pdo->query($sql2)->fetchAll();
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
-                preview_img1.src = './img/shop' + obj.filename;
-                img_url_post.value = './img/shop' + obj.filename;
+                preview_img1.src = './img/shop/'+ obj.filename;
+                console.log('./img/shop/' + obj.filename);
+                $("#img_url_post").val('./img/shop/'+ obj.filename);
+                // img_url_post.value = './img/shop/'+ obj.filename;
             }
         });
     }

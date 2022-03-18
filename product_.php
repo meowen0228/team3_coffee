@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/php_part/connect_db.php';
+require __DIR__ . '/layout/connect_db.php';
 
 $title = '商品管理';
 $pageName = 'product_';

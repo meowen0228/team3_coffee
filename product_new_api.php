@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/php_part/connect_db.php';
+require __DIR__ . '/layout/connect_db.php';
 
 header('Content-Type: application/json');
 // 輸出的資料格式
@@ -12,7 +12,7 @@ $output = [
     'rowCount' => 0,
 ];
 
-if(empty($_POST['name'])){
+if(empty($_POST['p_name'])){
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -20,11 +20,11 @@ if(empty($_POST['name'])){
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 // TODO: 欄位檢查
+// var_dump($_POST);
 
-
-$sql = "INSERT INTO `products`(
-    `status`, `p_name`, `price`, `fk_product_types`,
-    `content`,`url`) 
+$sql = "INSERT INTO `products2`(
+    `status`, `p_name`, `price`, `fk_product_types`
+    ,`url`,`content`) 
     VALUES (?, ?, ?, ?, ?, ?)";
 
 $stmt = $pdo->prepare($sql);
@@ -34,7 +34,8 @@ $stmt->execute([
     $_POST['p_name'] ,
     $_POST['price'] ,
     $_POST['fk_product_types'] ,
-    $_POST['content'] ,
+    $_POST['img_url_post'] ,
+    $_POST['content'],
 ]);
 
 $output['insertId'] = $pdo->lastInsertId(); // 取得最近加入資料的 PK

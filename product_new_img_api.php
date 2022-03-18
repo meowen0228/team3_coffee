@@ -12,7 +12,7 @@ $output = [
     'error' => '',
     'filename' => '',
 ];
-
+ 
 if(empty($_FILES) or empty($_FILES['img_url'])){
     $output['error'] = '沒有上傳檔案';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -32,7 +32,7 @@ $output['filename'] = sha1(uniqid(). $_FILES['img_url']['name']). $ext;
 if(
     move_uploaded_file(
         $_FILES['img_url']['tmp_name'], 
-        __DIR__. '/img/shop'. $output['filename']
+        __DIR__. '/img/shop/'. $output['filename']
         )
 ){
     $output['success'] = true;

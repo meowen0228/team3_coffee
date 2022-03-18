@@ -1,6 +1,6 @@
 <?php
 // 連接資料庫
-require __DIR__ . '/php_part/connect_db.php';
+require __DIR__ . '/layout/connect_db.php';
 
 // 頁面資訊
 $title = '商品列表';
@@ -31,7 +31,7 @@ if ($totalRows) {
         exit;
     }
 
-    $sql = sprintf("SELECT * FROM products ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM products2 ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
 
