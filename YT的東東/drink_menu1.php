@@ -43,21 +43,9 @@ $pagename = 'home';
                 <div class="row py-1">
 
                     <div class="col-3">
-                        <h4>訂單列表</h4>
+                        <h4>訂單管理</h4>
                     </div>
-                    <div class="col-3"></div>
-                    <div class="col-2">
-                        <select name="ship" id="ship">
-                            <option selected>出貨狀態</option>
-                            <option value="ship1">全選</option>
-                            <option value="ship2">已出貨</option>
-                            <option value="ship3">未出貨</option>
-                            <option value="ship4">完成訂單</option>
-                            <option value="ship5">取消訂單</option>
-                        </select>
-
-
-                    </div>
+                    <div class="col-5"></div>
 
                     <div class="col-4">
                         <div class="input-group form-outline ">
@@ -70,7 +58,6 @@ $pagename = 'home';
 
                 </div>
 
-
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item nonship">
                         <h2 class="accordion-header" id="flush-headingOne">
@@ -81,10 +68,9 @@ $pagename = 'home';
                                             <th scope="col">會員編號</th>
                                             <th scope="col">訂單編號</th>
                                             <th scope="col">付款方式</th>
-                                            <th scope="col">運送方式</th>
-                                            <th scope="col">訂單狀態</th>
+                                            <th scope="col">用餐地點</th>
+                                            <th scope="col">餐點狀態</th>
                                             <th scope="col">建立時間</th>
-                                            <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,8 +78,8 @@ $pagename = 'home';
                                             <th>000001</th>
                                             <td>000001</td>
                                             <td>信用卡</td>
-                                            <td>宅配</td>
-                                            <td>未出貨</td>
+                                            <td>三多門市</td>
+                                            <td>準備中</td>
                                             <td>2022/01/31 15:20</td>
                                             <td></td>
                                         </tr>
@@ -110,6 +96,7 @@ $pagename = 'home';
                                         <th>項次</th>
                                         <th>商品編號</th>
                                         <th>商品名稱</th>
+                                        <th>選擇</th>
                                         <th>數量</th>
                                         <th>金額</th>
                                         <th>小計</th>
@@ -119,33 +106,33 @@ $pagename = 'home';
                                 <tbody>
                                     <tr>
                                         <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                         <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
+                                        <td>001</td>
+                                        <td>美式咖啡</td>
+                                        <td>加糖</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                         <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
+                                        <td>001</td>
+                                        <td>美式咖啡</td>
+                                        <td>加糖</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                         <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
+                                        <td>001</td>
+                                        <td>美式咖啡</td>
+                                        <td>加糖</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -176,7 +163,7 @@ $pagename = 'home';
                                             <th scope="col">運送方式</th>
                                             <th scope="col">訂單狀態</th>
                                             <th scope="col">建立時間</th>
-                                            <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -202,6 +189,7 @@ $pagename = 'home';
                                         <th>項次</th>
                                         <th>商品編號</th>
                                         <th>商品名稱</th>
+                                        <th>選擇</th>
                                         <th>數量</th>
                                         <th>金額</th>
                                         <th>小計</th>
@@ -211,33 +199,33 @@ $pagename = 'home';
                                 <tbody>
                                     <tr>
                                         <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                         <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
+                                        <td>001</td>
+                                        <td>美式咖啡</td>
+                                        <td>加糖</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                         <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
+                                        <td>001</td>
+                                        <td>美式咖啡</td>
+                                        <td>加糖</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                         <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
+                                        <td>001</td>
+                                        <td>美式咖啡</td>
+                                        <td>加糖</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -267,7 +255,7 @@ $pagename = 'home';
                                                 <th scope="col">運送方式</th>
                                                 <th scope="col">訂單狀態</th>
                                                 <th scope="col">建立時間</th>
-                                                <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -276,11 +264,10 @@ $pagename = 'home';
                                                 <td>000001</td>
                                                 <td>信用卡</td>
                                                 <td>宅配</td>
-                                                <td>完成訂單</td>
+                                                <td>已出貨</td>
                                                 <td>2022/01/31 15:20</td>
                                                 <td></td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </button>
@@ -293,6 +280,7 @@ $pagename = 'home';
                                             <th>項次</th>
                                             <th>商品編號</th>
                                             <th>商品名稱</th>
+                                            <th>選擇</th>
                                             <th>數量</th>
                                             <th>金額</th>
                                             <th>小計</th>
@@ -302,33 +290,33 @@ $pagename = 'home';
                                     <tbody>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                             <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
+                                            <td>001</td>
+                                            <td>美式咖啡</td>
+                                            <td>加糖</td>
+                                            <td>2</td>
+                                            <td>100</td>
+                                            <td>200</td>
                                         </tr>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                             <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
+                                            <td>001</td>
+                                            <td>美式咖啡</td>
+                                            <td>加糖</td>
+                                            <td>2</td>
+                                            <td>100</td>
+                                            <td>200</td>
                                         </tr>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                             <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
+                                            <td>001</td>
+                                            <td>美式咖啡</td>
+                                            <td>加糖</td>
+                                            <td>2</td>
+                                            <td>100</td>
+                                            <td>200</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -343,7 +331,6 @@ $pagename = 'home';
                                             <td></td>
                                         </tr>
                                     </tfoot>
-
                                 </table>
                             </div>
                         </div>
@@ -359,7 +346,6 @@ $pagename = 'home';
                                                 <th scope="col">運送方式</th>
                                                 <th scope="col">訂單狀態</th>
                                                 <th scope="col">建立時間</th>
-                                                <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -385,6 +371,7 @@ $pagename = 'home';
                                             <th>項次</th>
                                             <th>商品編號</th>
                                             <th>商品名稱</th>
+                                            <th>選擇</th>
                                             <th>數量</th>
                                             <th>金額</th>
                                             <th>小計</th>
@@ -394,33 +381,33 @@ $pagename = 'home';
                                     <tbody>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                             <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
+                                            <td>001</td>
+                                            <td>美式咖啡</td>
+                                            <td>加糖</td>
+                                            <td>2</td>
+                                            <td>100</td>
+                                            <td>200</td>
                                         </tr>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                             <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
+                                            <td>001</td>
+                                            <td>美式咖啡</td>
+                                            <td>加糖</td>
+                                            <td>2</td>
+                                            <td>100</td>
+                                            <td>200</td>
                                         </tr>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
                                             <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
+                                            <td>001</td>
+                                            <td>美式咖啡</td>
+                                            <td>加糖</td>
+                                            <td>2</td>
+                                            <td>100</td>
+                                            <td>200</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -435,124 +422,85 @@ $pagename = 'home';
                                             <td></td>
                                         </tr>
                                     </tfoot>
-
                                 </table>
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-                    <div class="d-flex justify-content-center py-2">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination gap-2 pagetext">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <i class="fa-solid fa-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <i class="fa-solid fa-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
-                <div class="col-1"></div>
+
+
+
+
+                <div class="d-flex justify-content-center py-2">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination gap-2 pagetext">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+            <div class="col-1"></div>
         </div>
+    </div>
 
 
 </main>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
     //給collapse
 </script>
 <script>
     $(function() {
-        $(ship).change(function() {
+        $("#ship").change(function() {
             switch (
                 $(this).val()
             ) {
-                case "ship1": //全選
-                    $(".nonship").removeClass("active");
-                    $(".onship").removeClass("active");
-                    $(".complete").removeClass("active");
+                case "1": //全選
+                    $(".nonship").removeClass("act");
+                    $(".onship").removeClass("act");
+                    $(".complete").removeClass("act");
+                    $(".canceled").removeClass("act");
+                    break;
+                case "2": //未出貨
+                    $(".nonship").addClass("act");
+                    $(".onship").removeClass("act");
+                    $(".complete").addClass("act");
+                    $(".canceled").addClass("act");
+                    break;
+                case "3": //已出貨
+                    $(".nonship").removeClass("act");
+                    $(".onship").addClass("act");
+                    $(".complete").addClass("act");
+                    $(".canceled").addClass("act");
+                    break;
+                case "4": //完成訂單
+                    $(".nonship").addClass("act");
+                    $(".onship").addClass("act");
+                    $(".complete").removeClass("act");
+                    $(".canceled").addClass("act");
+                    break;
+                case "5": //取消
+                    $(".nonship").addClass("active");
+                    $(".onship").addClass("active");
+                    $(".complete").addClass("active");
                     $(".canceled").removeClass("active");
                     break;
-                case "ship2": //未出貨
-                    $(".nonship").addClass("active");
-                    $(".onship").removeClass("active");
-                    $(".complete").addClass("active");
-                    $(".canceled").addClass("active");
-                    break;
-                case "ship3": //已出貨
-                    $(".nonship").removeClass("active");
-                    $(".onship").addClass("active");
-                    $(".complete").addClass("active");
-                    $(".canceled").addClass("active");
-                    break;
-                case "ship4": //完成訂單
-                    $(".nonship").addClass("active");
-                    $(".onship").addClass("active");
-                    $(".complete").removeClass("active");
-                    $(".canceled").addClass("active");
-                    break;
-                case "ship5": //取消
-                    $(".nonship").addClass("active");
-                    $(".onship").addClass("active");
-                    $(".complete").addClass("active");
-                    $(".canceled").removeClass("active");
-                    break;
-            }
-
-        });
-    });
-    $(function() {
-        $("#ship").change(function() {
-                switch (
-                    $(this).val() //指到 select 自己的選項。
-                ) {
-                    case "ship1": //全選
-                        $(".nonship").removeClass("active");
-                        $(".onship").removeClass("active");
-                        $(".complete").removeClass("active");
-                        $(".canceled").removeClass("active");
-                        break;
-                    case "ship2": //未出貨
-                        $(".nonship").addClass("active");
-                        $(".onship").removeClass("active");
-                        $(".complete").addClass("active");
-                        $(".canceled").addClass("active");
-                        break;
-                    case "ship3": //已出貨
-                        $(".nonship").removeClass("active");
-                        $(".onship").addClass("active");
-                        $(".complete").addClass("active");
-                        $(".canceled").addClass("active");
-                        break;
-                    case "ship4": //完成訂單
-                        $(".nonship").addClass("active");
-                        $(".onship").addClass("active");
-                        $(".complete").removeClass("active");
-                        $(".canceled").addClass("active");
-                        break;
-                    case "ship5": //取消
-                        $(".nonship").addClass("active");
-                        $(".onship").addClass("active");
-                        $(".complete").addClass("active");
-                        $(".canceled").removeClass("active");
-                        break;
-                    default:
-                        return;
-                }
             }
         });
     });
