@@ -128,20 +128,18 @@ $row2 = $pdo->query($sql2)->fetchAll();
                     </div>
                     <div class="mb-4">圖片上傳：</div>
                     <div class="row g-4 mb-3 align-items-center">
-                            <div class="col-3">
-                                <div class="box">
-                                    <input type="file" onchange="readURL(this)" targetid="preview_img1" name="url" accept="image/gif, image/jpeg, image/png">
-                                    <img id="preview_img1" src="" style="width: 100%;">
-                                </div>
+                        <div class="col-3">
+                            <div class="box">
+                                <button type="button" onclick="img_url.click()">上傳圖片</button>
+                                <img id="preview_img1" src="" style="width: 100%;">
+                                <input type="hidden" name="img_url_post" value="">
                             </div>
-                            
-                       
+                        </div>
                     </div>
                     <div class="row g-4 mt-4 mb-4 ">
                         <div class="col-1" id="content">介紹:
                         </div>
                         <div class=" col-8 form-floating  ">
-
                             <textarea class="form-control typing" placeholder="" name="content" id="textarea" style="height: 100px"></textarea>
                             <label for="textarea"></label>
                         </div>
@@ -153,7 +151,9 @@ $row2 = $pdo->query($sql2)->fetchAll();
                         <div class="col-2"><button type="submit" class="btn btn-secondary addProduct">上傳</button></div>
                     </div>
                 </form>
-
+                <form name="img_form" onsubmit="return false;" style="display: none;">
+                    <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+                </form>
             </div>
         </div>
 
@@ -165,24 +165,42 @@ $row2 = $pdo->query($sql2)->fetchAll();
 
 </main>
 <script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var imageTagID = input.getAttribute("targetID");
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = document.getElementById(imageTagID);
-                img.setAttribute("src", e.target.result)
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    // function readURL(input) {
+    //     if (input.files && input.files[0]) {
+    //         var imageTagID = input.getAttribute("targetID");
+    //         var reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             var img = document.getElementById(imageTagID);
+    //             img.setAttribute("src", e.target.result)
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
     
 </script>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <?php include __DIR__ . '/layout/scripts.php'; ?>
 <script>
+
+    function sendData(){
+        const fd = new FormData(document.img_form);
+
+        fetch('product_new_img_api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img/shop' + obj.filename;
+                img_url_post.value = './img/shop' + obj.filename;
+            }
+        });
+    }
+    img_url.onchange = sendData;
+
     const p_name = document.form1.p_name; // DOM element
     const p_name_msg = p_name.closest('.mb-3').querySelector('.form-text');
 
@@ -191,14 +209,14 @@ $row2 = $pdo->query($sql2)->fetchAll();
     
     // const content = document.form.content;
     // const content_msg = content.closest('.mb-3').querySelector('.form-text');
-
     function checkForm(){
         let isPass = true; // 有沒有通過檢查
-
+        
         // name_msg.innerText = '';  // 清空訊息
         // price_msg.innerText = '';  // 清空訊息
-
+        
         // // TODO: 表單資料送出之前, 要做格式檢查
+        
 
         // if(name.value.length<2){
         //     isPass = false;

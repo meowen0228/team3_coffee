@@ -24,8 +24,8 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 $sql = "INSERT INTO `products`(
     `status`, `p_name`, `price`, `fk_product_types`,
-    `content`,`url`
-      ) VALUES (?, ?, ?, ?, ?, ?)";
+    `content`,`url`) 
+    VALUES (?, ?, ?, ?, ?, ?)";
 
 $stmt = $pdo->prepare($sql);
 
