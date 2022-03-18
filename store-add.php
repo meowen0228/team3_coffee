@@ -26,8 +26,8 @@
 
   // sql 語法 end ----------------------------------------------------------
 
-  $row_2 = $pdo->query($time_sql);
-  $row_3 = $pdo->query($serve_sql)->fetchAll();
+  $time_row = $pdo->query($time_sql);
+  $serve_row = $pdo->query($serve_sql)->fetchAll();
   
   // 取值供 js 驗證使用
 
@@ -97,15 +97,13 @@
           <!------------------------ 時間 ------------------------>
           <div class="store-edit-form">
             <p class="user-select-none">營業時間</p>
-            <?php foreach ( $row_2 as $r2 ) : ?>
+            <?php foreach ( $time_row as $tr ) : ?>
               <div class="dow mt-0 mb-2 d-flex align-items-baseline">
-                <label for="store-status" class="form-label"><?= $r2['dow'] ?></label>
-                <input type="hidden" name="dow[]" value="<?= $r2['dow'] ?>">
+                <label for="store-status" class="form-label"><?= $tr['dow'] ?></label>
+                <input type="hidden" name="dow[]" value="<?= $tr['dow'] ?>">
                 <input id="status_name" type="hidden" name="status_name[]" value="營業">
 
-                <select class="store-status-select" id="store-status" class="form-select" name="status[]" value="1">
-                  <option type="hidden" value="1" selected hidden>營業</option>
-
+                <select class="store-status-select" id="store-status" class="form-select" name="status[]">
                   <option value="1">營業</option>
                   <option value="0">休息</option>
                 </select>
@@ -120,26 +118,18 @@
           <div class="mt-3">
             <p class="user-select-none">門市服務</p>
             <div class="store-serve-form">
-              <?php foreach ( $row_3 as $r3 ) : ?>
-                <?php if( $r3['serve_status'] == '1' ){ ?>
-                  <div class="closest-div">
-                    <input type="hidden" name="fk_serve_id[]" value="<?= $r3['serve_status'] ?>" id="chk_api">
+              <?php foreach ( $serve_row as $sr ) : ?>
+                <div class="closest-div">
+                  <input type="hidden" name="serve_id[]" value="<?= $sr['ssi_id'] ?>">
+                  <input type="hidden" name="serve_status[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
+                  <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>">
+                  <label class="" for="<?= $sr['serve_EN_name'] ?>">
+                  
 
-                    <input class="" type="checkbox" value="<?= $r3['serve_status'] ?>" id="<?= $r3['serve_EN_name'] ?>" checked>
-                    <label class="" for="<?= $r3['serve_EN_name'] ?>">
-                      <?= $r3['serve_name'] ?>
-                    </label>
-                  </div>
-                <?php } else { ?>
-                  <div class="closest-div">
-                    <input type="hidden" name="fk_serve_id[]" value="<?= $r3['serve_status'] ?>" id="chk_api">
-
-                    <input class="" type="checkbox" value="<?= $r3['serve_status'] ?>" id="<?= $r3['serve_EN_name'] ?>">
-                    <label class="" for="<?= $r3['serve_EN_name'] ?>">
-                      <?= $r3['serve_name'] ?>
-                    </label>
-                  </div>
-                <?php } endforeach ?>
+                    <?= $sr['serve_name'] ?>
+                  </label>
+                </div>
+              <?php endforeach ?>
             </div>
           </div>
         </div>
@@ -168,13 +158,13 @@
         fetch('store-add-api.php', {
             method: 'POST',
             body: fd
-        }).then(r => r.text())
+        }).then(r => r.json())
         .then(obj => {
             console.log(obj);
             if(obj.success){
                 location.href = 'store-list.php';
             } else {
-                location.href = 'store-list.php';
+                <!-- location.href = 'store-list.php'; -->
             }
         })
     }

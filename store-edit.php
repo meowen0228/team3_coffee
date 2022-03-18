@@ -144,27 +144,21 @@
             <p class="user-select-none">門市服務</p>
             <div class="store-serve-form">
               <?php foreach ( $serve_row as $sr ) : ?>
-                <?php if( $sr['serve_status'] == '1' ){ ?>
-                  <div class="closest-div">
-                    <input type="hidden" name="fk_store_id" value="<?= $sr['fk_store_id'] ?>">
-                    <input type="hidden" name="fk_serve_id[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
-
+                <div class="closest-div">
+                  <input type="hidden" name="fk_store_id" value="<?= $sr['fk_store_id'] ?>">
+                  <input type="hidden" name="serve_id[]" value="<?= $sr['ssi_id'] ?>">
+                  <input type="hidden" name="serve_status[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
+                  
+                  <?php if( $sr['serve_status'] == '1' ){ ?>
                     <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>" checked>
-                    <label class="" for="<?= $sr['serve_EN_name'] ?>">
-                      <?= $sr['serve_name'] ?>
-                    </label>
-                  </div>
-                <?php } else { ?>
-                  <div class="closest-div">
-                    <input type="hidden" name="fk_store_id" value="<?= $sr['fk_store_id'] ?>">
-                    <input type="hidden" name="fk_serve_id[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
-
+                  <?php } else { ?>
                     <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>">
+                  <?php } ?>
                     <label class="" for="<?= $sr['serve_EN_name'] ?>">
                       <?= $sr['serve_name'] ?>
                     </label>
                   </div>
-                <?php } endforeach ?>
+                <?php endforeach ?>
             </div>
           </div>
           <br>

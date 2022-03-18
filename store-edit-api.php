@@ -4,7 +4,7 @@
   header('Content-Type: application/json');
 
 
-echo json_encode($_POST); exit;
+// echo json_encode($_POST); exit;
 
   // 輸出的資料格式
   $output = [
@@ -29,7 +29,6 @@ if( empty($_POST['id']) ){
 
 
 // store table update ----------------------------------------------------------
-
 $store_sql =
 "UPDATE `store`
 SET  
@@ -51,8 +50,9 @@ $store_stmt -> execute([
 
 $output['rowCount'] = $store_stmt->rowCount(); // 修改資料的筆數
 
-// time table update ----------------------------------------------------------
 
+
+// time table update ----------------------------------------------------------
 $time_sql = 
 "UPDATE `store_time`
 SET
@@ -80,44 +80,27 @@ for( $i = 0; $i < count($_POST['store_time_id']); $i++ ){
 $output['rowCount'] = $timeCount;
 
 
-// serve table update ----------------------------------------------------------
 
+
+// serve table update ----------------------------------------------------------
 $serve_sql = 
 "UPDATE `store_serve`
 SET
-`status` = ?,
-`status_name` = ?,
-`start_time` = ?,
-`end_time` = ?
+`serve_status` = ?
 WHERE `fk_store_id` = ? AND `id` = ?";
-$time_stmt = $pdo->prepare($time_sql);
+$serve_stmt = $pdo->prepare($serve_sql);
 
-for( $i = 0; $i < count($_POST['store_time_id']); $i++ ){
-  $time_stmt -> execute([
-    $_POST['status'][$i],
-    $_POST['status_name'][$i],
-    $_POST['start_time'][$i],
-    $_POST['end_time'][$i],
+for( $i = 0; $i < count($_POST['serve_status']); $i++ ){
+  $serve_stmt -> execute([
+    $_POST['serve_status'][$i],
     $_POST['fk_store_id'],
-    $_POST['store_time_id'][$i],
+    $_POST['serve_id'][$i],
   ]);
   
-  $timeCount = $time_stmt->rowCount();
+  $serveCount = $serve_stmt->rowCount();
 }
 
-$output['rowCount'] = $timeCount;
-// 產生語法變數
-// $serve_sql = "";
-// $stmt_3 = "";
-
-// // echo ($id); // <-檢查用
-
-// // 利用 foreach 產生多條 資料庫更新 語法
-// foreach ($_POST['fk_serve_id'] as $key => $value){
-  //   $key += 1;
-  //   $serve_sql = "UPDATE `store_serve` SET `serve_status` = " . $value . " WHERE `fk_store_id` = ". $id . " AND `fk_serve_id` =" . $key . ";";
-  //   $stmt_3 = $pdo->query($serve_sql)->fetchAll();
-  // }
+$output['rowCount'] = $serveCount;
   
   
   // 判斷修改資料 ----------------------------------------------------------
@@ -128,10 +111,6 @@ $output['rowCount'] = $timeCount;
   } else {
       $output['error'] = '資料沒有修改成功';
   }
-  
-  
-  
-  
   
   
   
