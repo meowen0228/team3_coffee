@@ -48,7 +48,6 @@ $id = $pdo->lastInsertId();
 
 // time table insert ----------------------------------------------------------
 
-$i = 0;
 for ( $i = 0; $i < count($_POST['dow']); $i++ ){
   $dow = $_POST['dow'][$i];
   $status = $_POST['status'][$i];

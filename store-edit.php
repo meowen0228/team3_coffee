@@ -35,11 +35,11 @@
     WHERE `fk_store_id` = $id";
 
   
-  $row_1 = $pdo->query($store_sql)->fetch();
-  $row_2 = $pdo->query($time_sql);
-  $row_3 = $pdo->query($serve_sql)->fetchAll();
+  $store_row = $pdo->query($store_sql)->fetch();
+  $time_row = $pdo->query($time_sql);
+  $serve_row = $pdo->query($serve_sql)->fetchAll();
 
-  if( empty($row_1) || empty($row_2) || empty($row_3) ){
+  if( empty($store_row) || empty($time_row) || empty($serve_row) ){
       header('Location: store-list.php'); // 找不到資炓轉向列表頁
       exit;
   }
@@ -82,32 +82,32 @@
         <div class="col-6 mx-auto">
           <!------------------------ 編輯 ------------------------>
           <div class="store-edit-form">
-            <input type="hidden" name="id" value="<?= $row_1['id'] ?>">
+            <input type="hidden" name="id" value="<?= $store_row['id'] ?>">
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="store_name" class="form-label">門市名稱</label>
-                <input type="text" class="form-control" id="store_name" name="store_name" required value="<?= htmlentities($row_1['store_name']) ?>">
+                <input type="text" class="form-control" id="store_name" name="store_name" required value="<?= htmlentities($store_row['store_name']) ?>">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="city" class="form-label">縣市</label>
-                <input type="text" class="form-control" id="city" name="city" value="<?= $row_1['city'] ?>">
+                <input type="text" class="form-control" id="city" name="city" value="<?= $store_row['city'] ?>">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="address" class="form-label">詳細地址</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?= $row_1['address'] ?>">
+                <input type="text" class="form-control" id="address" name="address" value="<?= $store_row['address'] ?>">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="phone" class="form-label">電話</label>
-                <input type="text" class="form-control" id="phone" name="phone" value="<?= $row_1['phone'] ?>">
+                <input type="text" class="form-control" id="phone" name="phone" value="<?= $store_row['phone'] ?>">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
@@ -116,63 +116,52 @@
           <!------------------------ 時間 ------------------------>
           <div class="store-edit-form">
             <p class="user-select-none">營業時間</p>
-            <?php foreach ( $row_2 as $r2 ) : ?>
-              <?php if ( $r2['status'] == "1" ){ ?>
-                <div class="dow mt-0 mb-2 d-flex align-items-baseline">
-                  <label for="store-status" class="form-label"><?= $r2['dow'] ?></label>
-                  <input type="hidden" name="tid_last" value="<?= $r2['store_time_id'] ?>">
-                  <input id="status_name" type="hidden" name="status_name[]" value="<?= $r2['status_name'] ?>">
-                  
-                  <select class="store-status-select" id="store-status" class="form-select" name="status[]" value="<?= $r2['status'] ?>">
-                    <option type="hidden" value="<?= $r2['status'] ?>" selected hidden>營業</option>
-                    <option value="1">營業</option>
+            <?php foreach ( $time_row as $tr ) : ?>
+              <input type="hidden" name="store_time_id[]" value="<?= $tr['store_time_id'] ?>">
+              <div class="dow mt-0 mb-2 d-flex align-items-baseline">
+                <label for="store-status" class="form-label"><?= $tr['dow'] ?></label>
+                <input id="status_name" type="hidden" name="status_name[]" value="<?= $tr['status_name'] ?>">
+                
+                <?php if ( $tr['status'] == "1" ){ ?>
+                  <select class="store-status-select" id="store-status" class="form-select" name="status[]">
+                    <option value="1" selected>營業</option>
                     <option value="0">休息</option>
-                  </select>
-                  <input type="text" class="timepicker-start store-time-select" name="start_time[]" value="<?= substr($r2['start_time'], 0, 5) ?>">
-                  <p> 至 </p>
-                  <input type="text" class="timepicker-end store-time-select" name="end_time[]" value="<?= substr($r2['end_time'], 0, 5) ?>">
-                </div>
-              <?php } else {?>
-                <div class="dow mt-0 mb-2 d-flex align-items-baseline">
-                  <label for="store-status" class="form-label"><?= $r2['dow'] ?></label>
-                  <input type="hidden" name="tid_last" value="<?= $r2['store_time_id'] ?>">
-                  <input id="status_name" type="hidden" name="status_name[]" value="<?= $r2['status_name'] ?>">
-
-                  <select class="store-status-select" id="store-status" class="form-select" name="status[]" value="<?= $r2['status'] ?>">
-                    <option type="hidden" value="<?= $r2['status'] ?>" selected hidden>休息</option>
+                <?php } else {?>
+                  <select class="store-status-select" id="store-status" class="form-select" name="status[]">
                     <option value="1">營業</option>
-                    <option value="0">休息</option>
+                    <option value="0" selected>休息</option>
+                <?php } ?>
                   </select>
-                  <input type="text" class="timepicker-start store-time-select" name="start_time[]" value="<?= substr($r2['start_time'], 0, 5) ?>">
+                  <input type="text" class="timepicker-start store-time-select" name="start_time[]" value="<?= substr($tr['start_time'], 0, 5) ?>">
                   <p> 至 </p>
-                  <input type="text" class="timepicker-end store-time-select" name="end_time[]" value="<?= substr($r2['end_time'], 0, 5) ?>">
+                  <input type="text" class="timepicker-end store-time-select" name="end_time[]" value="<?= substr($tr['end_time'], 0, 5) ?>">
                 </div>
-            <?php } endforeach ?>
+            <?php endforeach ?>
           </div>
           <br>
           <!------------------------ 服務 ------------------------>
           <div class="mt-3">
             <p class="user-select-none">門市服務</p>
             <div class="store-serve-form">
-              <?php foreach ( $row_3 as $r3 ) : ?>
-                <?php if( $r3['serve_status'] == '1' ){ ?>
+              <?php foreach ( $serve_row as $sr ) : ?>
+                <?php if( $sr['serve_status'] == '1' ){ ?>
                   <div class="closest-div">
-                    <input type="hidden" name="fk_store_id" value="<?= $r3['fk_store_id'] ?>">
-                    <input type="hidden" name="fk_serve_id[]" value="<?= $r3['serve_status'] ?>" id="chk_api">
+                    <input type="hidden" name="fk_store_id" value="<?= $sr['fk_store_id'] ?>">
+                    <input type="hidden" name="fk_serve_id[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
 
-                    <input class="" type="checkbox" value="<?= $r3['serve_status'] ?>" id="<?= $r3['serve_EN_name'] ?>" checked>
-                    <label class="" for="<?= $r3['serve_EN_name'] ?>">
-                      <?= $r3['serve_name'] ?>
+                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>" checked>
+                    <label class="" for="<?= $sr['serve_EN_name'] ?>">
+                      <?= $sr['serve_name'] ?>
                     </label>
                   </div>
                 <?php } else { ?>
                   <div class="closest-div">
-                    <input type="hidden" name="fk_store_id" value="<?= $r3['fk_store_id'] ?>">
-                    <input type="hidden" name="fk_serve_id[]" value="<?= $r3['serve_status'] ?>" id="chk_api">
+                    <input type="hidden" name="fk_store_id" value="<?= $sr['fk_store_id'] ?>">
+                    <input type="hidden" name="fk_serve_id[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
 
-                    <input class="" type="checkbox" value="<?= $r3['serve_status'] ?>" id="<?= $r3['serve_EN_name'] ?>">
-                    <label class="" for="<?= $r3['serve_EN_name'] ?>">
-                      <?= $r3['serve_name'] ?>
+                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>">
+                    <label class="" for="<?= $sr['serve_EN_name'] ?>">
+                      <?= $sr['serve_name'] ?>
                     </label>
                   </div>
                 <?php } endforeach ?>
@@ -203,10 +192,11 @@
         fetch('store-edit-api.php', {
             method: 'POST',
             body: fd
-        }).then(r => r.text())
+        }).then(r => r.json())
         .then(obj => {
             console.log(obj);
             if(obj.success){
+                alert("修改成功");
                 location.href = 'store-list.php';
             } else {
                 <!-- location.href = 'store-list.php'; -->
