@@ -1,0 +1,68 @@
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+<div class="wrap">
+	<select name="s01" id="s01">
+		<option value="0">--請選擇--</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+	</select>
+	<div class="show">
+		<div class="show01">
+			<table>
+				<tr>
+					<th>Company</th>
+					<th>Contact</th>
+					<th>Country</th>
+				</tr>
+				<tr class="table1">
+					<td>Alfreds Futterkiste</td>
+					<td>Maria Anders</td>
+					<td>Germany</td>
+				</tr>
+				<tr class="table2">
+					<td>Centro comercial Moctezuma</td>
+					<td>Francisco Chang</td>
+					<td>Mexico</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function () {
+		$("#s01").change(function () {
+			switch (
+			$(this).val() //指到 select 自己的選項。
+			) {
+				case "0": // 當選到 value 是 0 的時候，移除兩個 class。
+					// $(".table1").removeClass("active");
+					// $(".table2").removeClass("active");
+					break;
+				case "1": // 當選到 value 是 1 的時候，新增 .table1，移除 .table2。
+					$(".table1").addClass("active");
+					$(".table2").removeClass("active");
+					break;
+				case "2": // 當選到 value 是 2 的時候，新增 .table2，移除 .table1。
+					$(".table2").addClass("active");
+					$(".table1").removeClass("active");
+					break;
+				default:
+					return;
+			}
+		});
+	});
+</script>
+
+<style>
+	.table1,
+	.table2 {
+		display: none;
+	}
+
+	.active {
+		display: inline;
+	}
+</style>
