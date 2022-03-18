@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/layout/connect_db.php';
 $title = '首頁/優惠活動新增';
 $pagename = 'activity-add';
 ?>
@@ -32,7 +33,7 @@ $pagename = 'activity-add';
         <h5><strong>新增活動項目</strong></h5>
       </div>
      <div class="grid rows-2 mb-3">
-        <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;" action="">
+        <form name="form1" class="form1" method="post" novalidate onsubmit="checkForm(); return false;">
           <div class="g-col-6">
             <div class="mb-3">
               <label class="form-label" for="title">標題：</label>
