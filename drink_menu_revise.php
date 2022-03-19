@@ -1,6 +1,6 @@
 <?php
-$title = '後台首頁';
-$pagename = 'home';
+$title = '商品修改';
+$pagename = 'revise';
 ?>
 
 <head>
@@ -13,7 +13,7 @@ $pagename = 'home';
 <?php
 require __DIR__ . '/connect_db.php';
 $title = '新增資料';
-$pageName = 'ab-add';
+$pageName = 'ab-revise';
 
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -62,7 +62,7 @@ $row = $pdo->query($sql)->fetchAll();
                             名稱:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control typing" id="name" name="drink_name" required value="" >
+                            <input type="text" class="form-control typing" id="name" name="drink_name" required value="<?= htmlentities($r['drink_name']) ?>" >
                         </div>
                     </div>
                     <div class="row g-4 mb-3 align-items-center">
@@ -149,17 +149,17 @@ $row = $pdo->query($sql)->fetchAll();
         if(isPass){
             const fd = new FormData(document.form);
 
-            fetch('drink_menu_add_api.php', {
+            fetch('drink_menu_revie_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
                 if(obj.success){
-                    alert('新增成功');
+                    alert('修改成功');
                     location.href = 'drink_menu.php';
                 } else {
-                    alert('新增失敗');
+                    alert('修改失敗');
                 }
 
             })
