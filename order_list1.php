@@ -62,7 +62,7 @@ if ($totalRows) {
         price
         FROM order_detail
         left join products on products.id = order_detail.fk_product_id) AS detail on detail.od_fkid = orders.id
-        GROUP BY orders.id ORDER BY od_id LIMIT %s, %s ;",
+        GROUP BY orders.id ORDER BY o_id LIMIT %s, %s ;",
         ($page - 1) * $perPage,
         $perPage
     );
@@ -142,8 +142,8 @@ if ($totalRows) {
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item nonship">
                         <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <table class="table  table-responsive table-borderless">
+                            <!-- <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> -->
+                                <!-- <table class="table  table-responsive table-borderless">
                                     <thead>
                                         <tr>
                                             <th scope="col">會員編號</th>
@@ -155,7 +155,7 @@ if ($totalRows) {
                                             <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                     <tbody>
                                         <tr>
                                             <th>0</th>
                                             <td>0</td>
@@ -167,8 +167,8 @@ if ($totalRows) {
                                         </tr>
 
                                     </tbody>
-                                </table>
-                            </button>
+                                </table> -->
+                            <!-- </button> -->
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <table class="table table-sm table-responsive ">
@@ -184,7 +184,7 @@ if ($totalRows) {
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <!-- <tbody>
                                     <tr>
                                         <th></th>
                                         <td>01</td>
@@ -215,8 +215,8 @@ if ($totalRows) {
                                         <td>999</td>
                                         <td></td>
                                     </tr>
-                                </tbody>
-                                <tfoot>
+                                </tbody> -->
+                                <!-- <tfoot>
                                     <tr>
                                         <th></th>
                                         <td></td>
@@ -227,7 +227,7 @@ if ($totalRows) {
                                         <td>999</td>
                                         <td></td>
                                     </tr>
-                                </tfoot>
+                                </tfoot> -->
 
                             </table>
                         </div>
@@ -280,7 +280,7 @@ if ($totalRows) {
                                                         <?php if ($r['oc_id'] == 3) { ?>
                                                             <td>完成訂單</td>
                                                         <?php }  ?>
-                                                        <?php if ($r['oc_id'] == 3) { ?>
+                                                        <?php if ($r['oc_id'] == 4) { ?>
                                                             <td>取消訂單</td>
                                                         <?php } ?>
                                                     

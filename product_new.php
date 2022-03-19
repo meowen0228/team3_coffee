@@ -13,10 +13,10 @@ price,
 fk_product_types,
 content,
 `url`,
-products2.id
-from products2
-join product_types on product_types.id = products2.fk_product_types
-where products2.id = $id";
+products.id
+from products
+join product_types on product_types.id = products.fk_product_types
+where products.id = $id";
 
 $row = $pdo->query($sql1)->fetch();
 // if (empty($row)) {

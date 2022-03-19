@@ -11,11 +11,12 @@ $sql1= "SELECT
 p_name,
 price,
 fk_product_types,
-content, 
-products2.id as products2_id
-from products2
-join product_types on product_types.id = products2.fk_product_types
-where products2.id = $id";
+content,
+`url`, 
+products.id as products_id
+from products
+join product_types on product_types.id = products.fk_product_types
+where products.id = $id";
 $row = $pdo->query($sql1)->fetch();
 if (empty($row)) {
     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
@@ -55,6 +56,10 @@ if (empty($row)) {
 
     .typing {
         background: #F2F2F2;
+    }
+    .upImg{
+        border: transparent;
+        background-color: transparent;
     }
 </style>
 
@@ -147,10 +152,10 @@ if (empty($row)) {
                         <div class="row g-4 mb-3 align-items-center">
                        
                             <div class="col-3">
-                                <div class="box">
+                                <div class="box upImg">
                                 <button type="button" onclick="img_url.click()">上傳圖片</button>
-                                <img id="preview_img1" src=""   style="width: 100%;">
-                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?$row['url']?>">
+                                <img id="preview_img1" src="<?=$row['url'] ?>"   style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?=$row['url']?>">
                             </div>
                         </div>
                      
@@ -165,7 +170,7 @@ if (empty($row)) {
                             <label for="textarea"></label>
                         </div>
                     </div>
-                    <input type="text" name="id" value="<?= $row['products2_id']?>" hidden>
+                    <input type="text" name="id" value="<?= $row['products_id']?>" hidden>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-10">
                         </div>
@@ -247,7 +252,7 @@ if (empty($row)) {
                 console.log(obj);
                 if(obj.success){
                     alert('修改成功');
-                    // location.href = 'ab-list.php';
+                    location.href = 'product_list1.php';
                 } else {
                     alert('沒有修改');
                 }

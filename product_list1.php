@@ -31,7 +31,7 @@ if ($totalRows) {
         exit;
     }
 
-    $sql = sprintf("SELECT * FROM products2 ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM products ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
 

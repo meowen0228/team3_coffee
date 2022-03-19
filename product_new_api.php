@@ -22,7 +22,7 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 // TODO: 欄位檢查
 // var_dump($_POST);
 
-$sql = "INSERT INTO `products2`(
+$sql = "INSERT INTO `products`(
     `status`, `p_name`, `price`, `fk_product_types`
     ,`url`,`content`) 
     VALUES (?, ?, ?, ?, ?, ?)";

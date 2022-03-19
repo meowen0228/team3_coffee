@@ -14,8 +14,8 @@ VALUES
 ('衣索比亞'),
 ('瓜地馬拉'),
 ('其他');
-select*from products2;
-CREATE TABLE `products2`(
+
+CREATE TABLE `products`(
 `id` INT  PRIMARY KEY AUTO_INCREMENT,
 `p_name` VARCHAR(20) NOT NULL,
 `price` INT NOT NULL,
@@ -25,9 +25,10 @@ CREATE TABLE `products2`(
 `url`  varchar(300),
 foreign KEY (fk_product_types) references product_types(id)
 );
-drop table products2;
-select*from products2;
-INSERT INTO `products2`( `p_name`, `price`, `content`,`status`,`fk_product_types`,`url`)
+-- drop database team3;
+-- drop table products;
+select*from products;
+INSERT INTO `products`( `p_name`, `price`, `content`,`status`,`fk_product_types`,`url`)
 VALUES
 ('肯亞AA TOP(半磅)','499','產地:非洲 <br>
 
@@ -222,23 +223,25 @@ CREATE TABLE `order_detail`(
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `fk_order_id` INT NOT NULL,
   `fk_product_id` INT NOT NULL,
-  `fk_users_id` INT NOT NULL,
-  `fk_condition_id`  INT NOT NULL,
   `qty` INT NOT NULL,
   foreign KEY (fk_order_id) references orders(id),
-  foreign KEY (fk_product_id) references products(id),
-  foreign KEY (fk_condition_id) references order_condition(id),
-  foreign KEY (fk_users_id) references users(id)
+  foreign KEY (fk_product_id) references products(id)
 );
-INSERT INTO `order_detail`(`fk_order_id`,`fk_product_id`,`fk_users_id`,`fk_condition_id`,`qty`)
-VALUES('3','1','1','1','1'),
-('10','1','2','2','1'),
-('4','2','3','3','2'),
-('5','4','5','3','1'),
-('6','6','6','4','3'),
-('7','7','8','2','1'),
-('9','9','14','1','2'),
-('8','10','18','3','1');
+INSERT INTO `order_detail`(`fk_order_id`,`fk_product_id`,`qty`)
+VALUES('3','1','1'),
+('10','1','1'),
+('4','2','2'),
+('5','4','1'),
+('6','6','3'),
+('7','7','1'),
+('9','9','2'),
+('2','9','2'),
+('1','9','2'),
+('1','7','3'),
+('1','6','7'),
+('8','10','1');
+
+
 show warnings;
 
 select*
