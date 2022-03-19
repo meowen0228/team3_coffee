@@ -48,7 +48,7 @@ $pagename = 'banner-add';
                   <div class="box">
                     <button type="button" onclick="img_url.click()">上傳圖片</button>
                     <img id="preview_img1" src="" style="width: 100%;">
-                    <input type="hidden" name="img_url_post" value="">
+                    <input type="hidden" id="img_url_post" name="img_url_post" value="">
                   </div>
                 </div>
               </div>
@@ -73,6 +73,7 @@ $pagename = 'banner-add';
 
 </main>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
   function sendData() {
     const fd = new FormData(document.img_form);
@@ -85,7 +86,7 @@ $pagename = 'banner-add';
         console.log(obj);
         if (obj.success && obj.filename) {
           preview_img1.src = './img/' + obj.filename;
-          img_url_post.value = './img/' + obj.filename;
+          $("#img_url_post").val('./img/banner'+obj.filename);
         }
       });
   }
@@ -119,7 +120,7 @@ $pagename = 'banner-add';
     if (isPass) {
       const fd = new FormData(document.form1);
 
-      fetch('banner-photo-api.php', {
+      fetch('banner-add-api.php', {
           method: 'POST',
           body: fd
         }).then(r => r.json())

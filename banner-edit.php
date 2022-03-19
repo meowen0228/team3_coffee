@@ -109,7 +109,7 @@ if (empty($row)) {
     function sendData() {
         const fd = new FormData(document.img_form);
 
-        fetch('banner-edit-api.php', {
+        fetch('banner-photo-api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())

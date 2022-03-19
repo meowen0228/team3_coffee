@@ -37,7 +37,7 @@ $sql = "INSERT INTO `banner`
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-    $_POST['photo'],
+    $_POST['img_url_post'],
     $_POST['title'],
     $_POST['status'],
 ]);
