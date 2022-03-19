@@ -2,9 +2,9 @@
 
 $db_host = '127.0.0.1';
 $db_user = 'root';
-$db_pass = 'Passw0rd!';
+$db_pass = '12250710';
 $db_name = 'team3';
-
+// Passw0rd!
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 
 $pdo_options = [

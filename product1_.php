@@ -11,7 +11,8 @@ $sql1= "SELECT
 p_name,
 price,
 fk_product_types,
-content, 
+content,
+`url`,
 products2.id as products2_id
 from products2
 join product_types on product_types.id = products2.fk_product_types
@@ -149,8 +150,8 @@ if (empty($row)) {
                             <div class="col-3">
                                 <div class="box">
                                 <button type="button" onclick="img_url.click()">上傳圖片</button>
-                                <img id="preview_img1" src=""   style="width: 100%;">
-                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?$row['url']?>">
+                                <img id="preview_img1" src="<?= $row['url'] ?>" style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row['url']?>">
                             </div>
                         </div>
                      
@@ -216,9 +217,9 @@ if (empty($row)) {
             console.log(obj);
             if(obj.success && obj.filename){
                 preview_img1.src = './img/shop/'+ obj.filename;
-                // console.log('./img/shop/' + obj.filename);
+                // console.log('./img/' + obj.filename);
                 $("#img_url_post").val('./img/shop/'+ obj.filename);
-                // img_url_post.value = './img/shop/'+ obj.filename;
+                // img_url_post.value = './img/'+ obj.filename;
             }
         });
     }
@@ -247,7 +248,7 @@ if (empty($row)) {
                 console.log(obj);
                 if(obj.success){
                     alert('修改成功');
-                    // location.href = 'ab-list.php';
+                    location.href = 'product1_.php';
                 } else {
                     alert('沒有修改');
                 }

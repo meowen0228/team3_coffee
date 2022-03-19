@@ -2,6 +2,9 @@
 require __DIR__ . '/layout/connect_db.php';
 
 header('Content-Type: application/json');
+
+// echo json_encode($_POST); exit;
+
 // 輸出的資料格式
 $output = [
     'success' => false,
@@ -28,7 +31,7 @@ $sql = "UPDATE `products2` SET
         `p_name`=?,
         `price`=?,
         `fk_product_types`=?,
-        `url`,
+        `url` = ?,
         `content`=?
         WHERE `id`=?";
 
