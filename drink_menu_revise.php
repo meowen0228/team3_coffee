@@ -149,7 +149,7 @@ $row = $pdo->query($sql)->fetch();
         function sendData(){
         const fd = new FormData(document.img_form);
 
-        fetch('product_new_img_api.php', {
+        fetch('drink_menu_revie_api.php', {
             method: 'POST',
             body: fd
         }).then(r=>r.json())
