@@ -17,7 +17,7 @@
         </ul>
         <div class="d-block py-1 px-3 maindir">門市</div>
         <ul>
-            <li><a class="d-block py-2 px-3" href="">門市管理</a></li>
+            <li><a class="d-block py-2 px-3" href="store-list.php">門市管理</a></li>
         </ul>
         <div class="d-block py-1 px-3 maindir">首頁</div>
         <ul>
