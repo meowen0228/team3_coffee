@@ -85,7 +85,7 @@ $pagename = 'banner-add';
       .then(obj => {
         console.log(obj);
         if (obj.success && obj.filename) {
-          preview_img1.src = './img/' + obj.filename;
+          preview_img1.src = './img/banner' + obj.filename;
           $("#img_url_post").val('./img/banner'+obj.filename);
         }
       });
