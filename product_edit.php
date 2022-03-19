@@ -240,7 +240,7 @@ if (empty($row)) {
         if(isPass){
             const fd = new FormData(document.form1);
 
-            fetch('product1_api.php', {
+            fetch('product_edit_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
