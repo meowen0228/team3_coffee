@@ -12,11 +12,19 @@ p_name,
 price,
 fk_product_types,
 content,
+<<<<<<< HEAD:product1_.php
 `url`, 
 products.id as products_id
 from products
 join product_types on product_types.id = products.fk_product_types
 where products.id = $id";
+=======
+`url`,
+products2.id as products2_id
+from products2
+join product_types on product_types.id = products2.fk_product_types
+where products2.id = $id";
+>>>>>>> c680d6e5e8a4b733c01dfbbf75eb0e7c1b46bf98:product_edit.php
 $row = $pdo->query($sql1)->fetch();
 if (empty($row)) {
     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
@@ -154,8 +162,13 @@ if (empty($row)) {
                             <div class="col-3">
                                 <div class="box upImg">
                                 <button type="button" onclick="img_url.click()">上傳圖片</button>
+<<<<<<< HEAD:product1_.php
                                 <img id="preview_img1" src="<?=$row['url'] ?>"   style="width: 100%;">
                                 <input type="hidden" id="img_url_post" name="img_url_post" value="<?=$row['url']?>">
+=======
+                                <img id="preview_img1" src="<?= $row['url'] ?>" style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row['url']?>">
+>>>>>>> c680d6e5e8a4b733c01dfbbf75eb0e7c1b46bf98:product_edit.php
                             </div>
                         </div>
                      
@@ -221,9 +234,9 @@ if (empty($row)) {
             console.log(obj);
             if(obj.success && obj.filename){
                 preview_img1.src = './img/shop/'+ obj.filename;
-                // console.log('./img/shop/' + obj.filename);
+                // console.log('./img/' + obj.filename);
                 $("#img_url_post").val('./img/shop/'+ obj.filename);
-                // img_url_post.value = './img/shop/'+ obj.filename;
+                // img_url_post.value = './img/'+ obj.filename;
             }
         });
     }
@@ -244,7 +257,7 @@ if (empty($row)) {
         if(isPass){
             const fd = new FormData(document.form1);
 
-            fetch('product1_api.php', {
+            fetch('product_edit_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
@@ -252,7 +265,11 @@ if (empty($row)) {
                 console.log(obj);
                 if(obj.success){
                     alert('修改成功');
+<<<<<<< HEAD:product1_.php
                     location.href = 'product_list1.php';
+=======
+                    location.href = 'product1_.php';
+>>>>>>> c680d6e5e8a4b733c01dfbbf75eb0e7c1b46bf98:product_edit.php
                 } else {
                     alert('沒有修改');
                 }
