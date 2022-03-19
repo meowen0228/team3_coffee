@@ -6,7 +6,7 @@
 <?php include __DIR__. './layout/html-head.php';?>
 <?php include __DIR__. './layout/header.php';?>
 <?php include __DIR__. './layout/aside.php';?>
-<img src="./bootstrap/js/" alt="">
+
 
 
 <main class="admin-main px-5 py-5">

@@ -1,3 +1,4 @@
+
  <aside class="asidemenu admin-aside position-fixed border-end">
            
            <div class="d-block py-1 px-3 maindir" >商品</div>
@@ -37,7 +38,7 @@
            <div class="d-block py-1 px-3 maindir">門市</div>
            <ul>
                <li>
-                   <a class="d-block py-2 px-3" href="">門市管理</a>
+                   <a class="d-block py-2 px-3" href="store-list.php">門市管理</a>
                </li>
            </ul>
 
@@ -65,3 +66,4 @@
                </li>
            </ul>
        </aside>
+
