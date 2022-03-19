@@ -89,7 +89,10 @@ body{
     background: #8b8a8a; 
 }
 
------ total-list-------- */
+/* -------- total-list -------- */
+form .mb-3 .form-text {
+    color: red;
+}
 .edit-icon {
     text-align: center;
     vertical-align: middle;
