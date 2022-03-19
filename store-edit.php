@@ -169,6 +169,8 @@
             <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">取消</button>
           </div>
         </div>
+
+        <!------------ 上傳圖片 ------------>
         <div class="col-5 mt-4 mx-auto text-center position-relative">
           <?php if ($store_row['photo']== '') { ?>
             <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $store_row['photo'] ?>" style=""></button>
@@ -178,6 +180,8 @@
           <button type="button" class="del-img"></button>
           <input type="hidden" id="img_url_post" name="img_url_post" value="">
         </div>
+        <!------------ 上傳圖片 ------------>
+        
       </div>
 
     </form>
