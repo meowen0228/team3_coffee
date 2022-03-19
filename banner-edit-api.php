@@ -2,6 +2,9 @@
 require __DIR__ . '/layout/connect_db.php';
 
 header('Content-Type: application/json');
+
+// echo json_encode($_POST); exit;
+
 // 輸出的資料格式
 $output = [
     'success' => false,
@@ -32,7 +35,6 @@ $sql = "UPDATE `banner` SET
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-    $_POST['photo'],
     $_POST['img_url_post'],
     $_POST['title'],
     $_POST['id'],

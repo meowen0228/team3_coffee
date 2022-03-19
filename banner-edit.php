@@ -83,8 +83,8 @@ if (empty($row)) {
                                 <input type="text" class="form-control" name="title" id="title" value="<?= $row['title'] ?>" required>
                                 <div class="form-text"></div>
                             </div>
-                            <input type="hidden" name="status" value="0">
-                            <button type="submit" class="submut-btn btn btn-secondary">新增</button>
+                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="submut-btn btn btn-secondary">修改</button>
                             <button type="button" class="submut-btn btn btn-secondary me-2"><a href="javascript: back()">取消</button>
                 </form>
                 <form name="img_form" onsubmit="return false;" style="display: none;">
