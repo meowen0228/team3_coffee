@@ -6,6 +6,12 @@ $pagename = 'home';
 <head>
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
+<style>
+    .card1{
+        width: 50rem;
+    }
+
+</style>
 </head>
 
 <body>
@@ -30,7 +36,7 @@ if ($totalRows) {
     // 總頁數
     $totalPages = ceil($totalRows / $perPage);
     if ($page > $totalPages) {
-        header("Location: drink_menu_body.php?page=$totalPages");
+        header("Location: drink_menu.php?page=$totalPages");
         exit;
     }
 
@@ -52,7 +58,7 @@ if ($totalRows) {
                     <div class="col-3"></div>
                     <div class="col-2">
                         <button class="rounded-pill text-nowrap">
-                            <a href="drink_menu_revise.php">+新增訂單</a>
+                            <a href="drink_menu_add.php">+新增訂單</a>
                         </button>
                     </div>
                     <div class="col-4">
@@ -94,13 +100,13 @@ if ($totalRows) {
                             <!-- <td>
                                 <input type="checkbox" name="" id="">
                             </td> -->  
-                            <th scope="row"><?= $r['id'] ?></th>  <!--編號-->
-                            <td><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
-                            <td>
+                            <th scope="row"class="card1"><?= $r['id'] ?></th>  <!--編號-->
+                            <td class="card1"><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
+                            <td class="card1">
                                 <img style="width:100px;" src=".<?= $r['url'] ?>" alt="">
-                            </td>   <!--圖片-->
-                            <td><?= $r['price'] ?></td> <!--價格-->
-                            <td><?= $r['content'] ?></td>  <!--介紹-->
+                            </td>   
+                            <td class="card1"><?= $r['price'] ?></td> <!--價格-->
+                            <td class="card1"><?= $r['content'] ?></td>  <!--介紹-->
                             <!--上架狀態-->
                             <?php if ($r['status']){?>
                             <td style="color:blue"><h5>上架中</h5></td>
@@ -109,7 +115,7 @@ if ($totalRows) {
                             <td style="color:red"><h5>已下架</h5></td>
                             <?php } ?>
 
-                            <td><a href="drink_menu_revise.php"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
+                            <td class="card1"><a href="drink_menu_revise.php"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
                         </tr>
                     <?php endforeach ?>
                 </tbody>  <!--菜單內容 -->

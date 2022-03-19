@@ -149,7 +149,7 @@ $row = $pdo->query($sql)->fetchAll();
         if(isPass){
             const fd = new FormData(document.form);
 
-            fetch('drink_menu_api.php', {
+            fetch('drink_menu_add_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
