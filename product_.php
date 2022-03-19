@@ -6,7 +6,7 @@ $pageName = 'product_';
 
 $sid = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$sql = "SELECT * FROM products WHERE id=$id";
+$sql = "SELECT * FROM products2 WHERE id=$id";
 $row = $pdo->query($sql)->fetch();
 if(empty($row)){
     header('Location: product_.php'); // 找不到資炓轉向列表頁

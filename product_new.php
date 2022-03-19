@@ -164,7 +164,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
     </div>
     </div>
 
-</main>
+</main> 
 <script>
     // function readURL(input) {
     //     if (input.files && input.files[0]) {
@@ -219,14 +219,14 @@ $row2 = $pdo->query($sql2)->fetchAll();
         if(isPass){
             const fd = new FormData(document.form1);
 
-            fetch('product_new_api.php', {
+            fetch('product1_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
                 if(obj.success){
-                    alert('新增成功');
+                    alert('修改成功');
                     location.href = 'product_list1.php';
                 } else {
                     alert('新增失敗');

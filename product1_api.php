@@ -23,11 +23,12 @@ if(empty($_POST['id']) or empty($_POST['p_name'])){
 // TODO: 欄位檢查
 
 
-$sql = "UPDATE `products` SET  
+$sql = "UPDATE `products2` SET  
         `status`=?,
         `p_name`=?,
         `price`=?,
         `fk_product_types`=?,
+        `url`,
         `content`=?
         WHERE `id`=?";
 
@@ -38,6 +39,7 @@ $stmt->execute([
     $_POST['p_name'],
     $_POST['price'] ,
     $_POST['fk_product_types'] ,
+    $_POST['img_url_post'] ,
     $_POST['content'], 
     $_POST['id'], 
 ]);

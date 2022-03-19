@@ -11,21 +11,20 @@ $sql1= "SELECT
 p_name,
 price,
 fk_product_types,
-content,
-products.id
-from products
-join product_types on product_types.id = products.fk_product_types
-join product_photos on product_photos.id = fk_product_photos_id
-where products.id = $id";
+content, 
+products2.id as products2_id
+from products2
+join product_types on product_types.id = products2.fk_product_types
+where products2.id = $id";
 $row = $pdo->query($sql1)->fetch();
 if (empty($row)) {
     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
     exit;
 }
 
-$sql2= "SELECT * FROM product_photos
-where fk_product_id = $id;";
-$row2 = $pdo->query($sql2)->fetchAll();
+// $sql2= "SELECT * FROM product_photos
+// where fk_product_id = $id;";
+// $row2 = $pdo->query($sql2)->fetchAll();
 ?>
 
 <?php include __DIR__ . '/layout/html-head.php'; ?>
@@ -145,15 +144,16 @@ $row2 = $pdo->query($sql2)->fetchAll();
 
                     </div>
                     <div class="mb-4">圖片上傳：</div>
-                    <div class="row g-4 mb-3 align-items-center">
-                        <?php foreach ($row2 as $r) : ?>
+                        <div class="row g-4 mb-3 align-items-center">
+                       
                             <div class="col-3">
                                 <div class="box">
-                                    <input type="file" onchange="readURL(this)" targetid="preview_img1" accept="image/gif, image/jpeg, image/png">
-                                    <img id="preview_img1" src=".<?= $r['url'] ?>" style="width: 100%;">
-                                </div>
+                                <button type="button" onclick="img_url.click()">上傳圖片</button>
+                                <img id="preview_img1" src=""   style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?$row['url']?>">
                             </div>
-                        <?php endforeach ?>
+                        </div>
+                     
                        
                     </div>
                     <div class="row g-4 mt-4 mb-4 ">
@@ -165,14 +165,16 @@ $row2 = $pdo->query($sql2)->fetchAll();
                             <label for="textarea"></label>
                         </div>
                     </div>
-                    <input type="text" name="id" value="1" hidden>
+                    <input type="text" name="id" value="<?= $row['products2_id']?>" hidden>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-10">
                         </div>
                         <div class="col-2"><button type="submit" class="btn btn-secondary addProduct">上傳</button></div>
                     </div>
                 </form>
-
+                    <form name="img_form" onsubmit="return false;" style="display: none;">
+                        <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+                    </form>
             </div>
         </div>
 
@@ -199,30 +201,38 @@ $row2 = $pdo->query($sql2)->fetchAll();
 </script>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <?php include __DIR__ . '/layout/scripts.php'; ?>
 <script>
+
+    function sendData(){
+        const fd = new FormData(document.img_form);
+
+        fetch('product_new_img_api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img/shop/'+ obj.filename;
+                // console.log('./img/shop/' + obj.filename);
+                $("#img_url_post").val('./img/shop/'+ obj.filename);
+                // img_url_post.value = './img/shop/'+ obj.filename;
+            }
+        });
+    }
+    img_url.onchange = sendData;
+
     const p_name = document.form1.p_name; // DOM element
     const p_name_msg = p_name.closest('.mb-3').querySelector('.form-text');
 
     const price = document.form1.price;
     const price_msg = price.closest('.mb-3').querySelector('.form-text');
     
-    // const content = document.form.content;
-    // const content_msg = content.closest('.mb-3').querySelector('.form-text');
-
+   
     function checkForm(){
-        let isPass = true; // 有沒有通過檢查
-
-        // name_msg.innerText = '';  // 清空訊息
-        // price_msg.innerText = '';  // 清空訊息
-
-        // // TODO: 表單資料送出之前, 要做格式檢查
-
-        // if(name.value.length<2){
-        //     isPass = false;
-        //     name_msg.innerText = '請填寫正確的姓名'
-        // }
+        let isPass = true; 
 
         
 
@@ -245,9 +255,11 @@ $row2 = $pdo->query($sql2)->fetchAll();
             })
 
 
-        }
 
 
     }
+}
 </script>
+
+
 <?php include __DIR__ . '/layout//html-foot.php'; ?>

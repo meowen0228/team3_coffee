@@ -140,7 +140,7 @@ if ($totalRows) {
                                     <th><img style="width:100%;" src="<?= $r['url'] ?>" alt=""></th>
                                     <td><?= $r['p_name'] ?></td>
                                     <?php if ($r['status'] == 1) { ?>
-                                        <td>上架</td>
+                                        <td>上架</td> 
                                     <?php } else { ?>
                                         <td>下架</td>
                                     <?php } ?>

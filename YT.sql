@@ -14,7 +14,7 @@ VALUES
 ('衣索比亞'),
 ('瓜地馬拉'),
 ('其他');
-
+select*from products2;
 CREATE TABLE `products2`(
 `id` INT  PRIMARY KEY AUTO_INCREMENT,
 `p_name` VARCHAR(20) NOT NULL,
@@ -25,8 +25,9 @@ CREATE TABLE `products2`(
 `url`  varchar(300),
 foreign KEY (fk_product_types) references product_types(id)
 );
+drop table products2;
 select*from products2;
-INSERT INTO `products`( `p_name`, `price`, `content`,`status`,`fk_product_types`,`fk_product_photos_id`)
+INSERT INTO `products2`( `p_name`, `price`, `content`,`status`,`fk_product_types`,`url`)
 VALUES
 ('肯亞AA TOP(半磅)','499','產地:非洲 <br>
 
