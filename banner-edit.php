@@ -68,8 +68,8 @@ if (empty($row)) {
                             <div class="mb-4">圖片上傳：</div>
                             <div class="row g-4 mb-3 align-items-center">
                                 <div class="col-3">
+                                    <button type="button" onclick="img_url.click()">上傳圖片</button>
                                     <div class="box">
-                                        <button type="button" onclick="img_url.click()">上傳圖片</button>
                                         <img id="preview_img1" src="<?= $row['photo'] ?>" style="width: 100%;">
                                         <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row['photo'] ?>">
                                     </div>
@@ -116,9 +116,9 @@ if (empty($row)) {
             .then(obj => {
                 console.log(obj);
                 if (obj.success && obj.filename) {
-                    preview_img1.src = './img/banner/' + obj.filename;
+                    preview_img1.src = './img/banner' + obj.filename;
                     // console.log('./img/' + obj.filename);
-                    $("#img_url_post").val('./img/banner/' + obj.filename);
+                    $("#img_url_post").val('./img/banner' + obj.filename);
                     // img_url_post.value = './img/'+ obj.filename;
                 }
             });
