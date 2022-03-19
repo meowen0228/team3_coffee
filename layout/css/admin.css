@@ -90,6 +90,31 @@ body{
 }
 
 /* -------- total-list -------- */
+.data-search{
+    padding: 0 1rem;
+    border-radius: 20px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+.data-search-input{
+    width: 80%;
+    background: transparent;
+    border: 0;
+    border-radius: 50px;
+}
+.data-search-input:focus {
+    outline: none;
+}
+.main-admin{
+    padding: 50px;
+    margin-top: 1rem;
+    background: #fff;
+    border-radius: 5px;
+}
 form .mb-3 .form-text {
     color: red;
 }
