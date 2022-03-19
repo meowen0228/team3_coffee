@@ -73,15 +73,13 @@ $row = $pdo->query($sql)->fetchAll();
                             <input type="int" id="price" name="price" class="form-control typing" value="">
                         </div>
                     </div>
-                    <div class="mb-4">
-                        圖片上傳：
-                    </div>
+                    <div class="mb-4">圖片上傳：</div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-3">
                             <div class="box">
-                                <!-- <input type="file"  onchange="readURL(this)" targetid="preview_img1" accept="image/gif, image/jpeg, image/png" >
-                                <img id="preview_img1" name="url" src="" style="width: 100%;"> -->
-                                <input type="text" name="url" value="">
+                                <button type="button" onclick="img_url.click()">上傳圖片</button>
+                                <img id="preview_img1" src="" style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="">
                             </div>
                         </div>
                     </div>
@@ -115,6 +113,26 @@ $row = $pdo->query($sql)->fetchAll();
 
 </main>
 <script>
+function sendData(){
+        const fd = new FormData(document.img_form);
+
+        fetch('drink_menu_img_api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img'+ obj.filename;
+                // console.log('./img/shop/' + obj.filename);
+                $("#img_url_post").val('./img'+ obj.filename);
+                // img_url_post.value = './img/shop/'+ obj.filename;
+            }
+        });
+    }
+    img_url.onchange = sendData;
+
+
     // const drink_name = document.form.drink_name; // DOM element
     // const drink_name_msg = drink_name.closest('.mb-3').querySelector('.form-text');
 
@@ -145,6 +163,17 @@ $row = $pdo->query($sql)->fetchAll();
         //         isPass = false;
         //     }
         // }
+
+        function sendData(){
+        const fd = new FormData(document.img_form);
+
+        
+
+
+
+
+
+
 
         if(isPass){
             const fd = new FormData(document.form);

@@ -115,7 +115,7 @@ if ($totalRows) {
                             <td style="color:red"><h5>已下架</h5></td>
                             <?php } ?>
 
-                            <td class="card1"><a href="drink_menu_revise.php"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
+                            <td class="card1"><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
                         </tr>
                     <?php endforeach ?>
                 </tbody>  <!--菜單內容 -->

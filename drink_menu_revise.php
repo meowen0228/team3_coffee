@@ -47,11 +47,11 @@ $row = $pdo->query($sql)->fetch();
                 <form name="form" class="form" method="post" novalidate onsubmit="checkForm(); return false;">
                 <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="productstatus1" id="productstatus2" value="1">
+                        <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1" <?php if ($row['status'] == 1) { ?> checked <?php } ?>>
                             <label class="form-check-label" for="productstatus">上架</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="productstatus1" id="productstatus2" value="0">
+                        <input class="form-check-input" type="radio" name="status" id="productstatus2" value="0" <?php if ($row['status'] == 0) { ?> checked <?php } ?>>
                             <label class="form-check-label" for="productstatus2">下架</label>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ $row = $pdo->query($sql)->fetch();
                             價格:
                         </div>
                         <div class="col-8">
-                            <input type="int" id="price" name="price" class="form-control typing" value="">
+                            <input type="int" id="price" name="price" class="form-control typing" value="<?= htmlentities($row['price']) ?>">
                         </div>
                     </div>
                     <div class="mb-4">
@@ -90,7 +90,7 @@ $row = $pdo->query($sql)->fetch();
                             介紹:
                         </div>
                         <div class=" col-8 form-floating  ">
-                            <textarea class="form-control typing" placeholder="" id="textarea" name="content" style="height: 100px"></textarea>
+                        <textarea class="form-control typing" placeholder="" name="content" id="textarea" style="height: 100px"><?= htmlentities($row['content']) ?></textarea>
                             <label for="textarea"></label>
                         </div>
                     </div>
@@ -145,6 +145,31 @@ $row = $pdo->query($sql)->fetch();
         //         isPass = false;
         //     }
         // }
+
+        function sendData(){
+        const fd = new FormData(document.img_form);
+
+        fetch('product_new_img_api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img/shop/'+ obj.filename;
+                // console.log('./img/shop/' + obj.filename);
+                $("#img_url_post").val('./img/shop/'+ obj.filename);
+                // img_url_post.value = './img/shop/'+ obj.filename;
+            }
+        });
+    }
+    img_url.onchange = sendData;
+
+
+
+
+
+
 
         if(isPass){
             const fd = new FormData(document.form);

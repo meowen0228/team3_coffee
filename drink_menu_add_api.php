@@ -36,7 +36,7 @@ $stmt->execute([
     $_POST['productstatus1'],
     $_POST['drink_name'] ,
     $_POST['price'] ,
-    $_POST['url'] ,
+    $_POST['img_url_post'] ,
     $_POST['content']  ,
 ]);
 
