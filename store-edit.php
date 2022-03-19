@@ -78,7 +78,7 @@
         <h4 class="user-select-none">門市編輯</h4>
       </div>
 
-      <div class="col-12 d-flex flex-column justify-content-between store-table">
+      <div class="col-12 d-flex flex-row justify-content-between store-table">
         <div class="col-6 mx-auto">
           <!------------------------ 編輯 ------------------------>
           <div class="store-edit-form">
@@ -169,8 +169,21 @@
             <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">取消</button>
           </div>
         </div>
+        <div class="col-5 mt-4 mx-auto text-center position-relative">
+          <?php if ($store_row['photo']== '') { ?>
+            <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $store_row['photo'] ?>" style=""></button>
+          <?php } else { ?>
+            <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $store_row['photo'] ?>" style="opacity: 1"></button>
+          <?php } ?>
+          <button type="button" class="del-img"></button>
+          <input type="hidden" id="img_url_post" name="img_url_post" value="">
+        </div>
       </div>
 
+    </form>
+
+    <form name="img_form" onsubmit="return false;" style="display: none;">
+      <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
     </form>
 
     <!------------------------------------------------>

@@ -25,8 +25,8 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 // store table insert ----------------------------------------------------------
 $store_sql =
 "INSERT INTO
-`store` (`store_name`, `city`, `address`, `phone`, `created_at`)
-VALUES (?, ?, ?, ?, NOW());";
+`store` (`store_name`, `city`, `address`, `phone`, `photo`, `created_at`)
+VALUES (?, ?, ?, ?, ?, NOW());";
 
 $store_stmt = $pdo -> prepare($store_sql);
 
@@ -35,6 +35,7 @@ $store_stmt -> execute([
   $_POST['city'],
   $_POST['address'],
   $_POST['phone'],
+  $_POST['img_url_post'],
 ]);
 
 $output['insertId'] = $pdo->lastInsertId();

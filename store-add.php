@@ -60,7 +60,7 @@
         <h4 class="user-select-none">門市新增</h4>
       </div>
 
-      <div class="col-12 d-flex flex-column justify-content-between store-table">
+      <div class="col-12 d-flex flex-row justify-content-between store-table">
         <div class="col-6 mx-auto">
           <!------------------------ 編輯 ------------------------>
           <div class="store-edit-form">
@@ -133,7 +133,12 @@
             </div>
           </div>
         </div>
+        <div class="col-6 mt-4 mx-auto text-center">
+          <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" alt=""></button>
+          <input type="hidden" id="img_url_post" name="img_url_post" value="">
+        </div>
       </div>
+      
 
       <br>
       <br>
@@ -145,6 +150,10 @@
       </div>
     </form>
 
+    <form name="img_form" onsubmit="return false;" style="display: none;">
+      <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+    </form>
+    
     <!------------------------------------------------>
     <div class="col-1"></div>
   </main>

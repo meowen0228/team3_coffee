@@ -9,7 +9,36 @@
 
 <!------------------------ script ------------------------>
 <script>
-// timepicker
+
+    // 上傳照片
+    
+    function sendData(){
+        const fd = new FormData(document.img_form);
+
+        fetch('store-img-api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img/store'+ obj.filename;
+                $("#preview_img1").css("opacity", "1");
+                $("#img_url_post").val('./img/store'+ obj.filename);
+            }
+        });
+    }
+    
+    img_url.onchange = sendData;
+
+    // 照片刪除
+    $(".del-img").on("click", function(){
+        $("#preview_img1").css("opacity", "0");
+        $("#img_url_post").val('');
+        $("#preview_img1").attr("src", "");
+    })
+
+    // timepicker
     $('.timepicker-start').timepicker({
         timeFormat: 'HH:mm',
         interval: 30,

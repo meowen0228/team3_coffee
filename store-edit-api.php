@@ -35,7 +35,8 @@ SET
 `store_name` = ?,
 `city` = ?,
 `address` = ?,
-`phone` = ?
+`phone` = ?,
+`photo` = ?
 WHERE `id` = ?";
 
 $store_stmt = $pdo -> prepare($store_sql);
@@ -45,10 +46,9 @@ $store_stmt -> execute([
   $_POST['city'],
   $_POST['address'],
   $_POST['phone'],
+  $_POST['img_url_post'],
   $_POST['id'],
 ]);
-
-$output['rowCount'] = $store_stmt->rowCount(); // 修改資料的筆數
 
 
 
@@ -77,9 +77,6 @@ for( $i = 0; $i < count($_POST['store_time_id']); $i++ ){
   $timeCount = $time_stmt->rowCount();
 }
 
-$output['rowCount'] = $timeCount;
-
-
 
 
 // serve table update ----------------------------------------------------------
@@ -88,6 +85,7 @@ $serve_sql =
 SET
 `serve_status` = ?
 WHERE `fk_store_id` = ? AND `id` = ?";
+
 $serve_stmt = $pdo->prepare($serve_sql);
 
 for( $i = 0; $i < count($_POST['serve_status']); $i++ ){
@@ -100,17 +98,18 @@ for( $i = 0; $i < count($_POST['serve_status']); $i++ ){
   $serveCount = $serve_stmt->rowCount();
 }
 
-$output['rowCount'] = $serveCount;
+
+
+// 判斷修改資料 ----------------------------------------------------------
   
-  
-  // 判斷修改資料 ----------------------------------------------------------
-  
-  if( $output['rowCount'] > 0 ){
-      $output['error'] = '';
-      $output['success'] = true;
-  } else {
-      $output['error'] = '資料沒有修改成功';
-  }
+$output['rowCount'] = $store_stmt->rowCount() + $timeCount + $serveCount; // 修改資料的筆數
+
+if( $output['rowCount'] > 0 ){
+    $output['error'] = '';
+    $output['success'] = true;
+} else {
+    $output['error'] = '資料沒有修改成功';
+}
   
   
   

@@ -102,7 +102,9 @@
           </thead>
           <tbody>
             <!-- 撈資料庫 -->
+            <?php $num = 0 ?>
             <?php foreach ($rows as $r) : ?>
+              <?php $num += 0 ?>
               <tr>
                 <td scope="col"><?= $r['id'] ?></td>
                 <td scope="row"><?= $r['store_name'] ?></td>
