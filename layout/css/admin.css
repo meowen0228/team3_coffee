@@ -2,7 +2,6 @@
 :root{
     --admin-aside-width: 190px; /* 有修改 */
     --admin-header-height: 54px; /* 有修改 */
-
     --store-time-block-width: 160px;
     --store-transition: all .3s ease-in-out;
 }
@@ -29,6 +28,9 @@ body{
 .admin-header img{
     height: 36px;
     margin: auto;
+}
+.rightIcon{
+        font-size: smaller;
 }
 .admin-header div{
     text-align: center;
@@ -130,6 +132,19 @@ body{
 .store-search-input{
     width: 80%;
     font-size: smaller;
+}
+/* -------- store -------- */
+.store-search{
+    padding: 0 1rem;
+    border-radius: 20px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.store-search-input{
+    width: 80%;
     background: transparent;
     border: 0;
 }
@@ -162,6 +177,7 @@ body{
 .store-time i:hover +.store-time-block{
     display: flex;
     align-items: flex-start;
+    display: block;
 }
 .store-time-block{
     display: none;
@@ -232,6 +248,9 @@ body{
 }
 .store-edit-form:nth-child(1) input{
     width: 76%;
+}
+.store-edit-form input{
+    width: 80%;
     padding: .4rem 1.5rem;
     box-sizing: border-box;
     border-radius: 3rem;
@@ -331,3 +350,19 @@ body{
     background: url(./checked_v.svg) no-repeat center center;
     background-size: 80%;
 }
+.store-time-select{
+    width: 9rem;
+    overflow: scroll;
+}
+.store-time-select .select-items{
+    height: 20rem;
+    border-radius: 20px;
+    text-align: center;
+}
+/* .store-img-upload{
+    width: 100%;
+    height: 30%;
+} */
+/* .store-serve-check{
+    width: 2rem;
+} */
