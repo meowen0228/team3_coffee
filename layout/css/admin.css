@@ -288,43 +288,32 @@ body{
 .del-img{
     width: 26px;
     height: 26px;
-    background: transparent;
+    background: rgb(82, 82, 82);
     border: none;
-    border-radius: 10px;
+    border-radius: 50%;
     position: absolute;
     top: 10px;
     right: 50px;
     opacity: 1;
     z-index: 8;
 }
-.del-img::after{
+.del-img::after, .del-img::before{
     content: '';
     display: block;
     background: rgb(239, 239, 239);
     width: 4px;
-    height: 26px;
+    height: 20px;
     border: none;
     border-radius: 10px;
     transform: rotate(135deg);
     position: absolute;
-    top: 0px;
-    right: 13px;
+    top: 3px;
+    right: 11px;
     opacity: 1;
-    z-index: 10;
+    z-index: 1;
 }
 .del-img::before{
-    content: '';
-    background: rgb(239, 239, 239);
-    width: 4px;
-    height: 26px;
-    border: none;
-    border-radius: 10px;
     transform: rotate(45deg);
-    position: absolute;
-    top: 0px;
-    right: 13px;
-    opacity: 1;
-    z-index: 10;
 }
 /* checkbox美化*/
 .store-serve-form input[type=checkbox]{

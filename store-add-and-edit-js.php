@@ -22,6 +22,7 @@
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
+                $(".del-img").css("background", "rgb(82, 82, 82)");
                 preview_img1.src = './img/store'+ obj.filename;
                 $("#preview_img1").css("opacity", "1");
                 $("#img_url_post").val('./img/store'+ obj.filename);
@@ -33,6 +34,7 @@
 
     // 照片刪除
     $(".del-img").on("click", function(){
+        $(this).css("background", "transparent");
         $("#preview_img1").css("opacity", "0");
         $("#img_url_post").val('');
         $("#preview_img1").attr("src", "");
