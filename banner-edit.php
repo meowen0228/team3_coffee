@@ -26,7 +26,8 @@ if (empty($row)) {
         height: 200px;
         background: #F2F2F2;
     }
-    .box button{
+
+    .box button {
         position: absolute;
         background: transparent;
     }
@@ -64,15 +65,17 @@ if (empty($row)) {
                 <form name="form1" class="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                     <div class="g-col-6">
                         <div class="mb-3">
-                            <div class="mb-4">橫幅上傳：</div>
+                            <div class="mb-4">圖片上傳：</div>
                             <div class="row g-4 mb-3 align-items-center">
                                 <div class="col-3">
                                     <div class="box">
                                         <button type="button" onclick="img_url.click()">上傳圖片</button>
-                                        <img id="preview_img1" src="" style="width: 200px; height: 200px;">
-                                        <input type="hidden" name="img_url_post" value="">
+                                        <img id="preview_img1" src="<?= $row['url'] ?>" style="width: 100%;">
+                                        <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row['url'] ?>">
                                     </div>
                                 </div>
+
+
                             </div>
 
                             <div class="mb-3">
@@ -103,6 +106,25 @@ if (empty($row)) {
 
 
 <script>
+    function sendData() {
+        const fd = new FormData(document.img_form);
+
+        fetch('banner-edit-api.php', {
+                method: 'POST',
+                body: fd
+            }).then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (obj.success && obj.filename) {
+                    preview_img1.src = './img/banner/' + obj.filename;
+                    // console.log('./img/' + obj.filename);
+                    $("#img_url_post").val('./img/banner/' + obj.filename);
+                    // img_url_post.value = './img/'+ obj.filename;
+                }
+            });
+    }
+    img_url.onchange = sendData;
+
     const title = document.form1.title; // DOM element
     const title_msg = title.closest('.mb-3').querySelector('.form-text');
 
