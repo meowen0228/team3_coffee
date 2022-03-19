@@ -80,7 +80,7 @@ if (empty($row)) {
 
                             <div class="mb-3">
                                 <label for="title" class="form-label">標題：</label><br>
-                                <input type="text" class="form-control" name="title" id="title" required>
+                                <input type="text" class="form-control" name="title" id="title" value="<?= $row['title'] ?>" required>
                                 <div class="form-text"></div>
                             </div>
                             <input type="hidden" name="status" value="0">
