@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/layout/connect_db.php';
 
-$title = '首頁/活動修改';
+$title = '首頁/橫幅修改';
 $pageName = 'banner-edit';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -15,13 +15,24 @@ if (empty($row)) {
 
 ?>
 
-
-
 <style>
-    form .mb-3 .form-text {
+    .form .mb-3 .form-text {
         color: red;
     }
+
+    .box {
+        border: 1px solid black;
+        width: 200px;
+        height: 200px;
+        background: #F2F2F2;
+    }
+    .box button{
+        position: absolute;
+        background: transparent;
+    }
 </style>
+
+
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
@@ -45,26 +56,36 @@ if (empty($row)) {
         </div>
         <div class="main-admin">
             <div class="mb-3">
-                <h5><strong>新增活動項目</strong></h5>
+                <h5><strong>修改活動項目</strong></h5>
             </div>
 
 
             <div class="grid rows-2 mb-3">
-                <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;" action="">
+                <form name="form1" class="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                     <div class="g-col-6">
-                    <div class="mb-3">
-                            <label for="photo" class="form-label">橫幅上傳：</label>
-                            <input type="file" class="form-control" id="photo" name="photo" value="<?= $row['photo'] ?>" > 
-                        </div>
                         <div class="mb-3">
-                            <label class="form-label" for="title">標題：</label>
-                            <input type="text" class="form-control" id="title" name="title" required value="<?= $row['title'] ?>">
-                            <div class="form-text"></div>
-                        </div>
-                    <input type="hidden" id="id" name="id" value="<?= $row['id'] ?>">
-                    <button type="submit" class="submut-btn btn btn-secondary">修改</button>
-                    <button type="button" class="submut-btn btn btn-secondary me-2"><a href="javascript: back()"> 取消</button>
+                            <div class="mb-4">橫幅上傳：</div>
+                            <div class="row g-4 mb-3 align-items-center">
+                                <div class="col-3">
+                                    <div class="box">
+                                        <button type="button" onclick="img_url.click()">上傳圖片</button>
+                                        <img id="preview_img1" src="" style="width: 200px; height: 200px;">
+                                        <input type="hidden" name="img_url_post" value="">
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="mb-3">
+                                <label for="title" class="form-label">標題：</label><br>
+                                <input type="text" class="form-control" name="title" id="title" required>
+                                <div class="form-text"></div>
+                            </div>
+                            <input type="hidden" name="status" value="0">
+                            <button type="submit" class="submut-btn btn btn-secondary">新增</button>
+                            <button type="button" class="submut-btn btn btn-secondary me-2"><a href="javascript: back()">取消</button>
+                </form>
+                <form name="img_form" onsubmit="return false;" style="display: none;">
+                    <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
                 </form>
             </div>
 

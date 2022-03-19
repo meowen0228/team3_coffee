@@ -10,7 +10,14 @@ $pagename = 'banner-add';
 <img src="./bootstrap/js/" alt="">
 <link rel="stylesheet" href="./layout/css/admin.css">
 
-
+<style>
+.box {
+        border: 1px solid black;
+        width: 200px;
+        height: 200px;
+        background: #F2F2F2;
+    }
+</style>
 
 <main class="admin-main px-5 py-5 d-flex">
   <div class="col-1"></div>

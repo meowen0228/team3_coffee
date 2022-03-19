@@ -57,8 +57,8 @@ if ($totalRows) {
         <thead>
           <tr>
             <th class="contents-align" scope="col">上架/下架</th>
-            <th class="contents-align" scope="col">圖片</th>
             <th class="contents-align" scope="col">橫幅標題</th>
+            <th class="contents-align" scope="col">圖片</th>
             <th class="contents-align" class="activity-icon" scope="col">編輯</th>
             <th class="contents-align" class="activity-icon" scope="col">刪除</th>
           </tr>
@@ -68,12 +68,12 @@ if ($totalRows) {
           <?php foreach ($rows as $r) : ?>
             <tr>
               <td scope="col" style="display: none;"><?= $r['id'] ?></td>
-              <td scope="row">
+              <td class="contents-align" scope="row">
                 <form action="">
                   <input type="checkbox" class="newupload" name="newupload">
                 </form>
               </td>
-              <td><?= $r['title'] ?></td>
+              <td class="contents-align"><?= $r['title'] ?></td>
               <td class="contents-align"><img style="width: 100px;" src="<?= $r['photo'] ?>" alt=""></td>
               <td class="banner-icon"><a class="banner-edit" href="banner-edit.php?id=<?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
               <td class="banner-icon"><a href=" javascript: del_it(<?= $r['id'] ?>)"><i class="fa-solid fa-trash-can"></i></a></td>
