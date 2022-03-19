@@ -13,10 +13,10 @@ $output = [
 ];
 // echo json_encode($_POST); exit;
 
-// if(empty($_POST['drink_name'])){
-//     echo json_encode($output, JSON_UNESCAPED_UNICODE);
-//     exit;
-// }
+if(empty($_POST['drink_name'])){
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
@@ -46,9 +46,8 @@ if($stmt->rowCount()){
     $output['error'] = '';
     $output['success'] = true;
 } else {
-    $output['error'] = '資料沒修改成功';
+    $output['error'] = '資料沒有新增成功';
 }
 
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
-

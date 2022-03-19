@@ -22,7 +22,7 @@ $sql =
 sprintf("SELECT * FROM drink_menu where id=$id");
 
 
-$row = $pdo->query($sql)->fetchAll();
+$row = $pdo->query($sql)->fetch();
 // if (empty($row)) {
 //     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
 //     exit;
@@ -62,7 +62,7 @@ $row = $pdo->query($sql)->fetchAll();
                             名稱:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control typing" id="name" name="drink_name" required value="<?= htmlentities($r['drink_name']) ?>" >
+                            <input type="text" class="form-control typing" id="name" name="drink_name" required value="<?= htmlentities($row['drink_name']) ?>" >
                         </div>
                     </div>
                     <div class="row g-4 mb-3 align-items-center">
