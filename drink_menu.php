@@ -10,12 +10,12 @@ $pagename = 'home';
 
 <body>
 <?php include __DIR__ . '/layout/aside.php'; ?>
-<?php
-require __DIR__ . '/connect_db.php';
+<?php require __DIR__ . '/connect_db.php';
 $title = 'drink_menu';
 $pageName = 'drink_menu';
 $perPage = 5; // 每一頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;  // 用戶要看的頁碼
+
 if ($page < 1) {
     header('Location: drink_menu?page=1');
     exit;
@@ -39,76 +39,83 @@ if ($totalRows) {
 }
 
 ?>
-<body>
+
     <main class="admin-main px-5 py-5">
+        
         <div class="row">
-        <div class="col-1"></div>
+            <div class="col-1"></div>
             <div class="col-10">
                 <div class="row py-1">
-
                     <div class="col-3">
                         <h4>訂單列表</h4>
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        <button class="rounded-pill text-nowrap"><a href="drink_menu_revise.php">+新增訂單</a></button>
-
-
+                        <button class="rounded-pill text-nowrap">
+                            <a href="drink_menu_revise.php">+新增訂單</a>
+                        </button>
                     </div>
-
                     <div class="col-4">
                         <div class="input-group form-outline ">
                             <input type="search" class="form-control search" />
                             <button type="button" class="btn btn-light icon search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                            </button>  <!-- 搜尋功能 -->
                         </div>
                     </div>
         </div>
         <br>
+
         <div class="row">
             <div class="col-10"></div>
-            <div class="col-1">
-            </div>
+            <div class="col-1"></div>
             <!-- <div class="col-1"></div> -->
         </div>
         <br>
         <div class="row">
             <div class="card">
                 <table class="table table-hover ">
-                    <thead>
+
+                    <thead>  
                         <tr class="oderTitle text-nowrap">
-                            <th scope="col"><input type="checkbox" name="" id="">全選</th>
+                            <!-- <th scope="col"><input type="checkbox" name="" id="">全選</th> -->
                             <th scope="col">編號</th>
                             <th scope="col">品名</th>
                             <th scope="col">圖片</th>
                             <th scope="col">價格</th>
                             <th scope="col">介紹</th>
-                            <!-- <th scope="col">選擇</th> -->
                             <th scope="col">上架狀態</th>
-                            
                         </tr>
-                    </thead>
-                    <tbody>
+                    </thead>    <!-- 菜單標題 -->
+
+                    <tbody>     
                     <?php foreach ($rows as $r) : ?>  
                         <tr>
-                            <td><input type="checkbox" name="" id=""></td>
-                            <th scope="row"><?= $r['id'] ?></th>
-                            <td><?= $r['drink_name'] ?></td>
-                            <td><img style="width:100px;" src=".<?= $r['url'] ?>" alt=""></td>
-                            <td><?= $r['price'] ?></td>
-                            <td><?= $r['content'] ?></td>
-                            <!-- <td><?= $r[''] ?></td> -->
+                            <!-- <td>
+                                <input type="checkbox" name="" id="">
+                            </td> -->  
+                            <th scope="row"><?= $r['id'] ?></th>  <!--編號-->
+                            <td><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
+                            <td>
+                                <img style="width:100px;" src=".<?= $r['url'] ?>" alt="">
+                            </td>   <!--圖片-->
+                            <td><?= $r['price'] ?></td> <!--價格-->
+                            <td><?= $r['content'] ?></td>  <!--介紹-->
+                            <!--上架狀態-->
                             <?php if ($r['status']){?>
                             <td style="color:blue"><h5>上架中</h5></td>
+
                             <?php }else{?>
                             <td style="color:red"><h5>已下架</h5></td>
                             <?php } ?>
-                            <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
+
+                            <td><a href="drink_menu_revise.php"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
                         </tr>
                     <?php endforeach ?>
-                </tbody>
+                </tbody>  <!--菜單內容 -->
+
                 </table>
+
                 <div class="d-flex justify-content-center mt-3">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -127,7 +134,7 @@ if ($totalRows) {
                     <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
                 </li>
             </ul>
-        </nav>
+        </nav>  <!-- 頁碼  -->
     </div>
             </div>
 </div>
