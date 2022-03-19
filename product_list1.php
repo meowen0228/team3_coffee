@@ -111,8 +111,9 @@ if ($totalRows) {
                             <div class="row">
                                 <tr>
                                     <th class="col-2">商品編號</th>
-                                    <th class="col-6">商品名稱</th>
-                                    <th class="col-6">商品狀態</th>
+                                    <th class="col-2">商品縮圖</th>
+                                    <th class="col-4">商品名稱</th>
+                                    <th class="col-4">商品狀態</th>
                                     <!-- <th class="col-2"><select name="status" id="status">
                                             <option selected>商品狀態</option>
                                             <option value="1">全選</option>
@@ -125,17 +126,18 @@ if ($totalRows) {
                         </thead>
                         <tbody>
                             <!-- 假資料 -->
-                            <tr class="up">
+                            <!-- <tr class="up">
                                 <th>99</th>
                                 <td>淺中焙｜衣索比亞 耶加雪菲 孔加 日曬處理法 一公斤 咖啡豆</td>
                                 <td>上架</td>
                                 <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            </tr>
+                            </tr> -->
                             <!-- 連接資料庫 -->
                             
                                 <tr class="up">
                                 <?php foreach ($rows as $r) : ?>
                                     <th><?= $r['id'] ?></th>
+                                    <th><img style="width:100%;" src="<?= $r['url'] ?>" alt=""></th>
                                     <td><?= $r['p_name'] ?></td>
                                     <?php if ($r['status'] == 1) { ?>
                                         <td>上架</td>

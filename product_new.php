@@ -196,7 +196,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
             console.log(obj);
             if(obj.success && obj.filename){
                 preview_img1.src = './img/shop/'+ obj.filename;
-                console.log('./img/shop/' + obj.filename);
+                // console.log('./img/shop/' + obj.filename);
                 $("#img_url_post").val('./img/shop/'+ obj.filename);
                 // img_url_post.value = './img/shop/'+ obj.filename;
             }
@@ -210,21 +210,9 @@ $row2 = $pdo->query($sql2)->fetchAll();
     const price = document.form1.price;
     const price_msg = price.closest('.mb-3').querySelector('.form-text');
     
-    // const content = document.form.content;
-    // const content_msg = content.closest('.mb-3').querySelector('.form-text');
+   
     function checkForm(){
-        let isPass = true; // 有沒有通過檢查
-        
-        // name_msg.innerText = '';  // 清空訊息
-        // price_msg.innerText = '';  // 清空訊息
-        
-        // // TODO: 表單資料送出之前, 要做格式檢查
-        
-
-        // if(name.value.length<2){
-        //     isPass = false;
-        //     name_msg.innerText = '請填寫正確的姓名'
-        // }
+        let isPass = true; 
 
         
 
