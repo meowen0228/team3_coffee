@@ -258,4 +258,6 @@ join product_photos on product_photos.id = fk_product_photos_id;
 
 SELECT id AS od_id
 FROM order_detail;
-
+UPDATE `orders` SET
+        `fk_condition_id`=3
+        WHERE `id`=1;

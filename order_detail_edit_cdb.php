@@ -84,26 +84,27 @@ $row = $pdo->query($sql)->fetch();
             <div class="col-10">
 
                 <h4>訂單管理</h4>
-                <form class="form pt-1">
+                <form class="form form1 pt-1" name="form1"  method="post" novalidate onsubmit="checkForm(); return false;">
                     <div class="row mt-2 mb-4 align-items-end">
-                        <div class="col-2">會員編號:
+                        <div class="col-2">
+                          會員編號:
                         </div>
                             <div class="col-5">
-                                <input type="text"  class="form-control" placeholder="<?= $row['u_id']?>" readonly="readyonly">
+                                <input type="text" id="u_id"  class="form-control" placeholder="<?= $row['u_id']?>" readonly>
                             </div>
                     </div>
                     <div class="row mb-4 align-items-end">
                         <div class="col-2">訂單編號:
                         </div>
                             <div class="col-5">
-                                <input type="text"  class="form-control" placeholder="<?= $row['o_id']?>" readonly="readyonly">
+                                <input type="text"   class="form-control" placeholder="<?= $row['o_id']?>" readonly>
                             </div>
                     </div>
                     <div class="row mb-4 align-items-end">
                         <div class="col-2">建立時間:
                         </div>
                             <div class="col-5">
-                                <input type="text"  class="form-control" placeholder="<?= $row['otime'] ?>" readonly="readyonly">
+                                <input type="text"   class="form-control" placeholder="<?= $row['otime'] ?>" readonly>
                             </div>
                     </div>
 
@@ -111,13 +112,13 @@ $row = $pdo->query($sql)->fetch();
                         <div class="col-2">付款方式：</div>
                         <div class="col-2">
                            
-                                <input class="form-check-input" type="radio" name="pay" id="pay1" value="1" <?php if ($row['pay'] == 1) { ?> checked <?php } ?> disabled  >
+                                <input class="form-check-input" type="radio"  id="pay1" value="1" <?php if ($row['pay'] == 1) { ?> checked <?php } ?> disabled  >
                                 <label class="form-check-label" for="pay1">信用卡</label>
                           
                         </div>
                         <div class="col-2">
                        
-                            <input class="form-check-input" type="radio" name="pay" id="pay2" value="2"<?php if ($row['pay'] == 0) { ?> checked <?php } ?> disabled>
+                            <input class="form-check-input" type="radio"  id="pay2" value="2"<?php if ($row['pay'] == 0) { ?> checked <?php } ?> disabled>
                             <label class="form-check-label" for="pay2">匯款</label>
                       
                         </div>
@@ -126,13 +127,14 @@ $row = $pdo->query($sql)->fetch();
 
                     <div class=" row mb-4 align-items-center">
                         <div class="col-2">運送方式：</div>
-                        <div class="col-2">                           
-                                <input class="form-check-input" type="radio" name="ship" id="ship1" value="1" <?php if ($row['shipment'] == 0) { ?> checked <?php } ?> disabled >
+                        <div class="col-2">     
+                                                  
+                                <input class="form-check-input" type="radio"  id="ship1" value="1" <?php if ($row['shipment'] == 0) { ?> checked <?php } ?> disabled >
                                 <label class="form-check-label" for="ship1">自取</label>
                            
                         </div>
                         <div class="col-2">
-                                <input class="form-check-input" type="radio" name="ship" id="ship2" value="2" <?php if ($row['shipment'] == 1) { ?> checked <?php } ?> disabled>
+                                <input class="form-check-input" type="radio"  id="ship2" value="2" <?php if ($row['shipment'] == 1) { ?> checked <?php } ?> disabled >
                                 <label class="form-check-label" for="ship2">宅配</label>
                            
                         </div>
@@ -160,7 +162,9 @@ $row = $pdo->query($sql)->fetch();
                                 <label class="form-check-label" for="status2">訂單取消</label>
                             
                         </div>
-
+                        <div>
+                            <input type="hidden" name="oder_id" value="<?= $row['o_id']?>">
+                        </div>
                     </div>
                     
                     
@@ -187,15 +191,19 @@ $row = $pdo->query($sql)->fetch();
                                         $qty = explode(',', $row['qty']) ?>
                                         <?php 
                                         $price = explode(',', $row['price']) ?>
+                                       <?php 
+                                        $sum = 0 ?>
                                         <?php 
-                                        for ($i=0; $i<count($productid); $i++) {?>
+                                        for ($i=0; $i<count($productid); $i++) {
+                                            $sum=$sum+($qty[$i]*$price[$i]);?>
+                                        <tr>
                                         <tr>
                                             <td><?= $i+1 ?></td>
                                             <td><?= $productid[$i] ?></td>
                                             <td><?= $productname[$i] ?></td>
                                             <td><?= $qty[$i] ?></td>
                                             <td><?= $price[$i] ?></td>
-                                            <td>999</td>
+                                            <td><?=$qty[$i]*$price[$i]?></td>
                                             <td></td>
                                             </tr>
                                             <?php  }?>
@@ -209,7 +217,7 @@ $row = $pdo->query($sql)->fetch();
                                 <td></td>
                                 <td></td>
                                 <td>總計</td>
-                                <td>999</td>
+                                <td><?= $sum ?></td>
 
                             </tr>
 
@@ -233,7 +241,39 @@ $row = $pdo->query($sql)->fetch();
 
 </main>
 
+<script>
+    function checkForm(){
+        let isPass = true; 
 
+        
+
+        if(isPass){
+            const fd = new FormData(document.form1);
+
+            fetch('order_detail_edit_cdb_api.php', {
+                method: 'POST',
+                body: fd
+            }).then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if(obj.success){
+                    alert('修改成功');
+
+                    location.href = 'order_list_cdb.php';
+
+                    
+                } else {
+                    alert('沒有修改');
+                }
+
+            })
+
+
+
+
+    }
+}
+</script>
 
 <?php include __DIR__ . '/layout/scripts.php'; ?>
 <?php include __DIR__ . '/layout//html-foot.php'; ?>

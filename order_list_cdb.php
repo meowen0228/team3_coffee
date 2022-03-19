@@ -142,33 +142,7 @@ if ($totalRows) {
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item nonship">
                         <h2 class="accordion-header" id="flush-headingOne">
-                            <!-- <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> -->
-                                <!-- <table class="table  table-responsive table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">會員編號</th>
-                                            <th scope="col">訂單編號</th>
-                                            <th scope="col">付款方式</th>
-                                            <th scope="col">運送方式</th>
-                                            <th scope="col">訂單狀態</th>
-                                            <th scope="col">建立時間</th>
-                                            <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
-                                        </tr>
-                                    </thead>
-                                     <tbody>
-                                        <tr>
-                                            <th>0</th>
-                                            <td>0</td>
-                                            <td>信用卡</td>
-                                            <td>宅配</td>
-                                            <td>未出貨</td>
-                                            <td>2022/01/31 15:20</td>
-                                            <td></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table> -->
-                            <!-- </button> -->
+                
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <table class="table table-sm table-responsive ">
@@ -184,51 +158,7 @@ if ($totalRows) {
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <!-- <tbody>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody> -->
-                                <!-- <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>總計</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot> -->
-
+                               
                             </table>
                         </div>
                     </div>
@@ -251,7 +181,7 @@ if ($totalRows) {
                                                 <th scope="col">運送方式</th>
                                                 <th scope="col">訂單狀態</th>
                                                 <th scope="col">建立時間</th>
-                                                <th scope="col"><a href="order_detail1.php?id=<?= $r['o_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a> </th>
+                                                <th scope="col"><a href="order_detail_edit_cdb.php?id=<?= $r['o_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a> </th>
                                             </tr>
                                         </thead>
 
@@ -320,7 +250,10 @@ if ($totalRows) {
                                         <?php 
                                         $price = explode(',', $r['price']) ?>
                                         <?php 
-                                        for ($i=0; $i<count($productid); $i++) {?>
+                                        $sum = 0 ?>
+                                        <?php 
+                                        for ($i=0; $i<count($productid); $i++) {
+                                            $sum=$sum+($qty[$i]*$price[$i]);?>
                                         <tr>
                                             <th></th>
                                             <td><?= $i+1 ?></td>
@@ -328,7 +261,7 @@ if ($totalRows) {
                                             <td><?= $productname[$i] ?></td>
                                             <td><?= $qty[$i] ?></td>
                                             <td><?= $price[$i] ?></td>
-                                            <td>999</td>
+                                            <td><?= $qty[$i]*$price[$i] ?></td>
                                             <td></td>
                                             </tr>
                                             <?php  }?>
@@ -341,7 +274,7 @@ if ($totalRows) {
                                             <td></td>
                                             <td></td>
                                             <td>總計</td>
-                                            <td>999</td>
+                                            <td><?= $sum ?></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>

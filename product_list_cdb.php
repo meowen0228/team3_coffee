@@ -144,7 +144,7 @@ if ($totalRows) {
                                     <?php } else { ?>
                                         <td>下架</td>
                                     <?php } ?>
-                                    <td><a href="product1_.php?id=<?= $r['id'] ?>">
+                                    <td><a href="product_edit.php?id=<?= $r['id'] ?>">
                                             <i class="fa-solid fa-pen-to-square"></i></a></td>
 
                                 </tr>

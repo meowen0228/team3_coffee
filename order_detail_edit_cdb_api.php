@@ -16,7 +16,7 @@ $output = [
 // var_dump($_POST);
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
-if(empty($_POST['id']) or empty($_POST['p_name'])){
+if(empty($_POST['oder_id'])){
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -26,25 +26,15 @@ if(empty($_POST['id']) or empty($_POST['p_name'])){
 // TODO: 欄位檢查
 
 
-$sql = "UPDATE `products` SET  
-        `status`=?,
-        `p_name`=?,
-        `price`=?,
-        `fk_product_types`=?,
-        `url`=?,
-        `content`=?
+$sql = "UPDATE `orders` SET
+        `fk_condition_id`=?
         WHERE `id`=?";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     $_POST['status'],
-    $_POST['p_name'],
-    $_POST['price'] ,
-    $_POST['fk_product_types'] ,
-    $_POST['img_url_post'] ,
-    $_POST['content'], 
-    $_POST['id'], 
+    $_POST['oder_id'],
 ]);
 
 
