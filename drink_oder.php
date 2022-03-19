@@ -159,7 +159,7 @@ $sql = sprintf("SELECT users.id AS u_id,
                                 </table>
                             </button>
                         </h2>
-                        <div id="flush-collapse<?= $num ?>" class="accordion-collapse collapse" aria-labelledby="flush-heading<?= $num ?>" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapse<?= $num ?>" class=" collapse" aria-labelledby="flush-heading<?= $num ?>" data-bs-parent="#accordionFlushExample">
                             <table class="table table-sm table-responsive ">
                                 <thead>
                                     <tr>
