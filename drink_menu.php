@@ -103,7 +103,7 @@ if ($totalRows) {
                             <th scope="row"class="card1"><?= $r['id'] ?></th>  <!--編號-->
                             <td class="card1"><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
                             <td class="card1">
-                                <img style="width:100px;" src=".<?= $r['url'] ?>" alt="">
+                                <img style="width:100px;" src="<?= $r['url'] ?>" alt="">
                             </td>   
                             <td class="card1"><?= $r['price'] ?></td> <!--價格-->
                             <td class="card1"><?= $r['content'] ?></td>  <!--介紹-->

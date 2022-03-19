@@ -104,7 +104,9 @@ $row = $pdo->query($sql)->fetchAll();
                 </form>
             </div>
         </div>
-
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+                    <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+                </form>
 
 
         <div class="col-1"></div>
@@ -116,16 +118,16 @@ $row = $pdo->query($sql)->fetchAll();
 function sendData(){
         const fd = new FormData(document.img_form);
 
-        fetch('drink_menu_img_api.php', {
+        fetch('drink_menu_add_img_api.php', {
             method: 'POST',
             body: fd
         }).then(r=>r.json())
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
-                preview_img1.src = './img'+ obj.filename;
+                preview_img1.src = './img/menu/'+ obj.filename;
                 // console.log('./img/shop/' + obj.filename);
-                $("#img_url_post").val('./img'+ obj.filename);
+                $("#img_url_post").val('./img/menu/'+ obj.filename);
                 // img_url_post.value = './img/shop/'+ obj.filename;
             }
         });
@@ -164,8 +166,8 @@ function sendData(){
         //     }
         // }
 
-        function sendData(){
-        const fd = new FormData(document.img_form);
+        // function sendData(){
+        // const fd = new FormData(document.img_form);
 
         
 
