@@ -73,18 +73,17 @@ $row = $pdo->query($sql)->fetch();
                             <input type="int" id="price" name="price" class="form-control typing" value="<?= htmlentities($row['price']) ?>">
                         </div>
                     </div>
-                    <div class="mb-4">
-                        圖片上傳：
-                    </div>
+                    <div class="mb-4">圖片上傳：</div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-3">
                             <div class="box">
-                                <!-- <input type="file"  onchange="readURL(this)" targetid="preview_img1" accept="image/gif, image/jpeg, image/png" >
-                                <img id="preview_img1" name="url" src="" style="width: 100%;"> -->
-                                <input type="text" name="url" value="">
+                                <button type="button" onclick="img_url.click()">上傳圖片</button>
+                                <img id="preview_img1" src="" style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?= htmlentities($row['url']) ?>">
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row g-4 mt-4 mb-4 ">
                         <div class="col-1" id="content">
                             介紹:
@@ -146,24 +145,24 @@ $row = $pdo->query($sql)->fetch();
         //     }
         // }
 
-        function sendData(){
-        const fd = new FormData(document.img_form);
+    //     function sendData(){
+    //     const fd = new FormData(document.img_form);
 
-        fetch('drink_menu_revie_api.php', {
-            method: 'POST',
-            body: fd
-        }).then(r=>r.json())
-        .then(obj=>{
-            console.log(obj);
-            if(obj.success && obj.filename){
-                preview_img1.src = './img/shop/'+ obj.filename;
-                // console.log('./img/shop/' + obj.filename);
-                $("#img_url_post").val('./img/shop/'+ obj.filename);
-                // img_url_post.value = './img/shop/'+ obj.filename;
-            }
-        });
-    }
-    img_url.onchange = sendData;
+    //     fetch('drink_menu_revie_api.php', {
+    //         method: 'POST',
+    //         body: fd
+    //     }).then(r=>r.json())
+    //     .then(obj=>{
+    //         console.log(obj);
+    //         if(obj.success && obj.filename){
+    //             preview_img1.src = './img/shop/'+ obj.filename;
+    //             // console.log('./img/shop/' + obj.filename);
+    //             $("#img_url_post").val('./img/shop/'+ obj.filename);
+    //             // img_url_post.value = './img/shop/'+ obj.filename;
+    //         }
+    //     });
+    // }
+    // img_url.onchange = sendData;
 
 
 
