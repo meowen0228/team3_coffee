@@ -36,16 +36,7 @@ $raw_data = $stmt->fetchAll();
 
 $first = [];
 
-// // 把第一層的資料放到陣列裡
-// foreach ($raw_data as $r) {
-//   if ($r['parent_sid'] == 0) {
-//     $first[] = $r;
-//   }
-// }
 
-
-// echo json_encode($first);
-// 
 ?>
 
 
@@ -53,6 +44,9 @@ $first = [];
 <?php include __DIR__ . './layout/header.php'; ?>
 <?php include __DIR__ . './layout/aside.php'; ?>
 <img src="./bootstrap/js/" alt="">
+<!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <style>
   .blog-form {
     background: #FFFFFF;
@@ -131,20 +125,20 @@ $first = [];
           <button class="btn btn-outline-secondary">修改主類別</button>
           <button class="btn btn-outline-secondary">刪除主類別</button>
         </div>
-        <div class="sort">
+        <div class="sort" id="head-tabs">
           <span>主類別</span>
 
-          <button class="btn btn-outline-secondary">咖啡篇</button>
-          <button class="btn btn-outline-secondary">沖煮篇</button>
-          <button class="btn btn-outline-secondary">咖啡豆篇</button>
-          <button class="btn btn-outline-secondary">名人專欄篇</button>
-          <button class="btn btn-outline-secondary">好物分享篇</button>
+          <button class="btn btn-outline-secondary"><a href="#" data-target="tab01">咖啡篇</a></button>
+          <button class="btn btn-outline-secondary"><a href="#" data-target="tab02">沖煮篇</a></button>
+          <button class="btn btn-outline-secondary"><a href="#" data-target="tab03">咖啡豆篇</a></button>
+          <button class="btn btn-outline-secondary"><a href="#" data-target="tab04">名人專欄篇</a></button>
+          <button class="btn btn-outline-secondary"><a href="#" data-target="tab05">好物分享篇</a></button>
         </div>
         <br>
         <br>
         <br>
         <div>
-          <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</button>
+          <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</a></button>
           <button class="btn btn-outline-secondary">刪除文章</button>
         </div>
 
@@ -168,7 +162,11 @@ $first = [];
                 <td>
                 <td><?= $r['title'] ?></td>
                 <td class="date01"><?= $r['CREATEd_at'] ?></td>
-                <td><button type="button" class="btn btn-light"><a href="blog-content-edit.php?sid=<?= $r['id'] ?>">編輯文章</button></td>
+                <td>
+                  <button type="button" class="btn btn-light">
+                    <a href="blog-content-edit.php?sid=<?= $r['id'] ?>">編輯文章</a>
+                  </button>
+                </td>
               </tr>
             <?php endforeach ?>
           </tbody>
