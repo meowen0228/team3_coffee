@@ -19,7 +19,7 @@ join product_types on product_types.id = products.fk_product_types
 where products.id = $id";
 
 $row = $pdo->query($sql1)->fetch();
-if (empty($row)) {
+if (empty($id )) {
     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
     exit;
 }
@@ -256,7 +256,7 @@ if (empty($row)) {
                 if(obj.success){
                     alert('修改成功');
 
-                    location.href = 'product_list_cdb.php';
+                    location.href = 'product_list.php';
 
                     
                 } else {

@@ -250,7 +250,7 @@ $row = $pdo->query($sql)->fetch();
         if(isPass){
             const fd = new FormData(document.form1);
 
-            fetch('order_detail_edit_cdb_api.php', {
+            fetch('order_detail_edit_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
@@ -259,7 +259,7 @@ $row = $pdo->query($sql)->fetch();
                 if(obj.success){
                     alert('修改成功');
 
-                    location.href = 'order_list_cdb.php';
+                    location.href = 'order_list.php';
 
                     
                 } else {

@@ -219,15 +219,15 @@ $row2 = $pdo->query($sql2)->fetchAll();
         if(isPass){
             const fd = new FormData(document.form1);
 
-            fetch('product1_api.php', {
+            fetch('product_new_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
                 if(obj.success){
-                    alert('修改成功');
-                    location.href = 'product_list1.php';
+                    alert('新增成功');
+                    location.href = 'product_list.php';
                 } else {
                     alert('新增失敗');
                 }

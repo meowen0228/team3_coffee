@@ -1,8 +1,75 @@
 <?php
-$title = '後台首頁';
-$pagename = 'home';
-?>
+// 連接資料庫
+require __DIR__ . '/layout/connect_db.php';
 
+// 頁面資訊
+$title = '訂單列表';
+$pagename = 'order_list1';
+
+// 每一頁有幾筆
+$perPage = 4;
+
+// 用戶要看的頁碼
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+if ($page < 1) {
+    header('Location: order_list1.php?page=1');
+    exit;
+}
+
+// 取得總筆數
+$t_sqlaa= "SELECT max(*) FROM orders";
+$t_nun = (int)$t_sqlaa;
+
+
+$t_sql = "SELECT COUNT(1) FROM orders";
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+// 預設沒有資料
+$rows = [];
+$totalPages = 0;
+
+if ($totalRows) {
+    $totalPages = ceil($totalRows / $perPage);
+    if ($page > $totalPages) {
+        header("Location: order_list1.php?page=$totalPages");
+        exit;
+    }
+
+    $sql = sprintf(
+        "SELECT
+        users.id AS u_id,
+        user_name,
+        orders.id AS o_id,
+        pay,
+        shipment,
+        order_condition.id AS oc_id,
+        orders.CREATEd_at AS otime,
+        group_concat( DISTINCT detail.od_id ) AS `od_id`,
+        group_concat( DISTINCT detail.p_id ) AS `p_id`,
+        group_concat( p_name ) AS p_name,
+        group_concat( qty) AS qty,
+        group_concat( price) AS price
+        from orders
+        left join users on orders.id = users.id
+        left join order_condition on order_condition.id = orders.fk_condition_id
+        left join
+        (SELECT
+        order_detail.fk_order_id AS od_fkid,
+        order_detail.id AS od_id,
+        products.id AS p_id,
+        p_name,
+        qty,
+        price
+        FROM order_detail
+        left join products on products.id = order_detail.fk_product_id) AS detail on detail.od_fkid = orders.id
+        GROUP BY orders.id ORDER BY o_id LIMIT %s, %s ;",
+        ($page - 1) * $perPage,
+        $perPage
+    );
+    $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+}
+
+?>
 
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
@@ -28,7 +95,7 @@ $pagename = 'home';
         border-radius: 20px;
     }
 
-    .active {
+    .act {
         display: none;
     }
 </style>
@@ -47,14 +114,14 @@ $pagename = 'home';
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        <select name="ship" id="ship">
+                        <!-- <select name="ship" id="ship">
                             <option selected>出貨狀態</option>
                             <option value="1">全選</option>
                             <option value="2">已出貨</option>
                             <option value="3">未出貨</option>
                             <option value="4">完成訂單</option>
                             <option value="5">取消訂單</option>
-                        </select>
+                        </select> -->
 
                     </div>
 
@@ -69,130 +136,13 @@ $pagename = 'home';
 
                 </div>
 
+
+
+                <!-- 假資料 -->
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item nonship">
                         <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <table class="table  table-responsive table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">會員編號</th>
-                                            <th scope="col">訂單編號</th>
-                                            <th scope="col">付款方式</th>
-                                            <th scope="col">用餐地點</th>
-                                            <th scope="col">餐點狀態</th>
-                                            <th scope="col">建立時間</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>000001</th>
-                                            <td>000001</td>
-                                            <td>信用卡</td>
-                                            <td>三多門市</td>
-                                            <td>準備中</td>
-                                            <td>2022/01/31 15:20</td>
-                                            <td></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <table class="table table-sm table-responsive ">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>項次</th>
-                                        <th>商品編號</th>
-                                        <th>商品名稱</th>
-                                        <th>選擇</th>
-                                        <th>數量</th>
-                                        <th>金額</th>
-                                        <th>小計</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th></th>
-                                        <td>1</td>
-                                        <td>001</td>
-                                        <td>美式咖啡</td>
-                                        <td>加糖</td>
-                                        <td>2</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>1</td>
-                                        <td>001</td>
-                                        <td>美式咖啡</td>
-                                        <td>加糖</td>
-                                        <td>2</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>1</td>
-                                        <td>001</td>
-                                        <td>美式咖啡</td>
-                                        <td>加糖</td>
-                                        <td>2</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>總計</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-
-                            </table>
-                        </div>
-                    </div>
-
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item nonship">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <table class="table  table-responsive table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">會員編號</th>
-                                            <th scope="col">訂單編號</th>
-                                            <th scope="col">付款方式</th>
-                                            <th scope="col">運送方式</th>
-                                            <th scope="col">訂單狀態</th>
-                                            <th scope="col">建立時間</th>
-                                            <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>000001</th>
-                                            <td>000001</td>
-                                            <td>信用卡</td>
-                                            <td>宅配</td>
-                                            <td>未出貨</td>
-                                            <td>2022/01/31 15:20</td>
-                                            <td></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </button>
+                
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <table class="table table-sm table-responsive ">
@@ -208,148 +158,20 @@ $pagename = 'home';
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>總計</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-
+                               
                             </table>
                         </div>
                     </div>
-                    <div class="accordion-item onship">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                <table class="table  table-responsive table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">會員編號</th>
-                                            <th scope="col">訂單編號</th>
-                                            <th scope="col">付款方式</th>
-                                            <th scope="col">運送方式</th>
-                                            <th scope="col">訂單狀態</th>
-                                            <th scope="col">建立時間</th>
-                                            <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>000001</th>
-                                            <td>000001</td>
-                                            <td>信用卡</td>
-                                            <td>宅配</td>
-                                            <td>已出貨</td>
-                                            <td>2022/01/31 15:20</td>
-                                            <td></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <table class="table table-sm table-responsive ">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>項次</th>
-                                        <th>商品編號</th>
-                                        <th>商品名稱</th>
-                                        <th>數量</th>
-                                        <th>金額</th>
-                                        <th>小計</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>01</td>
-                                        <td>00000000</td>
-                                        <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                        <td>1</td>
-                                        <td>999</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>總計</td>
-                                        <td>999</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-
-                        </div>
-                        <div class="accordion-item complete">
-                            <h2 class="accordion-header" id="flush-headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    <?php $num=0; ?>
+                    <?php foreach ($rows as $r) : ?>
+                        <?php $num+=1?>
+                        <?php $n=$num?>
+                        <!-- 連接資料庫 -->
+                        
+                                      
+                        <div class="accordion-item onship">
+                            <h2 class="accordion-header" id="flush-heading<?= $n ?>">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<?= $n ?>" aria-expanded="false" aria-controls="flush-collapse<?= $n ?>">
                                     <table class="table  table-responsive table-borderless">
                                         <thead>
                                             <tr>
@@ -359,26 +181,53 @@ $pagename = 'home';
                                                 <th scope="col">運送方式</th>
                                                 <th scope="col">訂單狀態</th>
                                                 <th scope="col">建立時間</th>
-                                                <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
+                                                <th scope="col"><a href="order_detail_edit.php?id=<?= $r['o_id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a> </th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
                                             <tr>
-                                                <th>000001</th>
-                                                <td>000001</td>
-                                                <td>信用卡</td>
-                                                <td>宅配</td>
-                                                <td>完成訂單</td>
-                                                <td>2022/01/31 15:20</td>
+                                                <td><?= $r['u_id'] ?></td>
+                                                <td><?= $r['o_id'] ?></td>
+                                                <?php if ($r['pay'] == 1) { ?>
+                                                    <td>信用卡</td>
+                                                <?php } else { ?>
+                                                    <td>匯款</td>
+                                                <?php } ?>
+
+                                                <?php if ($r['shipment'] == 1) { ?>
+                                                    <td>宅配</td>
+                                                <?php } else { ?>
+                                                    <td>自取</td>
+                                                <?php } ?>
+
+                                                <?php if ($r['oc_id'] == 1) { ?>
+                                                    <td>未出貨</td>
+                                                <?php }   ?>
+                                                    <?php if ($r['oc_id'] == 2) { ?>
+                                                        <td>已出貨</td>
+                                                    <?php }  ?>
+                                                        <?php if ($r['oc_id'] == 3) { ?>
+                                                            <td>完成訂單</td>
+                                                        <?php }  ?>
+                                                        <?php if ($r['oc_id'] == 4) { ?>
+                                                            <td>取消訂單</td>
+                                                        <?php } ?>
+                                                    
+
+                                                <td><?= $r['otime'] ?></td>
                                                 <td></td>
                                             </tr>
 
+
                                         </tbody>
+
                                     </table>
                                 </button>
                             </h2>
-                            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div id="flush-collapse<?= $n ?>" class="accordion-collapse collapse" aria-labelledby="flush-heading<?= $n ?>">
                                 <table class="table table-sm table-responsive ">
+                                  
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -392,36 +241,30 @@ $pagename = 'home';
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php 
+                                        $productid = explode(',', $r['p_id']) ?>
+                                         <?php 
+                                        $productname = explode(',', $r['p_name']) ?>
+                                         <?php 
+                                        $qty = explode(',', $r['qty']) ?>
+                                        <?php 
+                                        $price = explode(',', $r['price']) ?>
+                                        <?php 
+                                        $sum = 0 ?>
+                                        <?php 
+                                        for ($i=0; $i<count($productid); $i++) {
+                                            $sum=$sum+($qty[$i]*$price[$i]);?>
                                         <tr>
                                             <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                            <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
+                                            <td><?= $i+1 ?></td>
+                                            <td><?= $productid[$i] ?></td>
+                                            <td><?= $productname[$i] ?></td>
+                                            <td><?= $qty[$i] ?></td>
+                                            <td><?= $price[$i] ?></td>
+                                            <td><?= $qty[$i]*$price[$i] ?></td>
                                             <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                            <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                            <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
-                                        </tr>
+                                            </tr>
+                                            <?php  }?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -431,134 +274,39 @@ $pagename = 'home';
                                             <td></td>
                                             <td></td>
                                             <td>總計</td>
-                                            <td>999</td>
+                                            <td><?= $sum ?></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
-
                                 </table>
+
                             </div>
                         </div>
-                        <div class="accordion-item canceled">
-                            <h2 class="accordion-header" id="flush-headingfour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsefour" aria-expanded="false" aria-controls="flush-collapsefour">
-                                    <table class="table  table-responsive table-borderless">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">會員編號</th>
-                                                <th scope="col">訂單編號</th>
-                                                <th scope="col">付款方式</th>
-                                                <th scope="col">運送方式</th>
-                                                <th scope="col">訂單狀態</th>
-                                                <th scope="col">建立時間</th>
-                                                <th scope="col"><a href=""><i class="fa-solid fa-pen-to-square"></i></a> </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>000001</th>
-                                                <td>000001</td>
-                                                <td>信用卡</td>
-                                                <td>宅配</td>
-                                                <td>取消訂單</td>
-                                                <td>2022/01/31 15:20</td>
-                                                <td></td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </button>
-                            </h2>
-                            <div id="flush-collapsefour" class="accordion-collapse collapse" aria-labelledby="flush-headingfour" data-bs-parent="#accordionFlushExample">
-                                <table class="table table-sm table-responsive ">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>項次</th>
-                                            <th>商品編號</th>
-                                            <th>商品名稱</th>
-                                            <th>數量</th>
-                                            <th>金額</th>
-                                            <th>小計</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                            <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                            <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th></th>
-                                            <td>01</td>
-                                            <td>00000000</td>
-                                            <td>中 焙｜蒲隆地 卡揚扎 赤日處理廠 水洗處理法 咖啡豆 半磅</td>
-                                            <td>1</td>
-                                            <td>999</td>
-                                            <td>999</td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>總計</td>
-                                            <td>999</td>
-                                            <td></td>
-                                        </tr>
-                                    </tfoot>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-                    <div class="d-flex justify-content-center py-2">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination gap-2 pagetext">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <i class="fa-solid fa-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <i class="fa-solid fa-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <?php endforeach ?>
                 </div>
-                <div class="col-1"></div>
+
             </div>
+            <div class="d-flex justify-content-center mt-3">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
+                        </li>
+                        <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                            if ($i >= 1 and $i <= $totalPages) :
+                        ?>
+                                <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                </li>
+                        <?php endif;
+                        endfor; ?>
+                        <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-1"></div>
         </div>
 
 
@@ -568,45 +316,46 @@ $pagename = 'home';
     //給collapse
 </script>
 <script>
-    $(function() {
-        $("#ship").change(function() {
-            switch (
-                $(this).val()
-            ) {
-                case "1": //全選
-                    $(".nonship").removeClass("act");
-                    $(".onship").removeClass("act");
-                    $(".complete").removeClass("act");
-                    $(".canceled").removeClass("act");
-                    break;
-                case "2": //未出貨
-                    $(".nonship").addClass("act");
-                    $(".onship").removeClass("act");
-                    $(".complete").addClass("act");
-                    $(".canceled").addClass("act");
-                    break;
-                case "3": //已出貨
-                    $(".nonship").removeClass("act");
-                    $(".onship").addClass("act");
-                    $(".complete").addClass("act");
-                    $(".canceled").addClass("act");
-                    break;
-                case "4": //完成訂單
-                    $(".nonship").addClass("act");
-                    $(".onship").addClass("act");
-                    $(".complete").removeClass("act");
-                    $(".canceled").addClass("act");
-                    break;
-                case "5": //取消
-                    $(".nonship").addClass("active");
-                    $(".onship").addClass("active");
-                    $(".complete").addClass("active");
-                    $(".canceled").removeClass("active");
-                    break;
-            }
-        });
-    });
     
+    
+    // $(function() {
+    //     $("#ship").change(function() {
+    //         switch (
+    //             $(this).val()
+    //         ) {
+    //             case "1": //全選
+    //                 $(".nonship").removeClass("act");
+    //                 $(".onship").removeClass("act");
+    //                 $(".complete").removeClass("act");
+    //                 $(".canceled").removeClass("act");
+    //                 break;
+    //             case "2": //未出貨
+    //                 $(".nonship").addClass("act");
+    //                 $(".onship").removeClass("act");
+    //                 $(".complete").addClass("act");
+    //                 $(".canceled").addClass("act");
+    //                 break;
+    //             case "3": //已出貨
+    //                 $(".nonship").removeClass("act");
+    //                 $(".onship").addClass("act");
+    //                 $(".complete").addClass("act");
+    //                 $(".canceled").addClass("act");
+    //                 break;
+    //             case "4": //完成訂單
+    //                 $(".nonship").addClass("act");
+    //                 $(".onship").addClass("act");
+    //                 $(".complete").removeClass("act");
+    //                 $(".canceled").addClass("act");
+    //                 break;
+    //             case "5": //取消
+    //                 $(".nonship").addClass("active");
+    //                 $(".onship").addClass("active");
+    //                 $(".complete").addClass("active");
+    //                 $(".canceled").removeClass("active");
+    //                 break;
+    //         }
+    //     });
+    // });
 </script>
 
 <?php include __DIR__ . '/layout/scripts.php'; ?>
