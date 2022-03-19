@@ -1,5 +1,5 @@
 <?php
-  require __DIR__ . '/layout/coffee_db.php';
+  require __DIR__ . '/layout/connect_db.php';
   $title = '提問回復';
   $pagename = 'askAns';
   $id = isset($_GET['id']) ? intval($_GET['id']) : 0;

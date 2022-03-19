@@ -1,5 +1,5 @@
 <?php
- require __DIR__ . '/layout/coffee_db.php';
+ require __DIR__ . '/layout/connect_db.php';
   $title = '提問列表';
   $pagename = 'askList';
   $perPage = 10; // 每一頁有幾筆

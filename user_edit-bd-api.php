@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/layout/coffee_db.php';
+require __DIR__ . '/layout/connect_db.php';
 
 header('Content-Type: application/json');
 // 輸出的資料格式
