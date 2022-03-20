@@ -223,9 +223,9 @@ if (empty($id )) {
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
-                preview_img1.src = './img/shop/'+ obj.filename;
+                preview_img1.src = './img/shop'+ obj.filename;
                 // console.log('./img/' + obj.filename);
-                $("#img_url_post").val('./img/shop/'+ obj.filename);
+                $("#img_url_post").val('./img/shop'+ obj.filename);
                 // img_url_post.value = './img/'+ obj.filename;
             }
         });

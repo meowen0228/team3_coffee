@@ -195,9 +195,9 @@ $row2 = $pdo->query($sql2)->fetchAll();
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
-                preview_img1.src = './img/shop/'+ obj.filename;
+                preview_img1.src = './img/shop'+ obj.filename;
                 // console.log('./img/shop/' + obj.filename);
-                $("#img_url_post").val('./img/shop/'+ obj.filename);
+                $("#img_url_post").val('./img/shop'+ obj.filename);
                 // img_url_post.value = './img/shop/'+ obj.filename;
             }
         });
