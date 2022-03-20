@@ -10,10 +10,7 @@
                <li>
                    <a class="d-block py-2 px-3" href="order_list.php">訂單管理</a>
                </li>
-               <li>
-                   <a class="d-block py-2 px-3" href="">商品項目管理</a>
-               </li>
-   
+          
               
            </ul>
        
