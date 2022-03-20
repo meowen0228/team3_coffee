@@ -223,18 +223,14 @@ $pagename = 'blog-content-add'; ?>
         <h2>文章/類別管理/新增文章</h2>
         <input type="hidden" a href="blog-content-add.php?id=<?= $r['id'] ?>">
 
-        <form class="blog-content-add-form" action="">
+        <form name="form1" class="blog-content-add-form" method="post" novalidate onsubmit="checkForm(); return false;">
 
 
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
-<<<<<<< Updated upstream
-            <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
-=======
             <button style="top: 20px" id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
->>>>>>> Stashed changes
             <button type="button" class="del-img"></button>
-            <input type="hidden" id="img_url_post" name="img_url_post" value="">
+            <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
           </div>
 
           <br>
@@ -253,7 +249,7 @@ $pagename = 'blog-content-add'; ?>
             <label for="" class="col-2">匯入圖庫</label>
             <div class="d-flex flex-column">
               <button id="imgUpBtn" type="button" class="img-up-btn" data-num="1">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post01" name="img_url_post01" value="">
+              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
 
               <input type="text" placeholder="請填入圖片說明">
             </div>
@@ -261,14 +257,14 @@ $pagename = 'blog-content-add'; ?>
 
             <div class="d-flex flex-column">
               <button id="imgUpBtn" type="button" class="img-up-btn" data-num="2">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post02" name="img_url_post02" value="">
+              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
               <input type="text" placeholder="請填入圖片說明">
             </div>
 
 
             <div class="d-flex flex-column">
               <button id="imgUpBtn" type="button" class="img-up-btn" data-num="3">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post03" name="img_url_post03" value="">
+              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
               <input type="text" placeholder="請填入圖片說明">
             </div>
           </div>
@@ -313,40 +309,18 @@ $pagename = 'blog-content-add'; ?>
 
         </form>
 
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-<<<<<<< Updated upstream
-        </form>
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
-
+            <form name="img_form" onsubmit="return false;" style="display: none;">
+              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+            </form>
+            <form name="img_form" onsubmit="return false;" style="display: none;">
+              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+            </form>
+            <form name="img_form" onsubmit="return false;" style="display: none;">
+              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+            </form>
+            <form name="img_form" onsubmit="return false;" style="display: none;">
+              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         
-        <!-- <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" id="img_url01" name="img_url01" accept="image/jpeg,image/png">
-=======
->>>>>>> Stashed changes
-        </form>
-
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
-
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-<<<<<<< Updated upstream
-          <input type="file" id="img_url03" name="img_url03" accept="image/jpeg,image/png">
-        </form> -->
-=======
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
-        </form>
->>>>>>> Stashed changes
       </div>
     </div>
   </div>
@@ -386,36 +360,8 @@ $pagename = 'blog-content-add'; ?>
 
   }
 
-  // function sendData() {
-  //   const fd = new FormData(document.img_form);
 
-  //   fetch('blog-content-add-img-api.php', {
-  //       method: 'POST',
-  //       body: fd
-  //     }).then(r => r.json())
-  //     .then(obj => {
-  //       console.log(obj);
-  //       if (obj.success && obj.filename) {
-  //         $(".del-img").css("background", "rgb(82, 82, 82)");
-<<<<<<< Updated upstream
-  //         $("#preview_img1").attr("src", "./img/" + obj.filename);
-=======
-  //         preview_img1.src = './img/' + obj.filename;
->>>>>>> Stashed changes
-  //         $("#preview_img1").css("opacity", "1");
-  //         $("#img_url_post").val('./img/' + obj.filename);
-  //       }
-  //     });
-  // }
-
-  // img_url.onchange = sendData;
-
-<<<<<<< Updated upstream
-
-  $(".img-up-btn").on("click", function(){
-=======
   $(".img-up-btn").on("click", function() {
->>>>>>> Stashed changes
     // console.log($(this));
     let index = $(this).data("num");
     let this_img_src = $(".preview_img").eq(index);
@@ -423,13 +369,12 @@ $pagename = 'blog-content-add'; ?>
     console.log(index);
     console.log(this_img_src);
     console.log(this_input_value);
-<<<<<<< Updated upstream
+    // console.log(index);
+    // console.log(this_img_src);
+    // console.log(this_input_value);
     
-    $(".img_url").eq(index).change(function(){
-=======
 
     $(".img_url").eq(index).change(function() {
->>>>>>> Stashed changes
       let fd = new FormData(document.img_form[index]);
       fetch('blog-content-add-img-api.php', {
           method: 'POST',
@@ -438,28 +383,17 @@ $pagename = 'blog-content-add'; ?>
         .then(obj => {
           console.log(obj);
           if (obj.success && obj.filename) {
-<<<<<<< Updated upstream
             console.log(this_img_src );
-=======
             console.log(this_img_src);
->>>>>>> Stashed changes
+            // console.log(this_img_src );
             // console.log(this_input_value);
             this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
             this_input_value.val('./img/' + obj.filename);
           }
         });
-<<<<<<< Updated upstream
-      })
-
-      $(".img_url").eq(index).trigger("click");
-    
-  })
-
-=======
     })
 
     $(".img_url").eq(index).trigger("click");
 
   })
->>>>>>> Stashed changes
 </script>

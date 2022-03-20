@@ -1,10 +1,8 @@
 <?php
-$title = '文章後台-新增文章-api';
-$pagename = 'blog-content-add-api';
-?>
 
-<?php
 require __DIR__ . 'connect_db.php';
+
+echo json_encode($_POST); exit;
 
 header('Content-Type: application/json');
 // 輸出的資料格式
