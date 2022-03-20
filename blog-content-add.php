@@ -213,7 +213,7 @@ $pagename = 'blog-content-add'; ?>
 
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
-            <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" alt=""></button>
+            <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
             <button type="button" class="del-img"></button>
             <input type="hidden" id="img_url_post" name="img_url_post" value="">
           </div>
@@ -233,7 +233,7 @@ $pagename = 'blog-content-add'; ?>
           <div class="upload-imgs">
             <label for="" class="col-2">匯入圖庫</label>
             <div class="d-flex flex-column">
-              <button id="imgUpBtn01" type="button" class="img-up-btn" onclick="img_url01.click()">+<img id="preview_img1" src="" alt=""></button>
+              <button id="imgUpBtn" type="button" class="img-up-btn" data-num="1">+<img class="preview_img" src="" alt=""></button>
               <input type="hidden" id="img_url_post01" name="img_url_post01" value="">
 
               <input type="text" placeholder="請填入圖片說明">
@@ -241,14 +241,14 @@ $pagename = 'blog-content-add'; ?>
 
 
             <div class="d-flex flex-column">
-              <button id="imgUpBtn02" type="button" class="img-up-btn" onclick="img_url02.click()">+<img id="preview_img1" src="" alt=""></button>
+              <button id="imgUpBtn" type="button" class="img-up-btn" data-num="2">+<img class="preview_img" src="" alt=""></button>
               <input type="hidden" id="img_url_post02" name="img_url_post02" value="">
               <input type="text" placeholder="請填入圖片說明">
             </div>
 
 
             <div class="d-flex flex-column">
-              <button id="imgUpBtn03" type="button" class="img-up-btn" onclick="img_url03.click()">+<img id="preview_img1" src="" alt=""></button>
+              <button id="imgUpBtn" type="button" class="img-up-btn" data-num="3">+<img class="preview_img" src="" alt=""></button>
               <input type="hidden" id="img_url_post03" name="img_url_post03" value="">
               <input type="text" placeholder="請填入圖片說明">
             </div>
@@ -294,12 +294,21 @@ $pagename = 'blog-content-add'; ?>
 
         </form>
 
-
         <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         </form>
 
-        <form name="img_form" onsubmit="return false;" style="display: none;">
+        
+        <!-- <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" id="img_url01" name="img_url01" accept="image/jpeg,image/png">
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
@@ -307,7 +316,7 @@ $pagename = 'blog-content-add'; ?>
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" id="img_url03" name="img_url03" accept="image/jpeg,image/png">
-        </form>
+        </form> -->
       </div>
     </div>
   </div>
@@ -363,23 +372,55 @@ $pagename = 'blog-content-add'; ?>
 
   }
 
-  function sendData() {
-    const fd = new FormData(document.img_form);
+  // function sendData() {
+  //   const fd = new FormData(document.img_form);
 
-    fetch('blog-content-add-img-api.php', {
-        method: 'POST',
-        body: fd
-      }).then(r => r.json())
-      .then(obj => {
-        console.log(obj);
-        if (obj.success && obj.filename) {
-          $(".del-img").css("background", "rgb(82, 82, 82)");
-          preview_img1.src = './img/' + obj.filename;
-          $("#preview_img1").css("opacity", "1");
-          $("#img_url_post").val('./img/' + obj.filename);
-        }
-      });
-  }
+  //   fetch('blog-content-add-img-api.php', {
+  //       method: 'POST',
+  //       body: fd
+  //     }).then(r => r.json())
+  //     .then(obj => {
+  //       console.log(obj);
+  //       if (obj.success && obj.filename) {
+  //         $(".del-img").css("background", "rgb(82, 82, 82)");
+  //         $("#preview_img1").attr("src", "./img/" + obj.filename);
+  //         $("#preview_img1").css("opacity", "1");
+  //         $("#img_url_post").val('./img/' + obj.filename);
+  //       }
+  //     });
+  // }
 
-  img_url.onchange = sendData;
+  // img_url.onchange = sendData;
+
+
+  $(".img-up-btn").on("click", function(){
+    // console.log($(this));
+    let index = $(this).data("num");
+    let this_img_src = $(".preview_img").eq(index);
+    let this_input_value = $(this).next();
+    console.log(index);
+    console.log(this_img_src);
+    console.log(this_input_value);
+    
+    $(".img_url").eq(index).change(function(){
+      let fd = new FormData(document.img_form[index]);
+      fetch('blog-content-add-img-api.php', {
+          method: 'POST',
+          body: fd
+        }).then(r => r.json())
+        .then(obj => {
+          console.log(obj);
+          if (obj.success && obj.filename) {
+            console.log(this_img_src );
+            // console.log(this_input_value);
+            this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
+            this_input_value.val('./img/' + obj.filename);
+          }
+        });
+      })
+
+      $(".img_url").eq(index).trigger("click");
+    
+  })
+
 </script>
