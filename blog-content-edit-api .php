@@ -1,6 +1,6 @@
 <?php
-$title = '文章後台-新增文章-api';
-$pagename = 'blog-content-add-api';
+$title = '文章後台-編輯文章-api';
+$pagename = 'blog-content-edit-api';
 ?>
 
 <?php

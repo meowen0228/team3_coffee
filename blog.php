@@ -23,7 +23,7 @@ if ($totalRows) {
     exit;
   }
   // SELECT * FROM blog_photos.fk_blog_id ORDER BY url
-  $sql = sprintf(" SELECT blogs.id as id, url, title,CREATEd_at
+  $sql = sprintf(" SELECT blogs.id, url, title,CREATEd_at
   FROM  blog_photos
   JOIN  blogs
   ON blogs.id = blog_photos.fk_blog_id ORDER BY blogs.id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
@@ -164,7 +164,7 @@ $first = [];
                 <td class="date01"><?= $r['CREATEd_at'] ?></td>
                 <td>
                   <button type="button" class="btn btn-light">
-                    <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
+                    <a href="blog-content-edit.php?sid=<?= $r['id'] ?>">編輯文章</a>
                   </button>
                 </td>
               </tr>

@@ -208,14 +208,14 @@ $pagename = 'blog-content-add'; ?>
         <h2>文章/類別管理/新增文章</h2>
         <input type="hidden" a href="blog-content-add.php?id=<?= $r['id'] ?>">
 
-        <form name="form1" class="blog-content-add-form" method="post" novalidate onsubmit="checkForm(); return false;">
+        <form class="blog-content-add-form" action="">
 
 
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
             <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
             <button type="button" class="del-img"></button>
-            <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+            <input type="hidden" id="img_url_post" name="img_url_post" value="">
           </div>
 
           <br>
@@ -234,7 +234,7 @@ $pagename = 'blog-content-add'; ?>
             <label for="" class="col-2">匯入圖庫</label>
             <div class="d-flex flex-column">
               <button id="imgUpBtn" type="button" class="img-up-btn" data-num="1">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+              <input type="hidden" id="img_url_post01" name="img_url_post01" value="">
 
               <input type="text" placeholder="請填入圖片說明">
             </div>
@@ -242,14 +242,14 @@ $pagename = 'blog-content-add'; ?>
 
             <div class="d-flex flex-column">
               <button id="imgUpBtn" type="button" class="img-up-btn" data-num="2">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+              <input type="hidden" id="img_url_post02" name="img_url_post02" value="">
               <input type="text" placeholder="請填入圖片說明">
             </div>
 
 
             <div class="d-flex flex-column">
               <button id="imgUpBtn" type="button" class="img-up-btn" data-num="3">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+              <input type="hidden" id="img_url_post03" name="img_url_post03" value="">
               <input type="text" placeholder="請填入圖片說明">
             </div>
           </div>
@@ -308,6 +308,15 @@ $pagename = 'blog-content-add'; ?>
         </form>
 
         
+        <!-- <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" id="img_url01" name="img_url01" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" id="img_url02" name="img_url02" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" id="img_url03" name="img_url03" accept="image/jpeg,image/png">
+        </form> -->
       </div>
     </div>
   </div>
@@ -363,14 +372,35 @@ $pagename = 'blog-content-add'; ?>
 
   }
 
+  // function sendData() {
+  //   const fd = new FormData(document.img_form);
+
+  //   fetch('blog-content-add-img-api.php', {
+  //       method: 'POST',
+  //       body: fd
+  //     }).then(r => r.json())
+  //     .then(obj => {
+  //       console.log(obj);
+  //       if (obj.success && obj.filename) {
+  //         $(".del-img").css("background", "rgb(82, 82, 82)");
+  //         $("#preview_img1").attr("src", "./img/" + obj.filename);
+  //         $("#preview_img1").css("opacity", "1");
+  //         $("#img_url_post").val('./img/' + obj.filename);
+  //       }
+  //     });
+  // }
+
+  // img_url.onchange = sendData;
+
+
   $(".img-up-btn").on("click", function(){
     // console.log($(this));
     let index = $(this).data("num");
     let this_img_src = $(".preview_img").eq(index);
     let this_input_value = $(this).next();
-    // console.log(index);
-    // console.log(this_img_src);
-    // console.log(this_input_value);
+    console.log(index);
+    console.log(this_img_src);
+    console.log(this_input_value);
     
     $(".img_url").eq(index).change(function(){
       let fd = new FormData(document.img_form[index]);
@@ -381,7 +411,7 @@ $pagename = 'blog-content-add'; ?>
         .then(obj => {
           console.log(obj);
           if (obj.success && obj.filename) {
-            // console.log(this_img_src );
+            console.log(this_img_src );
             // console.log(this_input_value);
             this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
             this_input_value.val('./img/' + obj.filename);

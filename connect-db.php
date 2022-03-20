@@ -2,8 +2,8 @@
 
 $db_host = 'localhost';
 $db_user = 'root';
-$db_pass = '12250710';
-$db_name = 'team3';
+$db_pass = 'Passw0rd!';
+$db_name = 'house_coffee';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 
