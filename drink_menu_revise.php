@@ -74,14 +74,19 @@ $row = $pdo->query($sql)->fetch();
                         </div>
                     </div>
                     <div class="mb-4">圖片上傳：</div>
-                    <div class="row g-4 mb-3 align-items-center">
-                        <div class="col-3">
-                            <div class="box">
+                        <div class="row g-4 mb-3 align-items-center">
+                    
+                            <div class="col-3">
+                                <div class="box upImg">
                                 <button type="button" onclick="img_url.click()">上傳圖片</button>
-                                <img id="preview_img1" src="" style="width: 100%;">
-                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?= htmlentities($row['url']) ?>">
+
+                                <img id="preview_img1" src="<?=$row['url'] ?>"   style="width: 100%;">
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?=$row['url']?>">
+
                             </div>
                         </div>
+                    
+                
                     </div>
                     
                     <div class="row g-4 mt-4 mb-4 ">
@@ -114,8 +119,8 @@ $row = $pdo->query($sql)->fetch();
 
 </main>
 <script>
-    // const drink_name = document.form.drink_name; // DOM element
-    // const drink_name_msg = drink_name.closest('.mb-3').querySelector('.form-text');
+    const drink_name = document.form.drink_name; // DOM element
+    const drink_name_msg = drink_name.closest('.mb-3').querySelector('.form-text');
 
     // const price = document.form.price;
     // const price_msg = price.closest('.mb-3').querySelector('.form-text');
@@ -126,15 +131,15 @@ $row = $pdo->query($sql)->fetch();
         function checkForm(){
         let isPass = true; // 有沒有通過檢查
 
-        // drink_name_msg.innerText = '';  // 清空訊息
+        drink_name_msg.innerText = '';  // 清空訊息
         // price_msg.innerText = '';  // 清空訊息
         // content_msg.innerText = ''; // 清空訊息
         // TODO: 表單資料送出之前, 要做格式檢查
 
-        // if(drink_name.value.length<1){
-        //     isPass = false;
-        //     drink_name_msg.innerText = '商品名稱不能為空'
-        // }
+        if(drink_name.value.length<1){
+            isPass = false;
+            drink_name_msg.innerText = '商品名稱不能為空'
+        }
 
         // const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
         // if(mobile.value){
