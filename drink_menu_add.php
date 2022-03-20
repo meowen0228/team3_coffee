@@ -115,7 +115,9 @@ $row = $pdo->query($sql)->fetchAll();
 
 </main>
 <script>
-function sendData(){
+img_url.onchange = sendData;
+
+    function sendData(){
         const fd = new FormData(document.img_form);
 
         fetch('drink_menu_add_img_api.php', {
@@ -126,60 +128,29 @@ function sendData(){
             console.log(obj);
             if(obj.success && obj.filename){
                 preview_img1.src = './img/menu/'+ obj.filename;
-                // console.log('./img/shop/' + obj.filename);
                 $("#img_url_post").val('./img/menu/'+ obj.filename);
-                // img_url_post.value = './img/shop/'+ obj.filename;
             }
         });
-    }
-    img_url.onchange = sendData;
+    } 
 
 
-    // const drink_name = document.form.drink_name; // DOM element
-    // const drink_name_msg = drink_name.closest('.mb-3').querySelector('.form-text');
+        const name = document.form.name; // DOM element
+        const_msg = name.closest('.mb-3').querySelector('.form-text');
 
-    // const price = document.form.price;
-    // const price_msg = price.closest('.mb-3').querySelector('.form-text');
 
-    // const content = document.form.content;
-    // const content_msg = content.closest('.mb-3').querySelector('.form-text');
-
-        function checkForm(){
+    function checkForm(){
         let isPass = true; // 有沒有通過檢查
 
-        // drink_name_msg.innerText = '';  // 清空訊息
-        // price_msg.innerText = '';  // 清空訊息
-        // content_msg.innerText = ''; // 清空訊息
-        // TODO: 表單資料送出之前, 要做格式檢查
-
-        // if(drink_name.value.length<1){
-        //     isPass = false;
-        //     drink_name_msg.innerText = '商品名稱不能為空'
-        // }
-
-        // const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
-        // if(mobile.value){
-        //     // 如果不是空字串就檢查格式
-        //     if(! mobile_re.test(mobile.value)){
-        //         mobile_msg.innerText = '請輸入正確的手機號碼';
-        //         isPass = false;
-        //     }
-        // }
-
-        // function sendData(){
-        // const fd = new FormData(document.img_form);
-
-        
+        if(name.value == ''){
+            isPass = false;
+            const_msg = '請填寫正確的姓名'
+        }
 
 
-
-
-
-
+        // name_msg.innerText
 
         if(isPass){
             const fd = new FormData(document.form);
-
             fetch('drink_menu_add_api.php', {
                 method: 'POST',
                 body: fd
@@ -192,13 +163,8 @@ function sendData(){
                 } else {
                     alert('新增失敗');
                 }
-
             })
-
-
         }
-
-
     }
 
 
