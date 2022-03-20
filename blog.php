@@ -69,19 +69,21 @@ $first = [];
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
-    /* background-color: #F2F2F2; */
     border: 1px solid #000000;
     position: relative;
     top: 0px;
     border-radius: 10px;
+
+  }
+
+  .sort li {
+    list-style: none;
+
   }
 
   .blog-form button {
     display: inline-block;
     font-size: 15px;
-    /* text-align: center; */
-    /* background-color: #EFECEA;
-    color: #000000; */
     padding-top: 6px;
     padding-bottom: 6px;
     padding-left: 10px;
@@ -120,20 +122,25 @@ $first = [];
       <form class="blog-form">
 
 
-        <div class="assort">
+        <!-- <div class="assort">
           <button class="btn btn-outline-secondary">新增主類別</button>
           <button class="btn btn-outline-secondary">修改主類別</button>
           <button class="btn btn-outline-secondary">刪除主類別</button>
-        </div>
+        </div> -->
+        <br />
         <div class="sort" id="head-tabs">
-          <span>主類別</span>
+          <ul class="list-group list-group-horizontal-md">
+            <span>主類別</span>
 
-          <button class="btn btn-outline-secondary"><a href="#" data-target="tab01">咖啡篇</a></button>
-          <button class="btn btn-outline-secondary"><a href="#" data-target="tab02">沖煮篇</a></button>
-          <button class="btn btn-outline-secondary"><a href="#" data-target="tab03">咖啡豆篇</a></button>
-          <button class="btn btn-outline-secondary"><a href="#" data-target="tab04">名人專欄篇</a></button>
-          <button class="btn btn-outline-secondary"><a href="#" data-target="tab05">好物分享篇</a></button>
+            <li><button class=" btn btn-outline-secondary"><a href="#tab-1" data-target="tab01">咖啡篇</a></button></li>
+            <li><button class="btn btn-outline-secondary"><a href="#tab-2" data-target="tab02">沖煮篇</a></button></li>
+            <li><button class="btn btn-outline-secondary"><a href="#tab-3" data-target="tab03">咖啡豆篇</a></button></li>
+            <li> <button class="btn btn-outline-secondary"><a href="#tab-4" data-target="tab04">名人專欄篇</a></button></li>
+            <li><button class="btn btn-outline-secondary"><a href="#tab-5" data-target="tab05">好物分享篇</a></button></li>
+          </ul>
         </div>
+
+
         <br>
         <br>
         <br>
@@ -196,3 +203,9 @@ $first = [];
 
 <?php include __DIR__ . './layout/scripts.php'; ?>
 <?php include __DIR__ . './layout//html-foot.php'; ?>
+
+<script>
+  $(document).ready(function() {
+    $("#tabs").head - tabs();
+  });
+</script>

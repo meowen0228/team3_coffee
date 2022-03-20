@@ -238,8 +238,42 @@ VALUES
 ('2','./img/2pourover20001.jpg','pourover-photo001'),
 ('3','./img/3beans30001.jpg','beans-photo001'),
 ('4','./img/4celebrity40001.jpg','celebrity-photo001'),
-('5','./img/5share50001.png','share-photo001');
+('5','./img/5share50001.jpg','share-photo001'),
 
+
+('1','./img/1coffee10002.jpg','coffee-photo002'),
+('2','./img/2pourover20002.jpg','pourover-photo002'),
+('3','./img/3beans30002.jpg','beans-photo002'),
+('4','./img/4celebrity40002.jpg','celebrity-photo002'),
+('5','./img/5share50001.jpg','share-photo002'),
+
+
+
+
+('1','./img/1coffee10003.jpg','coffee-photo003'),
+('2','./img/2pourover20003.jpg','pourover-photo003'),
+('3','./img/3beans30003.jpg','beans-photo003'),
+('4','./img/4celebrity40003.jpg','celebrity-photo003'),
+('5','./img/5share50003.jpg','share-photo003'),
+('5','./img/5share50004.jpg','share-photo004'),
+
+
+
+('1','./img/1coffee10004.jpg','coffee-photo004'),
+('2','./img/2pourover20004.jpg','pourover-photo004'),
+('3','./img/3beans30004.jpg','beans-photo004'),
+('4','./img/4celebrity40004.jpg','celebrity-photo004'),
+
+
+
+('1','./img/1coffee10005.jpg','coffee-photo005'),
+('2','./img/2pourover20005.jpg','pourover-photo005'),
+('3','./img/3beans30005.jpg','beans-photo005'),
+('4','./img/4celebrity40005.jpg','celebrity-photo005'),
+('5','./img/5share50005.jpg','share-photo005'),
+
+
+('3','./img/3beans30006.jpg','beans-photo006');
 
 
 -- 文章列表

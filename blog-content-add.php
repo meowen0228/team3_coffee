@@ -69,7 +69,6 @@ $pagename = 'blog-content-add'; ?>
     content: 'x';
     display: block;
     position: absolute;
-
     top: -5px;
     right: 5px;
   }
@@ -82,6 +81,10 @@ $pagename = 'blog-content-add'; ?>
   .sort label {
     line-height: 52px;
     transform: matrix(1, 0, 0.01, 1, 0, 0);
+  }
+
+  .button[type="radio"]:checked {
+    color: #CFCFCF;
   }
 
   .upload-imgs button {
@@ -133,6 +136,7 @@ $pagename = 'blog-content-add'; ?>
     line-height: 60px;
   }
 
+
   .img-up-btn {
     width: 150px;
     line-height: 150px;
@@ -141,6 +145,17 @@ $pagename = 'blog-content-add'; ?>
     border: 1px solid #000000;
     border-radius: 10px;
     position: relative;
+  }
+
+  .img-up-btn00 img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
   }
 
   .img-up-btn img {
@@ -170,7 +185,7 @@ $pagename = 'blog-content-add'; ?>
   .del-img::after,
   .del-img::before {
     content: '';
-    display: block;
+    display: inline-block;
     background: rgb(239, 239, 239);
     width: 4px;
     height: 20px;
@@ -213,7 +228,11 @@ $pagename = 'blog-content-add'; ?>
 
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
+<<<<<<< Updated upstream
             <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
+=======
+            <button style="top: 20px" id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
+>>>>>>> Stashed changes
             <button type="button" class="del-img"></button>
             <input type="hidden" id="img_url_post" name="img_url_post" value="">
           </div>
@@ -222,11 +241,11 @@ $pagename = 'blog-content-add'; ?>
 
           <div class="sort">
             <label for="" class="col-2">類別</label>
-            <button type="button" class="btn btn-outline-secondary" value="">咖啡篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">沖煮篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">咖啡豆篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">名人專欄篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">好物分享篇</button>
+            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="1">咖啡篇</button>
+            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="2">沖煮篇</button>
+            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="3">咖啡豆篇</button>
+            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="4">名人專欄篇</button>
+            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="5">好物分享篇</button>
           </div>
           <br>
 
@@ -275,16 +294,16 @@ $pagename = 'blog-content-add'; ?>
           <br>
 
 
-          <div class="tags">
+          <!-- <div class="tags">
             <label for="" class="col-2" name="tags" value="">標籤</label>
             <input type="text" placeholder="#請填入標籤" value="#咖啡好事">
             <input type="text" placeholder="#請填入標籤" value="">
             <input type="text" placeholder="#請填入標籤" value="">
           </div>
-          <br>
+          <br> -->
           <div class="down-button">
 
-            <button type="button" class=" btn btn-outline-secondary col-3"><i class="back button fa-solid fa-arrow-rotate-left"> 返回</i></button>
+            <button type="button" class=" btn btn-outline-secondary col-3" onclick="history.back()" value="回到上一頁"><i class="back button fa-solid fa-arrow-rotate-left"> 返回</i></button>
 
             <button type="submit" class=" btn btn-outline-secondary  col-3"><i class="fa-solid fa-plus"> 新增</i></button>
 
@@ -299,6 +318,7 @@ $pagename = 'blog-content-add'; ?>
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+<<<<<<< Updated upstream
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
@@ -310,13 +330,23 @@ $pagename = 'blog-content-add'; ?>
         
         <!-- <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" id="img_url01" name="img_url01" accept="image/jpeg,image/png">
+=======
+>>>>>>> Stashed changes
         </form>
+
         <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" id="img_url02" name="img_url02" accept="image/jpeg,image/png">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         </form>
+
         <form name="img_form" onsubmit="return false;" style="display: none;">
+<<<<<<< Updated upstream
           <input type="file" id="img_url03" name="img_url03" accept="image/jpeg,image/png">
         </form> -->
+=======
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        </form>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>
@@ -326,29 +356,13 @@ $pagename = 'blog-content-add'; ?>
 <?php include __DIR__ . './layout//html-foot.php'; ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 <script>
   CKEDITOR.replace('editor01');
 
-  // const mobile = document.blog-content-add-form.mobile; // DOM element
-  // const mobile_msg = mobile.closest('.mb-3').querySelector('.form-text');
-
-  // const name = document.form.name;
-  // const name_msg = name.closest('.mb-3').querySelector('.form-text');
 
   function checkForm() {
-    let isPass = true; // 有沒有通過檢查
-
-    // name_msg.innerText = ''; // 清空訊息
-    // mobile_msg.innerText = ''; // 清空訊息
-
-    // TODO: 表單資料送出之前, 要做格式檢查
-
-    // if (name.value.length < 2) {
-    //   isPass = false;
-    //   name_msg.innerText = '請填寫正確的姓名'
-    // }
-
-
+    let isPass = true;
     if (isPass) {
       const fd = new FormData(document.form1);
 
@@ -383,7 +397,11 @@ $pagename = 'blog-content-add'; ?>
   //       console.log(obj);
   //       if (obj.success && obj.filename) {
   //         $(".del-img").css("background", "rgb(82, 82, 82)");
+<<<<<<< Updated upstream
   //         $("#preview_img1").attr("src", "./img/" + obj.filename);
+=======
+  //         preview_img1.src = './img/' + obj.filename;
+>>>>>>> Stashed changes
   //         $("#preview_img1").css("opacity", "1");
   //         $("#img_url_post").val('./img/' + obj.filename);
   //       }
@@ -392,8 +410,12 @@ $pagename = 'blog-content-add'; ?>
 
   // img_url.onchange = sendData;
 
+<<<<<<< Updated upstream
 
   $(".img-up-btn").on("click", function(){
+=======
+  $(".img-up-btn").on("click", function() {
+>>>>>>> Stashed changes
     // console.log($(this));
     let index = $(this).data("num");
     let this_img_src = $(".preview_img").eq(index);
@@ -401,8 +423,13 @@ $pagename = 'blog-content-add'; ?>
     console.log(index);
     console.log(this_img_src);
     console.log(this_input_value);
+<<<<<<< Updated upstream
     
     $(".img_url").eq(index).change(function(){
+=======
+
+    $(".img_url").eq(index).change(function() {
+>>>>>>> Stashed changes
       let fd = new FormData(document.img_form[index]);
       fetch('blog-content-add-img-api.php', {
           method: 'POST',
@@ -411,16 +438,28 @@ $pagename = 'blog-content-add'; ?>
         .then(obj => {
           console.log(obj);
           if (obj.success && obj.filename) {
+<<<<<<< Updated upstream
             console.log(this_img_src );
+=======
+            console.log(this_img_src);
+>>>>>>> Stashed changes
             // console.log(this_input_value);
             this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
             this_input_value.val('./img/' + obj.filename);
           }
         });
+<<<<<<< Updated upstream
       })
 
       $(".img_url").eq(index).trigger("click");
     
   })
 
+=======
+    })
+
+    $(".img_url").eq(index).trigger("click");
+
+  })
+>>>>>>> Stashed changes
 </script>
