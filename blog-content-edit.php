@@ -1,6 +1,27 @@
 <?php
+
+require 'connect-db.php';
+
 $title = '文章後台-編輯文章';
 $pagename = 'blog-content-edit';
+
+$id = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : 0;
+
+$sql ="SELECT
+blogs.id as id,
+fk_type_id,
+types_name,
+title,
+CREATEd_at,
+content
+FROM blogs
+left join blog_types on blog_types.id = blogs.fk_type_id WHERE blogs.id = $id";
+$row = $pdo->query($sql)->fetch();
+
+$sql_photo = "SELECT `url`, `photo_alt`, ROW_NUMBER() OVER(ORDER BY id) AS ROWID FROM `blog_photos` WHERE `fk_blog_id` = $id;";
+$row_photo = $pdo->query($sql_photo)->fetch();
+
+$row_photo_other = $pdo->query($sql_photo)->fetchAll();
 ?>
 
 <?php include __DIR__ . './layout/html-head.php'; ?>
@@ -205,93 +226,96 @@ $pagename = 'blog-content-edit';
     <div class="row">
       <div>
         <h2>文章/類別管理/編輯文章</h2>
-        <input type="hidden" a href="blog-content-edit.php?sid=<?= $r['id'] ?>">
-
-        <form class="blog-content-edit-form" action="">
-
+        
+        <form name="form1" class="blog-content-edit-form" method="post" novalidate onsubmit="checkForm(); return false;">
+          
+          <input type="hidden" name="id" value="<?= $row['id'] ?>">
 
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
-            <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" alt=""></button>
-            <button type="button" class="del-img"></button>
-            <input type="hidden" id="img_url_post" name="img_url_post" value="">
+            <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="<?= $row_photo['url'] ?>" alt="main" style="opacity: 1;"></button>
+            <input type="hidden" id="img_url_post" name="img_url_post[]" value="<?= $row_photo['url'] ?>">
+            <input type="hidden" id="img_url_post" name="photo_alt[]" value="main">
           </div>
 
           <br>
 
           <div class="sort">
             <label for="" class="col-2">類別</label>
-            <button type="button" class="btn btn-outline-secondary" value="">咖啡篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">沖煮篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">咖啡豆篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">名人專欄篇</button>
-            <button type="button" class="btn btn-outline-secondary" value="">好物分享篇</button>
+            <div class="me-3">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="1" <?php if ($row['fk_type_id'] == 1) { ?> checked <?php } ?>>咖啡篇</input>
+            </div>
+            <div class="me-3">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="2" <?php if ($row['fk_type_id'] == 2) { ?> checked <?php } ?>>沖煮篇</input>
+            </div>
+            <div class="me-3">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="3" <?php if ($row['fk_type_id'] == 3) { ?> checked <?php } ?>>咖啡豆篇</input>
+            </div>
+            <div class="me-3">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="4" <?php if ($row['fk_type_id'] == 4) { ?> checked <?php } ?>>名人專欄篇</input>
+            </div>
+            <div class="me-3">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="5" <?php if ($row['fk_type_id'] == 5) { ?> checked <?php } ?>>好物分享篇</input>
+            </div>
           </div>
           <br>
 
           <div class="upload-imgs">
             <label for="" class="col-2">匯入圖庫</label>
-            <div class="d-flex flex-column">
-              <button>+</button>
-              <img>
-              <input type="text" placeholder="請填入圖片說明">
-            </div>
-
-
-            <div class="d-flex flex-column">
-              <button>+</button>
-              <img>
-              <input type="text" placeholder="請填入圖片說明">
-            </div>
-
-
-            <div class="d-flex flex-column">
-              <button>+</button>
-              <img>
-              <input type="text" placeholder="請填入圖片說明">
-            </div>
+            <?php $num = 0 ?>
+            <?php foreach ($row_photo_other as $r) :?>
+              <?php if ($r['ROWID']!=1){ ?>
+                <div class="d-flex flex-column">
+                  <button id="imgUpBtn" type="button" class="img-up-btn" data-num="<?= $num+=1 ?>">+<img class="preview_img" src="<?= $r['url'] ?>" alt="<?= $r['photo_alt'] ?>" style="opacity: 1;"></button>
+                  <input type="hidden" id="img_url_post" name="img_url_post[]" value="<?= $r['url'] ?>">
+                  <input type="text" name="photo_alt[]" value="<?= $r['photo_alt'] ?>" placeholder="請填入圖片說明">
+                </div>
+            <?php } endforeach ?>
           </div>
           <br>
 
           <div class="title">
             <label for="" class="col-2">標題</label>
-            <input type="text" placeholder="請輸入文章標題">
+            <input type="text" placeholder="請輸入文章標題" name="title" value="<?= $row['title'] ?>">
           </div>
           <br>
 
           <div class="date">
             <label for="" class="col-2">發佈日期</label>
-            <input type="datetime-local">
+            <input type="text" name="time" value="<?= $row['CREATEd_at'] ?>">
           </div>
           <br>
 
 
           <div class="content">
             <label for="" class="col-2">文章內容</label>
-            <textarea id="editor01"></textarea>
+            <textarea id="editor01" name="content" value="<?= $row['content'] ?>"><?= $row['content'] ?>"</textarea>
           </div>
           <br>
 
 
-          <div class="tags">
-            <label for="" class="col-2">標籤</label>
-            <input type="text" placeholder="#請填入標籤" value="#咖啡好事">
-            <input type="text" placeholder="#請填入標籤" value="">
-            <input type="text" placeholder="#請填入標籤" value="">
-          </div>
           <br>
 
           <div class="down-button">
 
-            <button type="button" class=" btn btn-outline-secondary col-3"><i class="back button fa-solid fa-arrow-rotate-left"> 返回</i></button>
-            <button type="button" class=" btn btn-outline-secondary col-3"><i class="fa-solid fa-pencil"> 修改</i></button>
+            <button type="button" class=" btn btn-outline-secondary col-3 back-btn"><i class="back button fa-solid fa-arrow-rotate-left">返回</i></button>
+            <button type="submit" class=" btn btn-outline-secondary col-3"><i class="fa-solid fa-pencil"> 修改</i></button>
 
           </div>
 
         </form>
 
         <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         </form>
       </div>
     </div>
@@ -302,25 +326,85 @@ $pagename = 'blog-content-edit';
 <?php include __DIR__ . './layout//html-foot.php'; ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
+
+  $(".back-btn").click(function(){
+    alert("確定要返回嗎?");
+    location.href='blog.php';
+  })
+  
   CKEDITOR.replace('editor01');
 
-  function sendData() {
-    const fd = new FormData(document.img_form);
+  // const mobile = document.blog-content-add-form.mobile; // DOM element
+  // const mobile_msg = mobile.closest('.mb-3').querySelector('.form-text');
 
-    fetch('blog-content-add-img-api.php', {
-        method: 'POST',
-        body: fd
-      }).then(r => r.json())
-      .then(obj => {
-        console.log(obj);
-        if (obj.success && obj.filename) {
-          $(".del-img").css("background", "rgb(82, 82, 82)");
-          preview_img1.src = './img/' + obj.filename;
-          $("#preview_img1").css("opacity", "1");
-          $("#img_url_post").val('./img/' + obj.filename);
-        }
-      });
+  // const name = document.form.name;
+  // const name_msg = name.closest('.mb-3').querySelector('.form-text');
+
+  function checkForm() {
+    let isPass = true; // 有沒有通過檢查
+
+    // name_msg.innerText = ''; // 清空訊息
+    // mobile_msg.innerText = ''; // 清空訊息
+
+    // TODO: 表單資料送出之前, 要做格式檢查
+
+    // if (name.value.length < 2) {
+    //   isPass = false;
+    //   name_msg.innerText = '請填寫正確的姓名'
+    // }
+
+
+    if (isPass) {
+      const fd = new FormData(document.form1);
+
+      fetch('blog-content-edit-api.php', {
+          method: 'POST',
+          body: fd
+        }).then(r => r.text())
+        .then(obj => {
+          console.log(obj);
+          if (obj.success) {
+            alert('修改成功');
+
+          } else {
+            alert('沒有修改');
+          }
+
+        })
+
+
+    }
+
   }
 
-  img_url.onchange = sendData;
+  $(".img-up-btn").on("click", function(){
+    // console.log($(this));
+    let index = $(this).data("num");
+    let this_img_src = $(".preview_img").eq(index);
+    let this_input_value = $(this).next();
+    console.log(index);
+    console.log(this_img_src);
+    console.log(this_input_value);
+    
+    $(".img_url").eq(index).change(function(){
+      let fd = new FormData(document.img_form[index]);
+      fetch('blog-content-add-img-api.php', {
+          method: 'POST',
+          body: fd
+        }).then(r => r.json())
+        .then(obj => {
+          console.log(obj);
+          if (obj.success && obj.filename) {
+            console.log(this_img_src );
+            console.log(this_input_value);
+            this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
+            this_input_value.val('./img/' + obj.filename);
+          }
+        });
+      })
+
+      $(".img_url").eq(index).trigger("click");
+    
+  })
+
 </script>
