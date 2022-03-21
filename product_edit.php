@@ -74,7 +74,7 @@ if (empty($id )) {
                 <form name="form1" class="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1" <?php if ($row['status'] == 1) { ?> checked <?php } ?>>
+                            <input class="form-check-input" type="radio" name="status" id="productstatus" value="1" <?php if ($row['status'] == 1) { ?> checked <?php } ?>>
                             <label class="form-check-label" for="productstatus">上架</label>
                         </div>
                         <div class="form-check form-check-inline">
