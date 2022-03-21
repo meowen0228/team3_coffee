@@ -63,6 +63,7 @@ $row = $pdo->query($sql)->fetchAll();
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control typing" id="name" name="drink_name" required value="" >
+                            <div class="form-text"></div>
                         </div>
                     </div>
                     <div class="row g-4 mb-3 align-items-center">
@@ -71,6 +72,7 @@ $row = $pdo->query($sql)->fetchAll();
                         </div>
                         <div class="col-8">
                             <input type="int" id="price" name="price" class="form-control typing" value="">
+                            <div class="form-text"></div>
                         </div>
                     </div>
                     <div class="mb-4">圖片上傳：</div>
@@ -135,7 +137,11 @@ img_url.onchange = sendData;
 
 
         const name = document.form.name; // DOM element
-        const_msg = name.closest('.mb-3').querySelector('.form-text');
+        const name_msg = name.closest('.mb-3').querySelector('.form-text');
+
+
+        // $('#name');
+        // console.log($('#name'));
 
 
     function checkForm(){
@@ -143,7 +149,7 @@ img_url.onchange = sendData;
 
         if(name.value == ''){
             isPass = false;
-            const_msg = '請填寫正確的姓名'
+            name_msg.innerText = '請填寫正確的姓名'
         }
 
 
