@@ -170,7 +170,7 @@ img_url.onchange = sendData;
         const name = document.form.name; // DOM element
         const name_msg = name.closest('.mb-3').querySelector('.form-text');
         const price = document.form.price;
-        const name_msg = name.closest('.mb-3').querySelector('.form-text');
+        const price_msg = price.closest('.mb-3').querySelector('.form-text');
 
         // $('#name');
         // console.log($('#name'));
@@ -181,9 +181,13 @@ img_url.onchange = sendData;
 
         if(name.value == ''){
             isPass = false;
-            name_msg.innerText = '請填寫正確的姓名'
+            name_msg.innerText = '請入正確的姓名'
+            location.href = 'drink_menu.php';
         }
-
+        if(price.value == ''){
+            isPass = false;
+            price_msg.innerText = '請輸入價格'
+        }
 
         // name_msg.innerText
 
