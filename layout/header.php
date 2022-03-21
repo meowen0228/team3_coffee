@@ -7,7 +7,7 @@ $u_sql = "SELECT COUNT(1) FROM user_ask WHERE ans IN ('')";
 $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
 ?>
   <header class="admin-header d-flex shadow fixed-top row">
-    <div class="col-1 admin-header"> 
+    <div class="col-1 admin-header">
         <a href="home_.php">
           <img src="./layout/icon/coffee_bean.png" alt="">
         </a>
@@ -16,11 +16,9 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
    
           
     <div class="col-1 ">
-      <div id="belldiv">
-        <i class="fa-solid fa-bell d-flex flex-column" ></i>
-        <span id="bell123"><?= $total_o+$total_u ?></span>
-      </div>
-      
+      <i class="fa-solid fa-bell d-flex flex-column" >
+      <div id="bell123"><?= $total_o+$total_u ?></div>
+      </i>
       <div id="bell" >
         <a href="order_list.php" class="a_php">
         <div class="notify" onclick="od_no()">

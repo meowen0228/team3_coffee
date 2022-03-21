@@ -19,28 +19,13 @@ body{
 .fa-trash-can:hover{
     color: red;
 }
-.fa-bell{
-    margin: auto;
-}
 #bell123{
-    position:absolute;
     width: 20px;
     height: 20px;
-    border-radius:50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    right: -5px;
-    top: 15px;
-    
-    background-color: rgba(255, 0, 0, 0.8);
-    
+    background-color: red;
+    border-radius: 50px; 
     font-size: 15px;
     float:right; 
-}
-#belldiv{
-    display: inline-block;
-    position:relative;
 }
 
 /* -------- header -------- */
@@ -79,10 +64,9 @@ body{
     display: inline-block;
 }
 #bell{
-    position:absolute;
     font-size: 12px;
     background-color: #EFECEA;
-    /* float:left;  */
+    float:left; 
     border-radius: 5px;
     display: none;
     /* width: 120%;
