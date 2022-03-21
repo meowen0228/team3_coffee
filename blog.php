@@ -143,59 +143,60 @@ $first = [];
 
         <br>
         <br>
-        <br>
+
         <div>
           <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</a></button>
-          <button class="btn btn-outline-secondary">刪除文章</button>
+          <button type="submit" class="btn btn-outline-secondary">刪除文章</button>
         </div>
 
 
         <br>
-        <table class="table">
-          <thead>
-            <tr>
-              <th><input type="checkbox"></th>
-              <th>縮圖</th>
-              <th>標題</th>
-              <th>時間</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($rows as $r) : ?>
+        <form method="post" name="table" id="table" action="blog-delete.php">
+          <table class="table">
+            <thead>
               <tr>
-                <td><input type="checkbox"></td>
-                <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt="">
-                <td>
-                <td><?= $r['title'] ?></td>
-                <td class="date01"><?= $r['CREATEd_at'] ?></td>
-                <td>
-                  <button type="button" class="btn btn-light">
-                    <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
-                  </button>
-                </td>
+                <th><input class="ck" type="checkbox" name="checkbox[]" value="全選" id="checkbox_0"></th>
+                <th>縮圖</th>
+                <th>標題</th>
+                <th>時間</th>
+                <th></th>
               </tr>
-            <?php endforeach ?>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <?php foreach ($rows as $r) : ?>
+                <tr>
+                  <td><input type="checkbox" name="checkbox[]" value="單項" id="checkbox-1"></td>
+                  <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt="">
+                  <td>
+                  <td><?= $r['title'] ?></td>
+                  <td class="date01"><?= $r['CREATEd_at'] ?></td>
+                  <td>
+                    <button type="button" class="btn btn-light">
+                      <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
+                    </button>
+                  </td>
+                </tr>
+              <?php endforeach ?>
+            </tbody>
+          </table>
 
 
-        <ul class=" pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </form>
+          <ul class=" pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </form>
     </div>
   </div>
   </div>
@@ -208,4 +209,17 @@ $first = [];
   $(document).ready(function() {
     $("#tabs").head - tabs();
   });
+
+  function checkbox_0(qx) {
+    var ck = document.getElementsByClassName("ck");
+    if (qx.checked) {
+      for (i = 0; i < ck.length; i++) {
+        ck[i].setAttribute("checked", "checked");
+      }
+    } else {
+      for (var i = 0; i < ck.length; i++) {
+        ck[i].removeAttribute("checked");
+      }
+    }
+  }
 </script>

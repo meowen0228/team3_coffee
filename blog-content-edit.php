@@ -5,9 +5,9 @@ require 'connect-db.php';
 $title = '文章後台-編輯文章';
 $pagename = 'blog-content-edit';
 
-$id = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : 0;
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$sql ="SELECT
+$sql = "SELECT
 blogs.id as id,
 fk_type_id,
 types_name,
@@ -101,6 +101,11 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
     line-height: 52px;
     transform: matrix(1, 0, 0.01, 1, 0, 0);
   }
+
+  /* .sort input {
+    visibility: hidden;
+    align-items: center;
+  } */
 
   .upload-imgs button {
     margin: 0px 20px 10px 0px;
@@ -200,7 +205,7 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
   .del-img::after,
   .del-img::before {
     content: '';
-    display: block;
+    display: inline-block;
     background: rgb(239, 239, 239);
     width: 4px;
     height: 20px;
@@ -236,9 +241,9 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
     <div class="row">
       <div>
         <h2>文章/類別管理/編輯文章</h2>
-        
+
         <form name="form1" class="blog-content-edit-form" method="post" novalidate onsubmit="checkForm(); return false;">
-          
+
           <input type="hidden" name="id" value="<?= $row['id'] ?>">
 
           <div class="thumbnail d-flex">
@@ -252,19 +257,19 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 
           <div class="sort">
             <label for="" class="col-2">類別</label>
-            <div class="me-3">
+            <div class="m-2 btn btn-outline-secondary">
               <input type="radio" class="btn btn-outline-secondary" name="types" value="1" <?php if ($row['fk_type_id'] == 1) { ?> checked <?php } ?>>咖啡篇</input>
             </div>
-            <div class="me-3">
+            <div class="m-2 btn btn-outline-secondary">
               <input type="radio" class="btn btn-outline-secondary" name="types" value="2" <?php if ($row['fk_type_id'] == 2) { ?> checked <?php } ?>>沖煮篇</input>
             </div>
-            <div class="me-3">
+            <div class="m-2 btn btn-outline-secondary">
               <input type="radio" class="btn btn-outline-secondary" name="types" value="3" <?php if ($row['fk_type_id'] == 3) { ?> checked <?php } ?>>咖啡豆篇</input>
             </div>
-            <div class="me-3">
+            <div class="m-2 btn btn-outline-secondary">
               <input type="radio" class="btn btn-outline-secondary" name="types" value="4" <?php if ($row['fk_type_id'] == 4) { ?> checked <?php } ?>>名人專欄篇</input>
             </div>
-            <div class="me-3">
+            <div class="m-2 btn btn-outline-secondary">
               <input type="radio" class="btn btn-outline-secondary" name="types" value="5" <?php if ($row['fk_type_id'] == 5) { ?> checked <?php } ?>>好物分享篇</input>
             </div>
           </div>
@@ -273,14 +278,15 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
           <div class="upload-imgs">
             <label for="" class="col-2">匯入圖庫</label>
             <?php $num = 0 ?>
-            <?php foreach ($row_photo_other as $r) :?>
-              <?php if ($r['ROWID']!=1){ ?>
+            <?php foreach ($row_photo_other as $r) : ?>
+              <?php if ($r['ROWID'] != 1) { ?>
                 <div class="d-flex flex-column">
-                  <button id="imgUpBtn" type="button" class="img-up-btn" data-num="<?= $num+=1 ?>">+<img class="preview_img" src="<?= $r['url'] ?>" alt="<?= $r['photo_alt'] ?>" style="opacity: 1;"></button>
+                  <button id="imgUpBtn" type="button" class="img-up-btn" data-num="<?= $num += 1 ?>">+<img class="preview_img" src="<?= $r['url'] ?>" alt="<?= $r['photo_alt'] ?>" style="opacity: 1;"></button>
                   <input type="hidden" id="img_url_post" name="img_url_post[]" value="<?= $r['url'] ?>">
                   <input type="text" name="photo_alt[]" value="<?= $r['photo_alt'] ?>" placeholder="請填入圖片說明">
                 </div>
-            <?php } endforeach ?>
+            <?php }
+            endforeach ?>
           </div>
           <br>
 
@@ -340,13 +346,14 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script>
-
-  $(".back-btn").click(function(){
-    alert("確定要返回嗎?");
-    location.href='blog.php';
-  })
-  
   CKEDITOR.replace('editor01');
+
+  $(".back-btn").click(function() {
+    alert("確定要返回嗎?");
+    location.href = 'blog.php';
+  })
+
+
 
   // const mobile = document.blog-content-add-form.mobile; // DOM element
   // const mobile_msg = mobile.closest('.mb-3').querySelector('.form-text');
@@ -378,6 +385,7 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
           console.log(obj);
           if (obj.success) {
             alert('修改成功');
+            location.href = 'blog.php';
 
           } else {
             alert('沒有修改');
@@ -390,7 +398,7 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 
   }
 
-  $(".img-up-btn").on("click", function(){
+  $(".img-up-btn").on("click", function() {
     // console.log($(this));
     let index = $(this).data("num");
     let this_img_src = $(".preview_img").eq(index);
@@ -398,26 +406,25 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
     console.log(index);
     console.log(this_img_src);
     console.log(this_input_value);
-    
-    $(".img_url").eq(index).change(function(){
+
+    $(".img_url").eq(index).change(function() {
       let fd = new FormData(document.img_form[index]);
-      fetch('blog-content-add-img-api.php', {
+      fetch('blog-content-edit-img-api.php', {
           method: 'POST',
           body: fd
         }).then(r => r.json())
         .then(obj => {
           console.log(obj);
           if (obj.success && obj.filename) {
-            console.log(this_img_src );
+            console.log(this_img_src);
             console.log(this_input_value);
             this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
             this_input_value.val('./img/' + obj.filename);
           }
         });
-      })
+    })
 
-      $(".img_url").eq(index).trigger("click");
-    
+    $(".img_url").eq(index).trigger("click");
+
   })
-
 </script>

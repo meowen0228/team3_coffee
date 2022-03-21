@@ -1,8 +1,9 @@
 <?php
 
-require __DIR__ . 'connect_db.php';
+require  'connect-db.php';
 
-echo json_encode($_POST); exit;
+// echo json_encode($_POST);
+// exit;
 
 header('Content-Type: application/json');
 // 輸出的資料格式
@@ -32,10 +33,15 @@ $sql = "INSERT INTO `blogs`(
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
+  $_POST['url'] ?? '',
+  $_POST['type'] ?? '',
+  $_POST['url'] ?? '',
+  $_POST['url'] ?? '',
+  $_POST['url'] ?? '',
   $_POST['title'] ?? '',
   $_POST['date'] ?? '',
   $_POST['content'] ?? '',
-  $_POST['tags'] ?? '',
+
 ]);
 
 $output['insertId'] = $pdo->lastInsertId(); // 取得最近加入資料的 PK

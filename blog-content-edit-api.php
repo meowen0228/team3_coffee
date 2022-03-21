@@ -34,7 +34,7 @@ $stmt_photo_del->execute([
 
 
 $sql =
-"UPDATE `blogs`
+  "UPDATE `blogs`
 SET  
 `fk_type_id` = ?,
 `title` = ?,
@@ -57,7 +57,7 @@ echo $_POST['img_url_post'][0];
 $sql_photo_add = "INSERT INTO `blog_photos` (`fk_blog_id`, `url`, `photo_alt`) VALUES (?, ?, ?)";
 $stmt_photo_add = $pdo->prepare($sql_photo_add);
 
-for ( $i = 0 ; $i < $_POST['img_url_post'] ; $i++ ){
+for ($i = 0; $i < $_POST['img_url_post']; $i++) {
   $stmt_photo_add->execute([
     $_POST['id'],
     $_POST['img_url_post'][$i],
@@ -66,9 +66,9 @@ for ( $i = 0 ; $i < $_POST['img_url_post'] ; $i++ ){
   $count_2 += $stmt->rowCount();
 }
 
-$output['rowCount'] = $count_1 + $count_2 ; // 新增資料的筆數
+$output['rowCount'] = $count_1 + $count_2; // 新增資料的筆數
 // echo $output['rowCount'];exit;
-if ($output['rowCount']>0) {
+if ($output['rowCount'] > 0) {
   $output['error'] = '';
   $output['success'] = true;
 } else {

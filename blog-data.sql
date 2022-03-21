@@ -255,7 +255,7 @@ VALUES
 ('3','./img/3beans30003.jpg','beans-photo003'),
 ('4','./img/4celebrity40003.jpg','celebrity-photo003'),
 ('5','./img/5share50003.jpg','share-photo003'),
-('5','./img/5share50004.jpg','share-photo004'),
+
 
 
 
@@ -263,7 +263,7 @@ VALUES
 ('2','./img/2pourover20004.jpg','pourover-photo004'),
 ('3','./img/3beans30004.jpg','beans-photo004'),
 ('4','./img/4celebrity40004.jpg','celebrity-photo004'),
-
+('5','./img/5share50004.jpg','share-photo004'),
 
 
 ('1','./img/1coffee10005.jpg','coffee-photo005'),
@@ -274,6 +274,17 @@ VALUES
 
 
 ('3','./img/3beans30006.jpg','beans-photo006');
+
+
+SELECT
+blogs.id as id,
+fk_type_id,
+types_name,
+title,
+CREATEd_at,
+content
+FROM blogs
+left join blog_types on blog_types.id = blogs.fk_type_id WHERE blogs.id;
 
 
 -- 文章列表

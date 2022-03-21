@@ -1,4 +1,7 @@
 <?php
+
+require 'connect-db.php';
+
 $title = '文章後台-新增文章';
 $pagename = 'blog-content-add'; ?>
 
@@ -83,8 +86,8 @@ $pagename = 'blog-content-add'; ?>
     transform: matrix(1, 0, 0.01, 1, 0, 0);
   }
 
-  .button[type="radio"]:checked {
-    color: #CFCFCF;
+  .sort input {
+    justify-content: space-around;
   }
 
   .upload-imgs button {
@@ -229,19 +232,33 @@ $pagename = 'blog-content-add'; ?>
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
             <button style="top: 20px" id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
-            <button type="button" class="del-img"></button>
             <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+            <button type="button" class="del-img"></button>
+            <input type="hidden" id="img_url_post" name="photo_alt[]" value="main">
           </div>
 
           <br>
 
           <div class="sort">
             <label for="" class="col-2">類別</label>
-            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="1">咖啡篇</button>
-            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="2">沖煮篇</button>
-            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="3">咖啡豆篇</button>
-            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="4">名人專欄篇</button>
-            <button type="radio" name="rdo" class="btn btn-outline-secondary" value="5">好物分享篇</button>
+            <div class="m-2 btn btn-outline-secondary">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="1">咖啡篇</input>
+            </div>
+            <div class="m-2 btn btn-outline-secondary">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="2">沖煮篇</input>
+            </div>
+
+            <div class="m-2 btn btn-outline-secondary">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="3">咖啡豆篇</input>
+            </div>
+
+            <div class="m-2 btn btn-outline-secondary">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="4">名人專欄篇</input>
+            </div>
+
+            <div class="m-3 btn btn-outline-secondary">
+              <input type="radio" class="btn btn-outline-secondary" name="types" value="5">好物分享篇</input>
+            </div>
           </div>
           <br>
 
@@ -297,30 +314,32 @@ $pagename = 'blog-content-add'; ?>
             <input type="text" placeholder="#請填入標籤" value="">
           </div>
           <br> -->
-          <div class="down-button">
 
-            <button type="button" class=" btn btn-outline-secondary col-3" onclick="history.back()" value="回到上一頁"><i class="back button fa-solid fa-arrow-rotate-left"> 返回</i></button>
+          <form id="checkForm">
+            <div class="down-button">
 
-            <button type="submit" class=" btn btn-outline-secondary  col-3"><i class="fa-solid fa-plus"> 新增</i></button>
+              <button type="button" class=" btn btn-outline-secondary col-3 back-btn"><i class="back button fa-solid fa-arrow-rotate-left"> 返回</i></button>
 
-          </div>
+              <button type="submit" class=" btn btn-outline-secondary  col-3"><i class="fa-solid fa-plus"> 新增</i></button>
 
+            </div>
+          </form>
 
 
         </form>
 
-            <form name="img_form" onsubmit="return false;" style="display: none;">
-              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-            </form>
-            <form name="img_form" onsubmit="return false;" style="display: none;">
-              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-            </form>
-            <form name="img_form" onsubmit="return false;" style="display: none;">
-              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-            </form>
-            <form name="img_form" onsubmit="return false;" style="display: none;">
-              <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
+
       </div>
     </div>
   </div>
@@ -334,32 +353,14 @@ $pagename = 'blog-content-add'; ?>
 <script>
   CKEDITOR.replace('editor01');
 
+  $(".back-btn").click(function() {
+    alert("確定要返回嗎?");
+    location.href = 'blog.php';
+  })
 
-  function checkForm() {
-    let isPass = true;
-    if (isPass) {
-      const fd = new FormData(document.form1);
-
-      fetch('blog-content-add-api.php', {
-          method: 'POST',
-          body: fd
-        }).then(r => r.json())
-        .then(obj => {
-          console.log(obj);
-          if (obj.success) {
-            alert('新增成功');
-
-          } else {
-            alert('新增失敗');
-          }
-
-        })
-
-
-    }
-
+  function sendData() {
+    const fd = new FormData(document.form1);
   }
-
 
   $(".img-up-btn").on("click", function() {
     // console.log($(this));
@@ -372,7 +373,7 @@ $pagename = 'blog-content-add'; ?>
     // console.log(index);
     // console.log(this_img_src);
     // console.log(this_input_value);
-    
+
 
     $(".img_url").eq(index).change(function() {
       let fd = new FormData(document.img_form[index]);
@@ -383,7 +384,7 @@ $pagename = 'blog-content-add'; ?>
         .then(obj => {
           console.log(obj);
           if (obj.success && obj.filename) {
-            console.log(this_img_src );
+            console.log(this_img_src);
             console.log(this_img_src);
             // console.log(this_img_src );
             // console.log(this_input_value);
@@ -392,8 +393,46 @@ $pagename = 'blog-content-add'; ?>
           }
         });
     })
-
     $(".img_url").eq(index).trigger("click");
 
   })
+
+
+
+
+
+  function checkForm() {
+    let isPass = true;
+    // const title = document.form1.title;
+    // const title_msg = title.closest('.mb-3').querySelector('.form1-text');
+
+    if (isPass) {
+      const fd = new FormData(document.form1);
+
+      fetch('blog-content-add-api.php', {
+          method: 'POST',
+          body: fd
+        }).then(r => r.json())
+        .then(obj => {
+          console.log(obj);
+          if (obj.success) {
+            alert('新增成功');
+            location.href = 'blog.php';
+
+          } else {
+            alert('新增失敗');
+          }
+        })
+    }
+  }
+
+
+
+
+  // function changChick(target) {
+  //   $.each($(".changChick"), function() {
+  //     $(this).removeClass("bg-light-blue");
+  //   });
+  //   $(target).addClass("bg-light-blue");
+  // }
 </script>
