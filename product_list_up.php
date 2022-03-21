@@ -17,7 +17,7 @@ if ($page < 1) {
 }
 
 // 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM products where `status` = 1 ";
+$t_sql = "SELECT COUNT(1) FROM products where `status` IN (1)";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 // 預設沒有資料
@@ -31,7 +31,7 @@ if ($totalRows) {
         exit;
     }
 
-    $sql = sprintf("SELECT * FROM products ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM products where `status` IN (1) ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
 
@@ -90,7 +90,7 @@ if ($totalRows) {
                         <h4>商品項目管理</h4>
                     </div>
                     <div class="col-3"></div>
-
+                   
                     <div class="col-2"><a href="product_new.php?>" class="btn btn-light addProduct">+新增商品</a></div>
                     <div class="col-4">
                         <div class="input-group form-outline ">
@@ -114,11 +114,12 @@ if ($totalRows) {
                                     <th class="col-3">商品縮圖</th>
                                     <th class="col-4">商品名稱</th>
                                     <!-- <th class="col-2">商品狀態</th> -->
-                                    <th class="col-2"><select name="status" id="status">
-                                            <optionon onChange="status" selected>商品狀態</optionon>
-                                            <option value="showall">全選</option>
-                                            <option value="showup">上架</option>
-                                            <option value="showdown">下架</option>
+                                    <th class="col-2">
+                                        <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status">
+                                            <!-- <option selected>商品狀態</option> -->
+                                            <option  value="product_list.php">全選</option>
+                                            <option selected value="product_list_up.php">上架</option>
+                                            <option value="product_list_down.php">下架</option>
                                         </select></th>
                                     <th class="col-2">編輯</th>
                                 </tr>
@@ -133,22 +134,22 @@ if ($totalRows) {
                                 <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
                             </tr> -->
                             <!-- 連接資料庫 -->
-
-                            <tr class="up">
+                            
+                                <tr class="up">
                                 <?php foreach ($rows as $r) : ?>
                                     <th><?= $r['id'] ?></th>
                                     <th><img style="width:100%;" src="<?= $r['url'] ?>" alt=""></th>
                                     <td><?= $r['p_name'] ?></td>
                                     <?php if ($r['status'] == 1) { ?>
-                                        <td>上架</td>
+                                        <td>上架</td> 
                                     <?php } else { ?>
                                         <td>下架</td>
                                     <?php } ?>
                                     <td><a href="product_edit.php?id=<?= $r['id'] ?>">
                                             <i class="fa-solid fa-pen-to-square"></i></a></td>
 
-                            </tr>
-                        <?php endforeach ?>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                     <div class="container">
@@ -212,20 +213,19 @@ if ($totalRows) {
     //     });
     // });
 
-    function status(showall) {
-
-        window.location.href = 'product_list.php';
-    }
-
-    function status(showup) {
-
-        window.location.href = 'product_list_up.php';
-    }
-
-    function status(showdown) {
-
-        window.location.href = 'product_list_down.php';
-    }
+    // function showAll(){
+    //         // $(".ask").children(".ans:contains(已)").parent().css("display","");
+    //         // $(".ask").children(".ans:contains(未)").parent().css("display","");
+    //         window.location.href='product-all.php';
+    //       }
+    //       function showup(){
+           
+    //         window.location.href='product-up.php';
+    //       }
+    //       function showdown(){
+            
+    //         window.location.href='product-down.php';
+    //       }
 </script>
 
 
