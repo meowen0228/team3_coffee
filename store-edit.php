@@ -26,7 +26,7 @@
   $serve_sql =
     "SELECT
     `fk_store_id`,
-    store_serve_icon.id AS ssi_id,
+    store_serve.id AS ssi_id,
     `serve_status`,
     `serve_name`,
     `serve_EN_name`
@@ -178,7 +178,7 @@
             <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $store_row['photo'] ?>" style="opacity: 1"></button>
           <?php } ?>
           <button type="button" class="del-img"></button>
-          <input type="hidden" id="img_url_post" name="img_url_post" value="">
+          <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $store_row['photo'] ?>">
         </div>
         <!------------ 上傳圖片 ------------>
         
@@ -210,6 +210,7 @@
                 alert("修改成功");
                 location.href = 'store-list.php';
             } else {
+                alert("沒有修改");
                 <!-- location.href = 'store-list.php'; -->
             }
         })
