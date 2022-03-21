@@ -18,7 +18,7 @@
       // 總頁數
       $totalPages = ceil($totalRows / $perPage);
       if ($page > $totalPages) {
-          header("Location: user_ask-bd.php?page=$totalPages");
+          header("Location: user_ask-bd-no.php?page=$totalPages");
           exit;
       }
       
@@ -123,7 +123,7 @@
         <thead>
             <tr>
             <th scope="col" class="col-1">案件編號</th>
-            <th scope="col" class="col-2">會員編號</th>
+            <th scope="col" class="col-2">會員名稱</th>
             <th scope="col" class="col-2">主旨</th>
             <th scope="col" class="col-3">日期</th>
             <th scope="col" class="col-1">進度</th>
