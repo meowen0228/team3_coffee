@@ -29,7 +29,7 @@
            <div class="d-block py-1 px-3 maindir">文章</div>
            <ul>
                <li>
-                   <a class="d-block py-2 px-3" href="">文章管理</a>
+                   <a class="d-block py-2 px-3" href="blog.php">文章管理</a>
                </li>
            </ul>
 

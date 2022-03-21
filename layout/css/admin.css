@@ -11,6 +11,9 @@
 body{
     background: #F2F2F2;
 }
+li{
+    list-style: none;
+}
 /* -------- font awesome -------- */
 .fa-trash-can{
     color: black;
