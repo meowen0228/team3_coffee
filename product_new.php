@@ -6,7 +6,7 @@ $pageName = 'product1_';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$sql1= "SELECT 
+$sql1 = "SELECT 
 `status`,
 p_name,
 price,
@@ -24,7 +24,7 @@ $row = $pdo->query($sql1)->fetch();
 //     exit;
 // }
 
-$sql2= "SELECT * FROM product_photos
+$sql2 = "SELECT * FROM product_photos
 where fk_product_id = $id;";
 $row2 = $pdo->query($sql2)->fetchAll();
 ?>
@@ -70,11 +70,11 @@ $row2 = $pdo->query($sql2)->fetchAll();
                 <form name="form1" class="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1" >
+                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1">
                             <label class="form-check-label" for="productstatus">上架</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="0" >
+                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="0">
                             <label class="form-check-label" for="productstatus2">下架</label>
                         </div>
                     </div>
@@ -82,18 +82,21 @@ $row2 = $pdo->query($sql2)->fetchAll();
 
 
 
-                        
+
 
                     </div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-1">名稱:
                         </div>
-                        <div class="col-8"><input type="text" id="name" class="form-control typing" name="p_name" required value=""></div>
+                        <div class="col-8"><input type="text" id="name" class="form-control typing" name="p_name" required value="">
+                            <div class="form-text"></div>
+                        </div>
                     </div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-1">金額:
                         </div>
-                        <div class="col-8"><input type="tel" id="price" name="price" class="form-control typing" value=""></div>
+                        <div class="col-8"><input type="tel" id="price" name="price" class="form-control typing" value="">
+                        <div class="form-text"></div></div>
                     </div>
                     <div class=" row g-4 mb-3 align-items-center">
                         <div class="col-1">分類：</div>
@@ -109,11 +112,11 @@ $row2 = $pdo->query($sql2)->fetchAll();
                                 <label class="form-check-label" for="producttype2">哥倫比亞</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="fk_product_types" id="producttype3" value="3" >
+                                <input class="form-check-input" type="radio" name="fk_product_types" id="producttype3" value="3">
                                 <label class="form-check-label" for="producttype3">肯亞</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="fk_product_types" id="producttype4" value="4" >
+                                <input class="form-check-input" type="radio" name="fk_product_types" id="producttype4" value="4">
                                 <label class="form-check-label" for="producttype4">衣索比亞</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -121,7 +124,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
                                 <label class="form-check-label" for="producttype5">瓜地馬拉</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="fk_product_types" id="producttype6" value="6" >
+                                <input class="form-check-input" type="radio" name="fk_product_types" id="producttype6" value="6">
                                 <label class="form-check-label" for="producttype6">其他</label>
                             </div>
                         </div>
@@ -164,7 +167,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
     </div>
     </div>
 
-</main> 
+</main>
 <script>
     // function readURL(input) {
     //     if (input.files && input.files[0]) {
@@ -177,62 +180,74 @@ $row2 = $pdo->query($sql2)->fetchAll();
     //         reader.readAsDataURL(input.files[0]);
     //     }
     // }
-    
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <?php include __DIR__ . '/layout/scripts.php'; ?>
 <script>
-
-    function sendData(){
+    function sendData() {
         const fd = new FormData(document.img_form);
 
         fetch('product_new_img_api.php', {
-            method: 'POST',
-            body: fd
-        }).then(r=>r.json())
-        .then(obj=>{
-            console.log(obj);
-            if(obj.success && obj.filename){
-                preview_img1.src = './img/shop'+ obj.filename;
-                // console.log('./img/shop/' + obj.filename);
-                $("#img_url_post").val('./img/shop'+ obj.filename);
-                // img_url_post.value = './img/shop/'+ obj.filename;
-            }
-        });
-    }
-    img_url.onchange = sendData;
-
-    const p_name = document.form1.p_name; // DOM element
-    const p_name_msg = p_name.closest('.mb-3').querySelector('.form-text');
-
-    const price = document.form1.price;
-    const price_msg = price.closest('.mb-3').querySelector('.form-text');
-    
-   
-    function checkForm(){
-        let isPass = true; 
-
-        
-
-        if(isPass){
-            const fd = new FormData(document.form1);
-
-            fetch('product_new_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
-                if(obj.success){
-                    alert('新增成功');
-                    location.href = 'product_list.php';
-                } else {
-                    alert('新增失敗');
+                if (obj.success && obj.filename) {
+                    preview_img1.src = './img/shop' + obj.filename;
+                    // console.log('./img/shop/' + obj.filename);
+                    $("#img_url_post").val('./img/shop' + obj.filename);
+                    // img_url_post.value = './img/shop/'+ obj.filename;
                 }
+            });
+    }
+    img_url.onchange = sendData;
 
-            })
+    const name = document.form1.name; // DOM element
+    const name_msg = name.closest('.mb-3').querySelector('.form-text');
+
+    const price = document.form1.price;
+    const price_msg = price.closest('.mb-3').querySelector('.form-text');
+
+
+    function checkForm() {
+        let isPass = true;
+
+        if (name.value == '') {
+            isPass = false;
+            name_msg.innerText = '請輸入名稱'
+            location.href = '#'
+        }
+
+        if (price.value == '') {
+            isPass = false;
+            price_msg.innerText = '請輸入金額'
+            location.href = '#'
+        }
+    
+
+
+
+
+        if (isPass) {
+            const fd = new FormData(document.form1);
+
+            fetch('product_new_api.php', {
+                    method: 'POST',
+                    body: fd
+                }).then(r => r.json())
+                .then(obj => {
+                    console.log(obj);
+                    if (obj.success) {
+                        alert('新增成功');
+                        location.href = 'product_list.php';
+                    } else {
+                        alert('新增失敗');
+                    }
+
+                })
 
 
         }

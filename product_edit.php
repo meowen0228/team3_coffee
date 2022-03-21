@@ -110,7 +110,9 @@ if (empty($id )) {
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-1">名稱:
                         </div>
-                        <div class="col-8"><input type="text" id="name" class="form-control typing" name="p_name" required value="<?= htmlentities($row['p_name']) ?>"></div>
+                        <div class="col-8"><input type="text" id="name" class="form-control typing" name="p_name" required value="<?= htmlentities($row['p_name']) ?>">
+                    <div class="form-text"></div>
+                    </div>
                     </div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-1">金額:
@@ -232,8 +234,8 @@ if (empty($id )) {
     }
     img_url.onchange = sendData;
 
-    const p_name = document.form1.p_name; // DOM element
-    const p_name_msg = p_name.closest('.mb-3').querySelector('.form-text');
+    const name = document.form1.name; // DOM element
+    const name_msg = name.closest('.mb-3').querySelector('.form-text');
 
     const price = document.form1.price;
     const price_msg = price.closest('.mb-3').querySelector('.form-text');
@@ -241,6 +243,10 @@ if (empty($id )) {
    
     function checkForm(){
         let isPass = true; 
+        if(name.value == ''){
+            isPass = false;
+            name_msg.innerText = '請輸入'
+        }
 
         
 
