@@ -21,7 +21,7 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
         <span id="bell123"><?= $total_o+$total_u ?></span>
       </div>
       <div id="bell" >
-        <a href="order_list.php" class="a_php">
+        <a href="order_list_nonship.php" class="a_php">
         <div class="notify" onclick="od_no()">
           <div class="notify-1">尚有</div>
           <div class="sqlcon notify-1"><?= $total_o ?>筆</div>
