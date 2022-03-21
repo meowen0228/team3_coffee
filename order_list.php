@@ -4,17 +4,17 @@ require __DIR__ . '/layout/connect_db.php';
 
 // 頁面資訊
 $title = '訂單列表';
-$pagename = 'order_list1';
+$pagename = 'order_list';
 
 // 每一頁有幾筆
 $perPage = 4;
 
 // 用戶要看的頁碼
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-if ($page < 1) {
-    header('Location: order_list1.php?page=1');
-    exit;
-}
+// if ($page < 1) {
+//     header('Location: order_list.php?page=1');
+//     exit;
+// }
 
 // 取得總筆數
 $t_sqlaa= "SELECT max(*) FROM orders";
@@ -28,10 +28,10 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = [];
 $totalPages = 0;
 
-if ($page > $totalPages) {
-    header("Location: order_list1.php?page=$totalPages");
-    exit;
-}
+// if ($page > $totalPages) {
+//     header("Location: order_list.php?page=$totalPages");
+//     exit;
+// }
 if ($totalRows) {
     $totalPages = ceil($totalRows / $perPage);
 
