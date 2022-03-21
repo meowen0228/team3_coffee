@@ -17,11 +17,7 @@ if ($page < 1) {
 }
 
 // 取得總筆數
-$t_sqlaa= "SELECT max(*) FROM orders";
-$t_nun = (int)$t_sqlaa;
-
-
-$t_sql = "SELECT COUNT(1) FROM orders";
+$t_sql = "SELECT COUNT(1) FROM orders where `fk_condition_id` IN (1)";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 // 預設沒有資料
@@ -62,7 +58,10 @@ if ($totalRows) {
         price
         FROM order_detail
         left join products on products.id = order_detail.fk_product_id) AS detail on detail.od_fkid = orders.id
-        GROUP BY orders.id ORDER BY o_id LIMIT %s, %s ;",
+        where `fk_condition_id` IN (1)
+        GROUP BY orders.id 
+       
+        ORDER BY o_id LIMIT %s, %s ;",
         ($page - 1) * $perPage,
         $perPage
     );
@@ -119,11 +118,11 @@ if ($totalRows) {
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                    <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
-                            <!-- <option selected>出貨狀態</option> -->
-                          <option  selected value="order_list.php">全選</option>
-                            <option value="order_list_onship.php">已出貨</option>
-                            <option value="order_list_nonship.php">未出貨</option>
+                        <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
+                            <!-- <option >出貨狀態</option> -->
+                            <option   value="order_list.php">全選</option>
+                            <option  value="order_list_onship.php">已出貨</option>
+                            <option selected value="order_list_nonship.php">未出貨</option>
                             <option value="order_list_complete.php">完成訂單</option>
                             <option value="order_list_cancel.php">取消訂單</option>
                         </select>

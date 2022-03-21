@@ -17,7 +17,7 @@ if ($page < 1) {
 }
 
 // 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM products where `status` IN (1)";
+$t_sql = "SELECT COUNT(1) FROM products where `status` IN (0)";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 // 預設沒有資料
@@ -31,7 +31,7 @@ if ($totalRows) {
         exit;
     }
 
-    $sql = sprintf("SELECT * FROM products where `status` IN (1) ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM products where `status` IN (0) ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
 
@@ -123,8 +123,8 @@ if ($totalRows) {
                                         <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select">
                                             <!-- <option selected>商品狀態</option> -->
                                             <option  value="product_list.php">全選</option>
-                                            <option selected value="product_list_up.php">上架</option>
-                                            <option value="product_list_down.php">下架</option>
+                                            <option  value="product_list_up.php">上架</option>
+                                            <option selected value="product_list_down.php">下架</option>
                                         </select></th>
                                     <th class="col-2">編輯</th>
                                 </tr>

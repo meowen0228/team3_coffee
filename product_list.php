@@ -76,6 +76,11 @@ if ($totalRows) {
     .act {
         display: none;
     }
+    .select{
+        width: 70px;
+        border-radius: 10px;
+        padding: 5px;
+    }
 </style>
 
 
@@ -115,7 +120,7 @@ if ($totalRows) {
                                     <th class="col-4">商品名稱</th>
                                     <!-- <th class="col-2">商品狀態</th> -->
                                     <th class="col-2">
-                                        <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status">
+                                        <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select">
                                             <!-- <option selected>商品狀態</option> -->
                                             <option selected value="product_list.php">全選</option>
                                             <option value="product_list_up.php">上架</option>
