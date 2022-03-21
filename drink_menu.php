@@ -7,7 +7,7 @@ $pagename = 'home';
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
 <style>
-    .card_number{
+    /* .card_number{
         width: 3rem;
     }
     .card_name{
@@ -27,7 +27,7 @@ $pagename = 'home';
     .card_condition{
         width: 5rem;
     }
-    
+     */
 </style>
 </head>
 
