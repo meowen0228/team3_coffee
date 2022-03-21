@@ -7,10 +7,27 @@ $pagename = 'home';
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
 <style>
-    .card1{
-        width: 50rem;
+    .card_number{
+        width: 3rem;
     }
-
+    .card_name{
+        width: 11rem;
+    }
+    .card_photo{
+        width: 5rem;
+    }
+    .card_price{
+        width: 2rem;
+    }
+    .card_content{
+        width: 15rem;
+        word-wrap
+        :break-word;
+    }
+    .card_condition{
+        width: 5rem;
+    }
+    
 </style>
 </head>
 
@@ -53,13 +70,13 @@ if ($totalRows) {
             <div class="col-10">
                 <div class="row py-1">
                     <div class="col-3">
-                        <h4>訂單列表</h4>
+                        <h4>菜單管理</h4>
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        <button class="rounded-pill text-nowrap">
-                            <a href="drink_menu_add.php">+新增訂單</a>
-                        </button>
+                        
+                            <a href="drink_menu_add.php" class="btn btn-light rounded-pill"> 新增菜單</a>
+                        
                     </div>
                     <div class="col-4">
                         <div class="input-group form-outline ">
@@ -85,12 +102,13 @@ if ($totalRows) {
                     <thead>  
                         <tr class="oderTitle text-nowrap">
                             <!-- <th scope="col"><input type="checkbox" name="" id="">全選</th> -->
-                            <th scope="col">編號</th>
-                            <th scope="col">品名</th>
-                            <th scope="col">圖片</th>
-                            <th scope="col">價格</th>
-                            <th scope="col">介紹</th>
-                            <th scope="col">上架狀態</th>
+                            <th class="card_number">編號</th>
+                            <th class="card_name">品名</th>
+                            <th class="card_photo">圖片</th>
+                            <th class="card_price">價格</th>
+                            <th class="card_content">介紹</th>
+                            <th class="card_condition">上架狀態</th>
+                            
                         </tr>
                     </thead>    <!-- 菜單標題 -->
 
@@ -100,13 +118,13 @@ if ($totalRows) {
                             <!-- <td>
                                 <input type="checkbox" name="" id="">
                             </td> -->  
-                            <th scope="row"class="card1"><?= $r['id'] ?></th>  <!--編號-->
-                            <td class="card1"><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
-                            <td class="card1">
+                            <th><?= $r['id'] ?></th>  <!--編號-->
+                            <td><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
+                            <td>
                                 <img style="width:100px;" src="<?= $r['url'] ?>" alt="">
                             </td>   
-                            <td class="card1"><?= $r['price'] ?></td> <!--價格-->
-                            <td class="card1"><?= $r['content'] ?></td>  <!--介紹-->
+                            <td><?= $r['price'] ?></td> <!--價格-->
+                            <td><?= $r['content'] ?></td>  <!--介紹-->
                             <!--上架狀態-->
                             <?php if ($r['status']){?>
                             <td style="color:blue"><h5>上架中</h5></td>
@@ -115,7 +133,7 @@ if ($totalRows) {
                             <td style="color:red"><h5>已下架</h5></td>
                             <?php } ?>
 
-                            <td class="card1"><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
+                            <td style="center "><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
                         </tr>
                     <?php endforeach ?>
                 </tbody>  <!--菜單內容 -->

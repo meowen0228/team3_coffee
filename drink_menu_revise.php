@@ -6,6 +6,28 @@ $pagename = 'revise';
 <head>
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
+
+<style>
+    .box {
+        border: 1px solid black;
+        width: 200px;
+        height: 200px;
+        background: #F2F2F2;
+    }
+
+    .addProduct {
+        border-radius: 20px;
+    }
+
+    .typing {
+        background: #F2F2F2;
+    }
+    .upImg{
+        border: transparent;
+        background-color: transparent;
+    }
+
+</style>
 </head>
 
 <body>
@@ -122,6 +144,7 @@ $row = $pdo->query($sql)->fetch();
 
 </main>
 <script>
+    
 img_url.onchange = sendData;
 
     function sendData(){

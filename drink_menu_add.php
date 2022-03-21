@@ -6,6 +6,37 @@ $pagename = 'home';
 <head>
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
+
+
+
+
+<style>
+    .box {
+        border: 1px solid black;
+        width: 200px;
+        height: 200px;
+        background: #F2F2F2;
+    }
+
+    .addProduct {
+        border-radius: 20px;
+    }
+
+    .typing {
+        background: #F2F2F2;
+    }
+    .upImg{
+        border: transparent;
+        background-color: transparent;
+    }
+    .form-text{
+        display: inline;
+        color: red;
+    }
+</style>
+
+
+
 </head>
 
 <body>
@@ -78,8 +109,8 @@ $row = $pdo->query($sql)->fetchAll();
                     <div class="mb-4">圖片上傳：</div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-3">
+                            <button type="button" onclick="img_url.click()">上傳圖片</button>
                             <div class="box">
-                                <button type="button" onclick="img_url.click()">上傳圖片</button>
                                 <img id="preview_img1" src="" style="width: 100%;">
                                 <input type="hidden" id="img_url_post" name="img_url_post" value="">
                             </div>
@@ -138,7 +169,8 @@ img_url.onchange = sendData;
 
         const name = document.form.name; // DOM element
         const name_msg = name.closest('.mb-3').querySelector('.form-text');
-
+        const price = document.form.price;
+        const name_msg = name.closest('.mb-3').querySelector('.form-text');
 
         // $('#name');
         // console.log($('#name'));
