@@ -390,11 +390,11 @@ th{
             user_password_msg.innerText ="";
         }
         
-        const user_password_re = /[\d\w]{6}/;; 
+        const user_password_re =/^(?=.*[0-9\!@#\$%\^&amp;\*])(?=.*[a-zA-Z]).{6,20}$/;
         if(user_password.value){
             if(! user_password_re.test(user_password.value)){
                 isPass = false;
-                user_password_msg.innerText = '密碼需6~20碼，由英文數字';
+                user_password_msg.innerText = '密碼需6~20碼，至少由英文數字組成';
                 location.href = '#';
             }else{
             user_password_msg.innerText ="";
