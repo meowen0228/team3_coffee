@@ -11,9 +11,6 @@
 body{
     background: #F2F2F2;
 }
-li{
-    list-style: none;
-}
 /* -------- font awesome -------- */
 .fa-trash-can{
     color: black;
@@ -21,6 +18,14 @@ li{
 }
 .fa-trash-can:hover{
     color: red;
+}
+#bell123{
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50px; 
+    font-size: 15px;
+    float:right; 
 }
 
 /* -------- header -------- */
@@ -92,10 +97,8 @@ li{
     font-size: larger;
     font-weight: bolder;
 }
-::-webkit-scrollbar-thumb {
-  background: #a3a0a0;
-  border-radius: 5px;
-  transition: all 0.2s ease;
+.admin-aside li{
+    list-style: none;
 }
 
 /* -------- main -------- */
@@ -561,7 +564,7 @@ form .mb-3 .form-text {
 .store-serve-form input[type=checkbox]:checked+label::before{
     background: url(./checked_v.svg) no-repeat center center;
     background-size: 80%;
-}
+}絲
 .store-time-select{
     width: 9rem;
     overflow: scroll;

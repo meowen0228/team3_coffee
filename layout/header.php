@@ -16,7 +16,9 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
    
           
     <div class="col-1 ">
-      <i class="fa-solid fa-bell d-flex flex-column" ></i>
+      <i class="fa-solid fa-bell d-flex flex-column" >
+      <div id="bell123"><?= $total_o+$total_u ?></div>
+      </i>
       <div id="bell" >
         <a href="order_list.php" class="a_php">
         <div class="notify" onclick="od_no()">
