@@ -27,9 +27,9 @@ if ($totalRows) {
 }
 ?>
 
-<?php include __DIR__. './layout/html-head.php';?>
-<?php include __DIR__. './layout/header.php';?>
-<?php include __DIR__. './layout/aside.php';?>
+<?php include __DIR__. '/layout/html-head.php';?>
+<?php include __DIR__. '/layout/header.php';?>
+<?php include __DIR__. '/layout/aside.php';?>
 
 <style>
 
@@ -173,8 +173,8 @@ if ($totalRows) {
     
 </main>
 
-    <?php include __DIR__. './layout/scripts.php';?>
-    <?php include __DIR__. './layout//html-foot.php';?>
+    <?php include __DIR__. '/layout/scripts.php';?>
+    <?php include __DIR__. '/layout//html-foot.php';?>
     <script>
     function del_it(id){
         if(confirm(`確定要刪除編號為 ${id} 的資料嗎?`)){

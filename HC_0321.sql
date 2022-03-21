@@ -1,4 +1,3 @@
-
 create schema team3;
 use team3;
 

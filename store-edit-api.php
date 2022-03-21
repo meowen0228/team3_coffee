@@ -63,18 +63,18 @@ SET
 WHERE `fk_store_id` = ? AND `id` = ?";
 
 $time_stmt = $pdo->prepare($time_sql);
-
+$timeCount = 0;
 for( $i = 0; $i < count($_POST['store_time_id']); $i++ ){
   $time_stmt -> execute([
     $_POST['status'][$i],
     $_POST['status_name'][$i],
     $_POST['start_time'][$i],
     $_POST['end_time'][$i],
-    $_POST['fk_store_id'],
+    $_POST['id'],
     $_POST['store_time_id'][$i],
   ]);
   
-  $timeCount = $time_stmt->rowCount();
+  $timeCount += $time_stmt->rowCount();
 }
 
 
@@ -87,15 +87,15 @@ SET
 WHERE `fk_store_id` = ? AND `id` = ?";
 
 $serve_stmt = $pdo->prepare($serve_sql);
-
+$serveCount = 0;
 for( $i = 0; $i < count($_POST['serve_status']); $i++ ){
   $serve_stmt -> execute([
     $_POST['serve_status'][$i],
-    $_POST['fk_store_id'],
+    $_POST['id'],
     $_POST['serve_id'][$i],
   ]);
   
-  $serveCount = $serve_stmt->rowCount();
+  $serveCount += $serve_stmt->rowCount();
 }
 
 

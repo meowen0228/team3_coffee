@@ -28,12 +28,12 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = [];
 $totalPages = 0;
 
+if ($page > $totalPages) {
+    header("Location: order_list1.php?page=$totalPages");
+    exit;
+}
 if ($totalRows) {
     $totalPages = ceil($totalRows / $perPage);
-    if ($page > $totalPages) {
-        header("Location: order_list1.php?page=$totalPages");
-        exit;
-    }
 
     $sql = sprintf(
         "SELECT

@@ -60,6 +60,7 @@ $pagename = 'banner-add';
               </div>
               <input type="hidden" name="status" value="0">
               <button type="submit" class="submut-btn btn btn-secondary">新增</button>
+              <button type="button" class="submut-btn btn btn-secondary me-2"><a href="javascript: back()">取消</button>
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
@@ -140,6 +141,13 @@ $pagename = 'banner-add';
 
 
   }
+</script>
+<script>
+    function back() {
+        if (confirm(`確定要取消修改嗎?`)) {
+            location.href = 'banner-list.php';
+        }
+    }
 </script>
 
 <?php include __DIR__ . '/layout/scripts.php'; ?>
