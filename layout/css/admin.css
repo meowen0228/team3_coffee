@@ -1,4 +1,3 @@
-
 /* -------- 變數 -------- */
 :root{
     --admin-aside-width: 190px; /* 有修改 */
@@ -341,6 +340,7 @@ form .mb-3 .form-text {
     width: 80%;
     font-size: smaller;
 }
+/* -------- store 樣式設定 -------- */
 /* -------- store -------- */
 .store-search{
     padding: 0 1rem;
@@ -385,7 +385,6 @@ form .mb-3 .form-text {
 .store-time i:hover +.store-time-block{
     display: flex;
     align-items: flex-start;
-    display: block;
 }
 .store-time-block{
     display: none;
@@ -557,7 +556,7 @@ form .mb-3 .form-text {
 .store-serve-form input[type=checkbox]:checked+label::before{
     background: url(./checked_v.svg) no-repeat center center;
     background-size: 80%;
-}
+}絲
 .store-time-select{
     width: 9rem;
     overflow: scroll;
