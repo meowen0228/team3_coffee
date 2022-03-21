@@ -113,14 +113,14 @@ if ($totalRows) {
                                     <th class="col-2">商品編號</th>
                                     <th class="col-2">商品縮圖</th>
                                     <th class="col-4">商品名稱</th>
-                                    <th class="col-4">商品狀態</th>
+                                    <th class="col-3">商品狀態</th>
                                     <!-- <th class="col-2"><select name="status" id="status">
                                             <option selected>商品狀態</option>
                                             <option value="1">全選</option>
                                             <option value="2">上架</option>
                                             <option value="3">下架</option>
                                         </select></th> -->
-                                    <th class="col-1">編輯</th>
+                                    <th class="col-2">編輯</th>
                                 </tr>
                             </div>
                         </thead>
