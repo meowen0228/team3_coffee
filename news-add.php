@@ -49,6 +49,7 @@
             <!-- <input type="hidden" name="" value="0"> -->
 
             <button type="submit" class="submut-btn btn btn-secondary">新增</button>
+            <button type="button" class="submut-btn btn btn-secondary me-2"><a href="javascript: back()">取消</button>
 
           </div>
         </form>
@@ -112,6 +113,13 @@
 
 
   }
+</script>
+<script>
+    function back() {
+        if (confirm(`確定要取消修改嗎?`)) {
+            location.href = 'banner-list.php';
+        }
+    }
 </script>
 
   <?php include __DIR__. '/layout/scripts.php';?>

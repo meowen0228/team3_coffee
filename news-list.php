@@ -65,15 +65,17 @@ if ($totalRows) {
           <?php foreach ($rows as $r) : ?>
             <tr>
               <td scope="col" style="display: none;"><?= $r['id'] ?></td>
-              <td scope="row">
-                <form  action="">
+              <td class="contents-align" scope="row">
+                <form action="">
                   <input type="checkbox" class="newupload" name="newupload">
                 </form>
               </td>
-              <td ><?= $r['title'] ?></td>
+              <td class="contents-align"><?= $r['title'] ?></td>
               <td><?= $r['contents'] ?></td>
-              <td class="edit-icon"><a href="news-edit.php?id=<?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-              <td class="news-icon"><a href=" javascript: del_it(<?= $r['id'] ?>)"><i class="fa-solid fa-trash-can"></i></a></td>
+
+              <td class="banner-icon"><a class="edit-icon" href="news-edit.php?id=<?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+
+              <td class="banner-icon"><a href=" javascript: del_it(<?= $r['id'] ?>)"><i class="fa-solid fa-trash-can"></i></a></td>
             </tr>
           <?php endforeach ?>
         </tbody>

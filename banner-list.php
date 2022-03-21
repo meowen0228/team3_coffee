@@ -41,17 +41,17 @@ if ($totalRows) {
   <div class="col-1"></div>
   <div class="col-10">
     <div class="d-flex justify-content-between">
-      <div class="col-2">
+      <div class="col-6">
         <h4>橫幅管理</h4>
       </div>
-      <div class="d-flex flex-row">
-      <div class="add-btn col-2 d-block me-2"><a class="" href="banner-add.php">新增活動</a></div>
+      <div class="add-button col-1">
+      <button type="button" class="rounded-pill add-btn btn btn-outline-secondary"><a href="banner-add.php">新增橫幅</a></button>
+    </div>
       <div class="data-search col-2.5">
           <input class="data-search-input" list="" id="" >
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
       </div>
-    </div>
     <div class="main-admin">
       <table class="mb-3 table">
         <thead>
@@ -75,7 +75,9 @@ if ($totalRows) {
               </td>
               <td class="contents-align"><?= $r['title'] ?></td>
               <td class="contents-align"><img style="width: 100px;" src="<?= $r['photo'] ?>" alt=""></td>
-              <td class="banner-icon"><a class="banner-edit" href="banner-edit.php?id=<?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+
+              <td class="banner-icon"><a class="edit-icon" href="banner-edit.php?id=<?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+
               <td class="banner-icon"><a href=" javascript: del_it(<?= $r['id'] ?>)"><i class="fa-solid fa-trash-can"></i></a></td>
             </tr>
           <?php endforeach ?>
