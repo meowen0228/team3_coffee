@@ -33,7 +33,7 @@ $pagename = 'revise';
 <body>
 <?php include __DIR__ . '/layout/aside.php'; ?>
 <?php
-require require __DIR__ . '/layout/connect_db.php';
+require __DIR__ . '/layout/connect_db.php';
 $title = '新增資料';
 $pageName = 'ab-revise';
 
