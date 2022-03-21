@@ -15,10 +15,11 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
     <div class="col-10"></div>
    
           
-    <div class="col-1 ">
-      <i class="fa-solid fa-bell d-flex flex-column" >
-      <div id="bell123"><?= $total_o+$total_u ?></div>
-      </i>
+    <div class="col-1 bellca">
+    <div id="belldiv">
+        <i class="fa-solid fa-bell d-flex flex-column" ></i>
+        <span id="bell123"><?= $total_o+$total_u ?></span>
+      </div>
       <div id="bell" >
         <a href="order_list.php" class="a_php">
         <div class="notify" onclick="od_no()">
@@ -39,13 +40,15 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
       <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
       <script>
    
-        $(".fa-bell").click(function(event){
+        $(".bellca").hover(function(event){
           $("#bell").css("display","block");
-        })
-        $("#bell").mouseleave(function(event){
+        },function(event){
           $("#bell").css("display","none");
         })
       
-      </script>
+
+
+
+        </script>
     </div>
   </header>
