@@ -182,11 +182,13 @@ img_url.onchange = sendData;
         if(name.value == ''){
             isPass = false;
             name_msg.innerText = '請入正確的姓名'
-            location.href = 'drink_menu.php';
+            location = '#';
         }
+
         if(price.value == ''){
             isPass = false;
             price_msg.innerText = '請輸入價格'
+            location = '#';
         }
 
         // name_msg.innerText
