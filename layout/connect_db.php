@@ -2,7 +2,7 @@
 
 $db_host = '127.0.0.1';
 $db_user = 'root';
-$db_pass = '0903822220';
+$db_pass = '12250710';
 $db_name = 'team3';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";

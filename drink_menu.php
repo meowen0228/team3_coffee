@@ -33,7 +33,7 @@ $pagename = 'home';
 
 <body>
 <?php include __DIR__ . '/layout/aside.php'; ?>
-<?php require __DIR__ . '/connect_db.php';
+<?php require __DIR__ . '/layout/connect_db.php';
 $title = 'drink_menu';
 $pageName = 'drink_menu';
 $perPage = 5; // 每一頁有幾筆

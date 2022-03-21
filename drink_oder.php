@@ -37,7 +37,7 @@
 <?php include __DIR__. './layout/header.php';?>
 <?php include __DIR__. './layout/aside.php';?>
 <?php
-require __DIR__ . '/connect_db.php';
+require __DIR__ . '/layout/connect_db.php';
 $title = 'drink_oder';
 $pageName = 'drink_oder';
 $perPage = 5; // 每一頁有幾筆

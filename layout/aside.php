@@ -17,10 +17,10 @@
            <div class="d-block py-1 px-3 maindir">訂餐</div>
            <ul>
                <li>
-                   <a class="d-block py-2 px-3" href="">菜單管理</a>
+                   <a class="d-block py-2 px-3" href="drink_menu.php">菜單管理</a>
                </li>
                <li>
-                   <a class="d-block py-2 px-3" href="">訂單管理</a>
+                   <a class="d-block py-2 px-3" href="drink_oder.php">訂單管理</a>
                </li>
               
                
