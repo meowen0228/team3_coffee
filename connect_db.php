@@ -3,7 +3,7 @@
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = '123456';
-$db_name = 'shopfake';
+$db_name = 'team3';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 

@@ -201,11 +201,24 @@ img_url.onchange = sendData;
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
-                if(obj.success){
-                    alert('新增成功');
-                    location.href = 'drink_menu.php';
+                if(obj.success){                    
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '新增成功',
+                        showConfirmButton: false,
+                        timer: 1500  
+                    })
+                        .then(function(){
+                            location.href = "drink_menu.php"})
                 } else {
-                    alert('新增失敗');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '新增失敗',
+                        showConfirmButton: false,
+                        timer: 1500  
+                    });
                 }
             })
         }

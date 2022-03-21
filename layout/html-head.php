@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     
         <!-- <title><?= isset($title) ? $title : '預設的抬頭' ?></title> -->
-   
         <title><?= $title ?? '預設的抬頭' ?></title>
   </head>
   <body >
