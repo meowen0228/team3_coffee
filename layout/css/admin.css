@@ -564,7 +564,7 @@ form .mb-3 .form-text {
 .store-serve-form input[type=checkbox]:checked+label::before{
     background: url(./checked_v.svg) no-repeat center center;
     background-size: 80%;
-}絲
+}
 .store-time-select{
     width: 9rem;
     overflow: scroll;
