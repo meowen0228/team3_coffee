@@ -42,7 +42,7 @@ if ($totalRows) {
         <h4>優惠活動</h4>
       </div>
       <div class="col-1">
-        <button type="button" class="activity-add"><a href="activity-add.php">新增活動</a></button>
+        <button type="button" class="rounded-pill add-btn btn btn-outline-secondary"><a href="activity-add.php">新增活動</a></button>
       </div>
       <div class="data-search col-2.5">
         <input class="data-search-input" list="" id="">
@@ -67,9 +67,9 @@ if ($totalRows) {
           <?php foreach ($rows as $r) : ?>
             <tr>
               <td scope="col" style="display: none;"><?= $r['id'] ?></td>
-              <td scope="row">
-                <form class="contents-align" action="">
-                  <input type="checkbox" class="contents-align" name="activityupload" value="1">
+              <td class="contents-align"  scope="row">
+                <form action="">
+                  <input type="checkbox" class="newupload" name="newupload" value="1">
                 </form>
               </td>
               <td class="contents-align"><?= $r['title'] ?></td>

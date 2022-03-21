@@ -179,6 +179,8 @@ form .mb-3 .form-text {
     margin-top: 1rem;
     background: #fff;
     border-radius: 5px;
+    vertical-align: middle;
+    text-align: center;
 }
 .activity-add a{
     text-decoration:none;
