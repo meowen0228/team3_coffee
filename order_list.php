@@ -11,10 +11,10 @@ $perPage = 4;
 
 // 用戶要看的頁碼
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-// if ($page < 1) {
-//     header('Location: order_list.php?page=1');
-//     exit;
-// }
+if ($page < 1) {
+    header('Location: order_list.php?page=1');
+    
+}
 
 // 取得總筆數
 $t_sqlaa= "SELECT max(*) FROM orders";
