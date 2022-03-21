@@ -46,6 +46,7 @@ $row = $pdo->query($sql)->fetch();
                 <h4>菜單管理</h4>
                 <form name="form" class="form" method="post" novalidate onsubmit="checkForm(); return false;">
                 <div class="mb-3">
+                    <input type="hidden" name="id" value="<?= htmlentities($row['id']) ?>" >
                         <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1" <?php if ($row['status'] == 1) { ?> checked <?php } ?>>
                             <label class="form-check-label" for="productstatus">上架</label>
@@ -110,7 +111,9 @@ $row = $pdo->query($sql)->fetch();
                 </form>
             </div>
         </div>
-
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+                    <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+                </form>
 
 
         <div class="col-1"></div>
@@ -121,21 +124,21 @@ $row = $pdo->query($sql)->fetch();
 <script>
 img_url.onchange = sendData;
 
-function sendData(){
-    const fd = new FormData(document.img_form);
+    function sendData(){
+        const fd = new FormData(document.img_form);
 
-    fetch('drink_menu_add_img_api.php', {
-        method: 'POST',
-        body: fd
-    }).then(r=>r.json())
-    .then(obj=>{
-        console.log(obj);
-        if(obj.success && obj.filename){
-            preview_img1.src = './img/menu/'+ obj.filename;
-            $("#img_url_post").val('./img/menu/'+ obj.filename);
-        }
-    });
-} 
+        fetch('drink_menu_add_img_api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img/menu/'+ obj.filename;
+                $("#img_url_post").val('./img/menu/'+ obj.filename);
+            }
+        });
+    } 
 
 
 

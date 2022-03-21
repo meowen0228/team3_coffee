@@ -204,7 +204,8 @@ $sql = sprintf("SELECT users.id AS u_id,
                     </div>
                 </div>
             <?php endforeach ?>
-                <nav aria-label="Page navigation example">
+            <div class="d-flex justify-content-center mt-3">
+        <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
                     <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
@@ -221,7 +222,8 @@ $sql = sprintf("SELECT users.id AS u_id,
                     <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
                 </li>
             </ul>
-        </nav>
+        </nav>  <!-- 頁碼  -->
+    </div>
             <div class="col-1"></div>
         </div>
     </div>
