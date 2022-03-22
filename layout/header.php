@@ -15,7 +15,7 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
     <div class="col-10"></div>
    
           
-    <div class="col-1 bellca">
+    <div class="col-1 bellca mt-2">
     <div id="belldiv">
         <i class="fa-solid fa-bell d-flex flex-column" ></i>
         <span id="bell123"><?= $total_o+$total_u ?></span>
