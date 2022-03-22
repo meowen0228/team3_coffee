@@ -75,7 +75,7 @@ if ($totalRows) {
               <td class="contents-align"><?= $r['title'] ?></td>
               <td class="contents-align"><?= $r['start_time'] ?><br>|<br><?= $r['end_time'] ?></td>
               <td class="contents-align"> <?= $r['discount'] ?> </td>
-              <td><?= $r['contents'] ?></td>
+              <td>活動期間由<?= $r['start_time']?>至<?= $r['end_time']?><?= $r['contents'] ?></td>
               <td scope="col" style="display: none;"><?= $r['CREATEd_at'] ?></td>
               <td class="edit-icon"><a href="activity-edit.php?id=<?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
               <td class="edit-icon"><a href="javascript: del_it(<?= $r['id'] ?>)"><i class="fa-solid fa-trash-can"></i></a></td>

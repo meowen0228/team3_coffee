@@ -68,7 +68,8 @@ if (empty($row)) {
 
                     <div class="activity-textarea mb-3">
                         <label for="contents" class="form-label">內容：</label><br>
-                        <textarea class="form-control" name="contents" id="contents" rows="3"><?= $row['contents'] ?></textarea>
+                        <textarea class="form-control" name="contents" id="contents" rows="3"><?= $row['contents']?></textarea>
+                                                                                                             <!-- +"至"+$row['end_time']+$row['contents']  -->
                         <div class="form-text"></div>
                     </div>
                     <input type="hidden" id="id" name="id" value="<?= $row['id'] ?>">
