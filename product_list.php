@@ -231,6 +231,14 @@ if ($totalRows) {
             
     //         window.location.href='product-down.php';
     //       }
+    $(".store-search-input").on("keyup mouseup contextmenu", function () {
+      let search = $(this).val();
+      if (search != '') {
+        $(this).next().attr("href", "store-list-search.php?search-for=" + search);
+      }
+    });
+
+
 </script>
 
 

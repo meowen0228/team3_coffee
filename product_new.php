@@ -70,13 +70,18 @@ $row2 = $pdo->query($sql2)->fetchAll();
                 <form name="form1" class="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1">
+                            <input class="form-check-input" type="radio" name="status" id="productstatus1" value="1"> 
+                            
                             <label class="form-check-label" for="productstatus">上架</label>
+                            
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="0">
+                            <input class="form-check-input" type="radio" name="status" id="productstatus2" value="0">   
                             <label class="form-check-label" for="productstatus2">下架</label>
+                            
                         </div>
+                        <div class="form-text form-check form-check-inline"></div>
+                       
                     </div>
                     <div class="mb-3">
 
@@ -211,25 +216,48 @@ $row2 = $pdo->query($sql2)->fetchAll();
     const price = document.form1.price;
     const price_msg = price.closest('.mb-3').querySelector('.form-text');
 
+    const productstatus2 = document.form1.productstatus2;
+    const productstatus1 = document.form1.productstatus1;
+    const productstatus_msg = productstatus1.closest('.mb-3').querySelector('.form-text');
+
+
+
 
     function checkForm() {
         let isPass = true;
 
         if (name.value == '') {
             isPass = false;
-            name_msg.innerText = '請輸入名稱'
-            location.href = '#'
+            name_msg.innerText = '請輸入名稱';
+            location.href = '#';
+        }else{
+            name_msg.innerText ="";
         }
 
         if (price.value == '') {
             isPass = false;
-            price_msg.innerText = '請輸入金額'
-            location.href = '#'
+            price_msg.innerText = '請輸入金額';
+            location.href = '#';
+        }else{
+            price_msg.innerText ="";
         }
-    
+        
 
-
-
+           var f = document.forms[0];
+           var $pro= $("input[name='status']:checked").val();
+           console.log($pro);
+           if($pro === undefined){
+            productstatus_msg.innerText = '請選擇';
+            location.href = '#';
+           }else{
+            productstatus_msg.innerText = '';
+           }
+        //    if(productstatus2 check)
+        //    if (!(f.productstatus2[0].checked || f.productstatus1[1].checked)) {  
+        //     productstatus_msg.innerText = '請選擇'
+        //     location.href = '#'
+        // return false; 
+        //    }
 
         if (isPass) {
             const fd = new FormData(document.form1);
