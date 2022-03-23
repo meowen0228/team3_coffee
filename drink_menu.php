@@ -7,27 +7,130 @@ $pagename = 'home';
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
 <style>
-    /* .card_number{
-        width: 3rem;
+    .card_number {
+            width: 300PX;
+            text-align:center;
+        }
+    .card_name {
+        width: 150PX;
+        word-wrap:break-word;
     }
-    .card_name{
-        width: 11rem;
+    .card_photo {
+        width: 300px;
+        text-align:center;
     }
-    .card_photo{
-        width: 5rem;
+    .card_price {
+        width: 150px;
+        text-align:center;
+
     }
-    .card_price{
-        width: 2rem;
+    .card_content {
+        width: 300px;
     }
-    .card_content{
-        width: 15rem;
-        word-wrap
-        :break-word;
+    .card_condition {
+        width: 300px;
+        text-align:center;
     }
-    .card_condition{
-        width: 5rem;
+    .card_revise {
+        width: 150px;
     }
-     */
+    .solid {
+        size: 30px;
+    }
+
+
+    a {
+        text-decoration: none;
+        color: inherit;
+}
+
+.cta {
+        position: relative;
+        margin: auto;
+        padding: 19px 22px;
+        transition: all .2s ease;
+        }
+
+.cta:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 28px;
+        background: rgba(255, 171, 157, 0.5);
+        width: 56px;
+        height: 56px;
+        transition: all .3s ease;
+}
+
+.cta span {
+        position: relative;
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 900;
+        letter-spacing: .25em;
+        text-transform: uppercase;
+        vertical-align: middle;
+}
+
+.cta svg {
+        position: relative;
+        top: 0;
+        margin-left: 10px;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke: black;
+        stroke-width: 2;
+        transform: translateX(-5px);
+        transition: all .3s ease;
+}
+
+.cta:hover:before {
+        width: 100%;
+        background: rgba(255, 171, 157, 0.5);
+}
+
+.cta:hover svg {
+        transform: translateX(0);
+}
+
+.cta:active {
+        transform: scale(0.96);
+}
+
+
+
+.wrapper {
+  height: 50px;
+  /*This part is important for centering*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-demo {
+  width: 22ch;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
 </style>
 </head>
 
@@ -70,12 +173,21 @@ if ($totalRows) {
             <div class="col-10">
                 <div class="row py-1">
                     <div class="col-3">
-                        <h4>菜單管理</h4>
+                    <div class="wrapper">
+                        <div class="typing-demo">
+                            菜單管理系統
+                        </div>
+            </div>
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        
-                            <a href="drink_menu_add.php" class="btn btn-light rounded-pill"> 新增菜單</a>
+                    <a href="drink_menu_add.php" class="cta">
+  <span>新增菜單</span>
+  <svg width="20px" height="20px" viewBox="0 0 13 10">
+    <path d="M1,5 L11,5"></path>
+    <polyline points="8 1 12 5 8 9"></polyline>
+  </svg>
+</a>
                         
                     </div>
                     <div class="col-4">
@@ -118,22 +230,22 @@ if ($totalRows) {
                             <!-- <td>
                                 <input type="checkbox" name="" id="">
                             </td> -->  
-                            <th><?= $r['id'] ?></th>  <!--編號-->
-                            <td><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
-                            <td>
-                                <img style="width:100px;" src="<?= $r['url'] ?>" alt="">
+                            <th class="card_number"><?= $r['id'] ?></th>  <!--編號-->
+                            <td class="card_name"><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
+                            <td class="card_photo">
+                                <img style="width:100px;" src="<?= $r['url'] ?>" alt="00">
                             </td>   
-                            <td><?= $r['price'] ?></td> <!--價格-->
-                            <td><?= $r['content'] ?></td>  <!--介紹-->
+                            <td class="card_price"><?= $r['price'] ?></td> <!--價格-->
+                            <td class="card_content"><?= $r['content'] ?></td>  <!--介紹-->
                             <!--上架狀態-->
                             <?php if ($r['status']){?>
-                            <td style="color:blue"><h5>上架中</h5></td>
+                            <td class="card_condition" style="color:blue"><h5>上架中</h5></td>
 
                             <?php }else{?>
-                            <td style="color:red"><h5>已下架</h5></td>
+                            <td class="card_condition" style="color:red"><h5>已下架</h5></td>
                             <?php } ?>
 
-                            <td style="center "><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
+                            <td class="card_revise" style="center "><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
                         </tr>
                     <?php endforeach ?>
                 </tbody>  <!--菜單內容 -->
