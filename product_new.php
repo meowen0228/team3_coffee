@@ -132,6 +132,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
                                 <input class="form-check-input" type="radio" name="fk_product_types" id="producttype6" value="6">
                                 <label class="form-check-label" for="producttype6">其他</label>
                             </div>
+                            <div class="form-text form-check form-check-inline"></div>
                         </div>
 
                     </div>
@@ -220,6 +221,15 @@ $row2 = $pdo->query($sql2)->fetchAll();
     const productstatus1 = document.form1.productstatus1;
     const productstatus_msg = productstatus1.closest('.mb-3').querySelector('.form-text');
 
+    const producttype1 = document.form1.producttype1;
+    const producttype2 = document.form1.producttype2;
+    const producttype3 = document.form1.producttype3;
+    const producttype4 = document.form1.producttype4;
+    const producttype5 = document.form1.producttype5;
+    const producttype6 = document.form1.producttype6;
+    const producttype_msg = producttype1.closest('.mb-3').querySelector('.form-text');
+
+
 
 
 
@@ -243,7 +253,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
         }
         
 
-           var f = document.forms[0];
+        // var f = document.forms[0];
            var $pro= $("input[name='status']:checked").val();
            console.log($pro);
            if($pro === undefined){
@@ -252,12 +262,21 @@ $row2 = $pdo->query($sql2)->fetchAll();
            }else{
             productstatus_msg.innerText = '';
            }
-        //    if(productstatus2 check)
+        //    if(productstatus2 productstatus1 check)
         //    if (!(f.productstatus2[0].checked || f.productstatus1[1].checked)) {  
         //     productstatus_msg.innerText = '請選擇'
         //     location.href = '#'
         // return false; 
         //    }
+
+        var $type = $("input[name='fk_product_types']:checked").val();
+           console.log($pro);
+           if($type === undefined){
+            producttype_msg.innerText = '請選擇';
+            location.href = '#';
+           }else{
+            producttype_msg.innerText = '';
+           }
 
         if (isPass) {
             const fd = new FormData(document.form1);

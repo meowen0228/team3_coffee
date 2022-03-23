@@ -6,34 +6,16 @@ require __DIR__ . '/layout/connect_db.php';
 $title = '商品列表';
 $pagename = 'product_list';
 
-// 每一頁有幾筆
-$perPage = 10;
+// 抓取 search text
+$text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
 
-// 用戶要看的頁碼
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-if ($page < 1) {
-    header('Location: product_list.php?page=1');
-    exit;
-}
 
-// 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM products";
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
-// 預設沒有資料
-$rows = [];
-$totalPages = 0;
-
-if ($totalRows) {
-    $totalPages = ceil($totalRows / $perPage);
-    if ($page > $totalPages) {
-        header("Location: product_list1.php?page=$totalPages");
-        exit;
-    }
-
-    $sql = sprintf("SELECT * FROM products ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = "SELECT * FROM products 
+    WHERE p_name  LIKE '%$text%' OR `id` LIKE '%$text%'
+    ORDER BY id ";
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-}
+
 
 ?>
 
@@ -55,7 +37,6 @@ if ($totalRows) {
     .product-search{
         border: transparent;
     }
-
 
     .icon {
         background: #FFFFFF;
@@ -106,17 +87,18 @@ if ($totalRows) {
                     <div class="col-3 product-search">
           <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-          </div>
-          <!-- <div class="col-4">
+          </div> 
+<!-- 
+          <div class="col-4">
                         <div class="input-group form-outline ">
                             <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
                             <button type="button" class="btn btn-light icon search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
-                </div> -->
+          
 
 
                 <div class="list ">
@@ -167,35 +149,14 @@ if ($totalRows) {
                             <?php endforeach ?>
                         </tbody>
                     </table>
-                    <div class="container">
-
-                    </div>
+                  
 
                 </div>
             </div>
         </div>
     </div>
     </div>
-    <div class="d-flex justify-content-center mt-3">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
-                </li>
-                <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                    if ($i >= 1 and $i <= $totalPages) :
-                ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                <?php endif;
-                endfor; ?>
-                <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    
 
 
     <div class="col-1"></div>

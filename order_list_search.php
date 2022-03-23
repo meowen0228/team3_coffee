@@ -6,36 +6,10 @@ require __DIR__ . '/layout/connect_db.php';
 $title = '訂單列表';
 $pagename = 'order_list';
 
-// 每一頁有幾筆
-$perPage = 4;
+// 抓取 search text
+$text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
 
-// 用戶要看的頁碼
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-if ($page < 1) {
-    header('Location: order_list.php?page=1');
-    
-}
-
-// 取得總筆數
-$t_sqlaa= "SELECT max(*) FROM orders";
-$t_nun = (int)$t_sqlaa;
-
-
-$t_sql = "SELECT COUNT(1) FROM orders";
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-
-// 預設沒有資料
-$rows = [];
-$totalPages = 0;
-
-// if ($page > $totalPages) {
-//     header("Location: order_list.php?page=$totalPages");
-//     exit;
-// }
-if ($totalRows) {
-    $totalPages = ceil($totalRows / $perPage);
-
-    $sql = sprintf(
+    $sql = 
         "SELECT
         users.id AS u_id,
         user_name,
@@ -62,12 +36,11 @@ if ($totalRows) {
         price
         FROM order_detail
         left join products on products.id = order_detail.fk_product_id) AS detail on detail.od_fkid = orders.id
-        GROUP BY orders.id ORDER BY o_id LIMIT %s, %s ;",
-        ($page - 1) * $perPage,
-        $perPage
-    );
+        WHERE `o_id` LIKE '%$text%'
+        GROUP BY orders.id ORDER BY o_id ";
+        
+    
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-}
 
 ?>
 
@@ -84,6 +57,7 @@ if ($totalRows) {
     .order-search{
         border: transparent;
     }
+
 
     .search {
         border: none;
@@ -291,26 +265,7 @@ if ($totalRows) {
                 </div>
 
             </div>
-            <div class="d-flex justify-content-center mt-3">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
-                        </li>
-                        <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                            if ($i >= 1 and $i <= $totalPages) :
-                        ?>
-                                <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                                </li>
-                        <?php endif;
-                        endfor; ?>
-                        <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            
             <div class="col-1"></div>
         </div>
 
