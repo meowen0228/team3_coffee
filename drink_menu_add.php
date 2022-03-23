@@ -33,6 +33,37 @@ $pagename = 'home';
         display: inline;
         color: red;
     }
+
+
+
+    .wrapper {
+  height: 50px;
+  /*This part is important for centering*/
+  display: flex;
+  
+}
+
+.typing-demo {
+  width: 22ch;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
 </style>
 
 
@@ -73,8 +104,11 @@ $row = $pdo->query($sql)->fetchAll();
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-
-                <h4>菜單管理</h4>
+                <div class="wrapper">
+                    <div class="typing-demo">
+                        菜單管理系統-新增菜單
+                    </div>
+                </div>
                 <form name="form" class="form" method="post" novalidate onsubmit="checkForm(); return false;">
                 <div class="mb-3">
                         <div class="form-check form-check-inline">
@@ -109,8 +143,7 @@ $row = $pdo->query($sql)->fetchAll();
                     <div class="mb-4">圖片上傳：</div>
                     <div class="row g-4 mb-3 align-items-center">
                         <div class="col-3">
-                            <button type="button" onclick="img_url.click()">上傳圖片</button>
-                            <div class="box">
+                            <div class="box" onclick="img_url.click()">
                                 <img id="preview_img1" src="" style="width: 100%;">
                                 <input type="hidden" id="img_url_post" name="img_url_post" value="">
                             </div>

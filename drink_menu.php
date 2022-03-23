@@ -7,6 +7,9 @@ $pagename = 'home';
 <?php include __DIR__ . '/layout/html-head.php'; ?>
 <?php include __DIR__ . '/layout/header.php'; ?>
 <style>
+    .card{
+        padding: 50px;
+    }
     .card_number {
             width: 300PX;
             text-align:center;
@@ -26,6 +29,7 @@ $pagename = 'home';
     }
     .card_content {
         width: 300px;
+        text-align:center;
     }
     .card_condition {
         width: 300px;
@@ -36,6 +40,9 @@ $pagename = 'home';
     }
     .solid {
         size: 30px;
+    }
+    .card_revise {
+        
     }
 
 
@@ -102,35 +109,95 @@ $pagename = 'home';
 
 
 
-.wrapper {
-  height: 50px;
-  /*This part is important for centering*/
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.pagination-outer{ text-align: center; }
+.pagination{
+        font-family: 'Ubuntu', sans-serif;
+        display: inline-flex;
+        position: relative;
+        border: 2px solid #333;
+}
+.pagination li a.page-link{
+    color: #333;
+    background-color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 37px;
+    height: 38px;
+    width: 42px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-right: 2px solid #333;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease 0s;
+}
+.pagination li:first-child a.page-link{ border-radius: 2px 0 0 2px; }
+.pagination li:last-child a.page-link{
+    border: none;
+    border-radius: 0 2px 2px 0;
+}
+.pagination li a.page-link:hover,
+.pagination li a.page-link:focus,
+.pagination li.active a.page-link:hover,
+.pagination li.active a.page-link{
+    color: #fff;
+    background: rgba(255, 171, 157, 0.5);;
+    border-color: #333;
+}
+.pagination li a.page-link:before,
+.pagination li a.page-link:after{
+    content: '';
+    background-color: rgba(255, 171, 157, 0.5);;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    border-bottom: 2px solid #333;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: all 0.4s ease 0s;
+}
+.pagination li a.page-link:after{
+    background-color: rgba(255, 171, 157, 0.5);1;
+    height: 0;
+    border: none;
+}
+.pagination li a.page-link:hover:before{
+    border-radius: 0 0 7px 7px;
+    opacity: 1;
+    top: 7px;
+}
+.pagination li.active a.page-link:before,
+.pagination li a.page-link:focus:before{
+    opacity: 0;
+}
+.pagination li a.page-link:focus:after,
+.pagination li.active a.page-link:after{
+    opacity: 1;
+    height: 100%;
+}
+@media only screen and (max-width: 480px){
+    .pagination{
+        font-size: 0;
+        border: none;
+        display: inline-block;
+    }
+    .pagination li{
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 5px 10px;
+    }
+    .pagination li a.page-link,
+    .pagination li:last-child a.page-link{
+        line-height: 34px;
+        border: 2px solid #333;
+    }
 }
 
-.typing-demo {
-  width: 22ch;
-  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid;
-  font-family: monospace;
-  font-size: 2em;
-}
 
-@keyframes typing {
-  from {
-    width: 0
-  }
-}
-    
-@keyframes blink {
-  50% {
-    border-color: transparent
-  }
-}
+
 </style>
 </head>
 
@@ -173,11 +240,7 @@ if ($totalRows) {
             <div class="col-10">
                 <div class="row py-1">
                     <div class="col-3">
-                    <div class="wrapper">
-                        <div class="typing-demo">
-                            菜單管理系統
-                        </div>
-            </div>
+                        <h2>菜單管理系統</h2>
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
@@ -185,7 +248,7 @@ if ($totalRows) {
   <span>新增菜單</span>
   <svg width="20px" height="20px" viewBox="0 0 13 10">
     <path d="M1,5 L11,5"></path>
-    <polyline points="8 1 12 5 8 9"></polyline>
+    <polyline points="6 0 6 10"></polyline> 
   </svg>
 </a>
                         
@@ -220,6 +283,7 @@ if ($totalRows) {
                             <th class="card_price">價格</th>
                             <th class="card_content">介紹</th>
                             <th class="card_condition">上架狀態</th>
+                            <th class="card_revise">修改 </th>
                             
                         </tr>
                     </thead>    <!-- 菜單標題 -->
@@ -233,16 +297,16 @@ if ($totalRows) {
                             <th class="card_number"><?= $r['id'] ?></th>  <!--編號-->
                             <td class="card_name"><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
                             <td class="card_photo">
-                                <img style="width:100px;" src="<?= $r['url'] ?>" alt="00">
+                                <img style="width:100px;" src="<?= $r['url'] ?>" alt="">
                             </td>   
                             <td class="card_price"><?= $r['price'] ?></td> <!--價格-->
-                            <td class="card_content"><?= $r['content'] ?></td>  <!--介紹-->
+                            <td class=""><?= $r['content'] ?></td>  <!--介紹-->
                             <!--上架狀態-->
                             <?php if ($r['status']){?>
-                            <td class="card_condition" style="color:blue"><h5>上架中</h5></td>
+                            <td class="card_condition" style="color:blue"><img src="dog.gif" alt="" width="100px" height="100px"></td>
 
                             <?php }else{?>
-                            <td class="card_condition" style="color:red"><h5>已下架</h5></td>
+                            <td class="card_condition" style="color:red"><img src="up.gif" alt="" width="100px" height="100px"></td>
                             <?php } ?>
 
                             <td class="card_revise" style="center "><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
@@ -251,12 +315,12 @@ if ($totalRows) {
                 </tbody>  <!--菜單內容 -->
 
                 </table>
-
+</div>
                 <div class="d-flex justify-content-center mt-3">
-        <nav aria-label="Page navigation example">
+                <nav class="pagination-outer" aria-label="Page navigation">
             <ul class="pagination">
                 <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
+                    <a class="page-link" href="?page=<?= $page - 1 ?>"><span aria-hidden="true">«</span></a>
                 </li>
                 <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
                     if ($i >= 1 and $i <= $totalPages) :
@@ -267,14 +331,12 @@ if ($totalRows) {
                 <?php endif;
                 endfor; ?>
                 <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
+                    <a class="page-link" href="?page=<?= $page + 1 ?>"><span aria-hidden="true">»</span></a>
                 </li>
             </ul>
         </nav>  <!-- 頁碼  -->
     </div>
             </div>
-</div>
-
 </main> 
 </body>
     <!-- Bootstrap JavaScript Libraries -->
