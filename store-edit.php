@@ -28,8 +28,7 @@
     `fk_store_id`,
     store_serve.id AS ssi_id,
     `serve_status`,
-    `serve_name`,
-    `serve_EN_name`
+    `serve_name`
     FROM `store_serve`
     LEFT JOIN `store_serve_icon` ON store_serve.fk_serve_id = store_serve_icon.id
     WHERE `fk_store_id` = $id";
@@ -152,9 +151,9 @@
                   <?php if( $sr['serve_status'] == '1' ){ ?>
                     <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>" checked>
                   <?php } else { ?>
-                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>">
+                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>">
                   <?php } ?>
-                    <label class="" for="<?= $sr['serve_EN_name'] ?>">
+                    <label class="" for="<?= $sr['serve_name'] ?>">
                       <?= $sr['serve_name'] ?>
                     </label>
                   </div>

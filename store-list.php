@@ -79,6 +79,9 @@
           <div class="col-2.5 store-add-btn">
             <a href="store-add.php">新增門市 +</a>
           </div>
+          <div class="col-2.5 store-add-btn">
+            <a href="store-add.php">服務管理 <i class="fa-solid fa-pen"></i></a>
+          </div>
           <div class="col-2.5 store-search">
             <input class="store-search-input" name="search-for" placeholder="搜尋門市名稱或地址">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>

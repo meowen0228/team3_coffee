@@ -18,8 +18,7 @@
     `fk_store_id`,
     store_serve_icon.id AS ssi_id,
     `serve_status`,
-    `serve_name`,
-    `serve_EN_name`
+    `serve_name`
     FROM `store_serve`
     LEFT JOIN `store_serve_icon` ON store_serve.fk_serve_id = store_serve_icon.id
     WHERE `fk_store_id` = 1";
@@ -67,14 +66,14 @@
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="store_name" class="form-label">門市名稱</label>
-                <input type="text" class="form-control" id="store_name" name="store_name" required>
+                <input type="text" class="form-control" id="store_name" name="store_name" required placeholder="xx店" maxlength="10">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="city" class="form-label">縣市</label>
-                <input type="text" class="form-control" id="city" name="city">
+                <input type="text" class="form-control" id="city" name="city" placeholder="xx市" maxlength="3">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
@@ -88,7 +87,7 @@
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="phone" class="form-label">電話</label>
-                <input type="text" class="form-control" id="phone" name="phone">
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="0x-xxx-xxxx" maxlength="11">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
@@ -122,10 +121,8 @@
                 <div class="closest-div">
                   <input type="hidden" name="serve_id[]" value="<?= $sr['ssi_id'] ?>">
                   <input type="hidden" name="serve_status[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
-                  <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>">
-                  <label class="" for="<?= $sr['serve_EN_name'] ?>">
-                  
-
+                  <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>">
+                  <label class="" for="<?= $sr['serve_name'] ?>">
                     <?= $sr['serve_name'] ?>
                   </label>
                 </div>
