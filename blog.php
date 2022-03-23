@@ -95,7 +95,7 @@ $first = [];
   }
 
   .date01 {
-    width: 50px;
+    width: 200px;
   }
 
   .table {
@@ -159,15 +159,14 @@ $first = [];
                 <th>縮圖</th>
                 <th>標題</th>
                 <th>時間</th>
-                <th></th>
+                <th>編輯</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($rows as $r) : ?>
                 <tr>
                   <td><input type="checkbox" name="checkbox[]" value="單項" id="checkbox-1"></td>
-                  <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt="">
-                  <td>
+                  <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt=""></td>
                   <td><?= $r['title'] ?></td>
                   <td class="date01"><?= $r['CREATEd_at'] ?></td>
                   <td>
@@ -179,24 +178,27 @@ $first = [];
               <?php endforeach ?>
             </tbody>
           </table>
-
-
-          <ul class=" pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
         </form>
+
+        <div class="d-flex justify-content-center mt-3">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
+                  <a class="page-link" href="?page=<?= $page-1 ?>"><i class="fa-solid fa-angle-left"></i></a>
+              </li>
+              <?php for($i=$page-5; $i<=$page+5; $i++): 
+                  if($i>=1 and $i<=$totalPages):
+                  ?>
+              <li class="page-item <?= $page==$i ? 'active' : '' ?>">
+                  <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+              </li>
+              <?php endif; endfor; ?>
+              <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
+                  <a class="page-link" href="?page=<?= $page+1 ?>"><i class="fa-solid fa-angle-right"></i></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
     </div>
   </div>
   </div>
