@@ -67,6 +67,7 @@
   transform: translate(-50%, -50%) scale(.6);
 }
 .new_form input{
+  width: 20rem;
   padding: .5rem 2rem;
   background: #F2F2F2;;
   border: none;
@@ -136,21 +137,24 @@
 
     <div class="popup-wrap" id="popup-wrap">
       <div class="popup-box">
-        <form name="new_form" class="new_form d-flex flex-column text-start">
+        <form name="new_form" class="new_form d-flex flex-column text-start" method="post" novalidate onsubmit="checkNewForm(); return false;">
           <h5>新增服務項目</h5>
           <div class="mt-3">
             <label for="new_serve_name" class="me-3">服務名稱</label>
-            <input type="text" name="new_serve_name">
+            <input type="text" class="new_serve_name" name="new_serve_name" placeholder="請輸入服務項目名稱" maxlength="6">
           </div>
           <div class="mt-3">
             <label for="new_icon" class="me-3">圖示來源</label>
-            <input type="text" name="new_icon">
+            <input type="text" class="new_icon" name="new_icon" placeholder="請輸入fontawesome標籤">
           </div>
           <div class="mt-5 mb-5">
-            <label for="" class="me-3">圖示</label>
-            <p></p>
+            <label for="" class="me-3">圖示預覽</label>
+            <span class="new_icon_show" style="font-size: 40px;"></span>
           </div>
-          <a class="close-btn popup-close text-center" href="#"><i class="fa-solid fa-xmark"></i></a>
+          <div>
+            <p class="new_alert text-center link-danger"></p>
+          </div>
+          <a class="close-btn popup-close text-center mt-3 me-2" href="#"><i class="fa-solid fa-xmark"></i></a>
           <div class="text-center">
             <button type="submit" class="btn btn-outline-secondary store-edit-btn">新增</button>
           </div>
@@ -178,13 +182,9 @@
       $(".popup-box").removeClass("transform-out").addClass("transform-in");
       event.preventDefault();
     });
-
     $(".popup-close").click(function() {
       closeWindow();
     });
-    // $(".popup-wrap").click(function(){
-    //   closeWindow();
-    // })
     function closeWindow(){
       $(".popup-wrap").fadeOut(200);
       $(".popup-box").removeClass("transform-in").addClass("transform-out");
@@ -200,6 +200,11 @@
     $(".icon_i").on("keyup paste", function(){
       let change_input = $(this).find("input").val();
       $(this).next().html(change_input);
+    });
+    $(".new_icon").on("keyup paste", function(){
+      let change_input = $(this).val();
+      console.log(change_input);
+      $(".new_icon_show").html(change_input);
     });
     
     // 新增類別 row
@@ -257,9 +262,40 @@
     //   // arr = push();
     // });
 
+    // 新增項目
+    function checkNewForm(){
+      let isPass = true; // 有沒有通過檢查
+      let checkName = $(".new_serve_name").val();
+      let checkIcon = $(".new_icon").val();
 
+      if ( checkName == "" || checkIcon == "" ){
+        isPass = false;
+        $(".new_alert").text("缺少資料無法送出!");
+      }
+
+      if(isPass){
+          const fd = new FormData(document.new_form);
+
+          fetch('store-new-serve-api.php', {
+              method: 'POST',
+              body: fd
+          }).then(r => r.json())
+          .then(obj => {
+              console.log(obj);
+              if(obj.success){
+                  alert("新增成功");
+                  location.href = 'store-serve.php';
+              } else {
+                  alert("沒有新增");
+              }
+          })
+        }
+    }
+
+    // 修改項目
     function checkForm(){
       let isPass = true; // 有沒有通過檢查
+      
       if(isPass){
           const fd = new FormData(document.old_form);
 
