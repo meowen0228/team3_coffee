@@ -128,15 +128,15 @@ $first = [];
           <button class="btn btn-outline-secondary">刪除主類別</button>
         </div> -->
         <br />
-        <div class="sort" id="head-tabs">
-          <ul class="list-group list-group-horizontal-md">
-            <span>主類別</span>
+        <div class="sort align-middle" id="head-tabs">
+          <ul class="list-group list-group-horizontal-md align-middle">
+            <p class="me-2">主類別</p>
 
-            <li><button class=" btn btn-outline-secondary"><a href="#tab-1" data-target="tab01">咖啡篇</a></button></li>
-            <li><button class="btn btn-outline-secondary"><a href="#tab-2" data-target="tab02">沖煮篇</a></button></li>
-            <li><button class="btn btn-outline-secondary"><a href="#tab-3" data-target="tab03">咖啡豆篇</a></button></li>
-            <li> <button class="btn btn-outline-secondary"><a href="#tab-4" data-target="tab04">名人專欄篇</a></button></li>
-            <li><button class="btn btn-outline-secondary"><a href="#tab-5" data-target="tab05">好物分享篇</a></button></li>
+            <li><a href="#tab-1" data-target="tab01"><button class="btn btn-outline-secondary me-2">咖啡篇</button></a></li>
+            <li><a href="#tab-2" data-target="tab02"><button class="btn btn-outline-secondary me-2">沖煮篇</button></a></li>
+            <li><a href="#tab-3" data-target="tab03"><button class="btn btn-outline-secondary me-2">咖啡豆篇</button></a></li>
+            <li><a href="#tab-4" data-target="tab04"><button class="btn btn-outline-secondary me-2">名人專欄篇</button></a></li>
+            <li><a href="#tab-5" data-target="tab05"><button class="btn btn-outline-secondary me-2">好物分享篇</button></a></li>
           </ul>
         </div>
 
@@ -145,7 +145,7 @@ $first = [];
         <br>
 
         <div>
-          <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</a></button>
+          <a href="blog-content-add.php"><button class="btn btn-outline-secondary">新增文章</button></a>
           <button type="submit" class="btn btn-outline-secondary">刪除文章</button>
         </div>
 
@@ -164,15 +164,17 @@ $first = [];
             </thead>
             <tbody>
               <?php foreach ($rows as $r) : ?>
-                <tr>
+                <tr class="align-middle">
                   <td><input type="checkbox" name="checkbox[]" value="單項" id="checkbox-1"></td>
                   <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt=""></td>
                   <td><?= $r['title'] ?></td>
                   <td class="date01"><?= $r['CREATEd_at'] ?></td>
                   <td>
-                    <button type="button" class="btn btn-light">
-                      <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
-                    </button>
+                    <a href="blog-content-edit.php?id=<?= $r['id'] ?>">
+                      <button type="button" class="btn btn-light">
+                        編輯文章
+                      </button>
+                    </a>
                   </td>
                 </tr>
               <?php endforeach ?>
