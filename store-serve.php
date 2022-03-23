@@ -16,14 +16,80 @@
 <?php include __DIR__. './layout/header.php';?>
 <?php include __DIR__. './layout/aside.php';?>
 
+<style>
+.popup-wrap {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.popup-box {
+  padding: 50px 50px;
+  -webkit-transform: translate(-50%, -50%) scale(.6);
+  transform: translate(-50%, -50%) scale(.6);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  background: #fff;
+  text-align: center;
+}
+.close-btn {
+  width: 50px;
+  line-height: 50px;
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  text-decoration: none;
+  color: black;
+  line-height: 40px;
+  font-size: 32px;
+}
 
+.transform-in, .transform-out {
+  display: block;
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.transform-in {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.transform-out {
+  -webkit-transform: translate(-50%, -50%) scale(.6);
+  transform: translate(-50%, -50%) scale(.6);
+}
+.new_form input{
+  padding: .5rem 2rem;
+  background: #F2F2F2;;
+  border: none;
+  border-radius: 50px;
+  outline: none;
+  transition: var(--store-transition);
+}
+.new_form input:focus{
+  outline: 1.5px solid gray;
+}
+</style>
 
   <main class="admin-main px-5 py-5 d-flex">
     <div class="col-2"></div>
     <div class="col-8">
       <div class="d-flex justify-content-between">
-        <div class="col-4">
-          <h4>門市服務管理</h4>
+        <div class="col-12 d-flex justify-content-between">
+          <div>
+            <h4>門市服務管理</h4>
+          </div>
+          <div class="col-2.5 store-add-btn d-flex me-0">
+            <a href="#popup-wrap" class="popup-btn">新增服務 <i class="fa-solid fa-plus"></i></a>
+          </div>
         </div>
       </div>
       <div class="store-table">
@@ -34,7 +100,7 @@
                 <tr>
                   <th scope="col">編號</th>
                   <th scope="col">名稱</th>
-                  <th scope="col" title="注意，請使用免費圖示!"><a href="https://fontawesome.com/search?m=free" target="_blank"><button type="button" class="btn btn-outline-secondary">圖示來源</button></a></th>
+                  <th scope="col" title="注意，請使用免費圖示!"><a href="https://fontawesome.com/search?m=free" target="_blank"><button type="button" class="btn btn-outline-secondary store-edit-btn">圖示來源</button></a></th>
                   <th scope="col">圖示</th>
                 </tr>
               </thead>
@@ -55,9 +121,11 @@
               </tbody>
             </table>
           </div>
-          <div>
-            <button type="button" class="btn btn-outline-secondary" id="cancel_btn">返回</button>
-            <button type="submit" class="btn btn-outline-secondary">儲存修改</button>
+          <div class="d-flex justify-content-between">
+            <div>
+              <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">返回</button>
+              <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存修改</button>
+            </div>
           </div>
         </form>
       </div>
@@ -65,6 +133,31 @@
       </div>
     </div> <!-- col-10 end  -->
     <div class="col-2"></div>
+
+    <div class="popup-wrap" id="popup-wrap">
+      <div class="popup-box">
+        <form name="new_form" class="new_form d-flex flex-column text-start">
+          <h5>新增服務項目</h5>
+          <div class="mt-3">
+            <label for="new_serve_name" class="me-3">服務名稱</label>
+            <input type="text" name="new_serve_name">
+          </div>
+          <div class="mt-3">
+            <label for="new_icon" class="me-3">圖示來源</label>
+            <input type="text" name="new_icon">
+          </div>
+          <div class="mt-5 mb-5">
+            <label for="" class="me-3">圖示</label>
+            <p></p>
+          </div>
+          <a class="close-btn popup-close text-center" href="#"><i class="fa-solid fa-xmark"></i></a>
+          <div class="text-center">
+            <button type="submit" class="btn btn-outline-secondary store-edit-btn">新增</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </main>
 
   <!-- dropdowns失效補用 -->
@@ -77,6 +170,26 @@
 
   <!------------------------ script ------------------------>
   <script>
+
+    // pop up
+    $(".popup-btn").click(function() {
+      let href = $(this).attr("href")
+      $(href).fadeIn(250);
+      $(".popup-box").removeClass("transform-out").addClass("transform-in");
+      event.preventDefault();
+    });
+
+    $(".popup-close").click(function() {
+      closeWindow();
+    });
+    // $(".popup-wrap").click(function(){
+    //   closeWindow();
+    // })
+    function closeWindow(){
+      $(".popup-wrap").fadeOut(200);
+      $(".popup-box").removeClass("transform-in").addClass("transform-out");
+      event.preventDefault();
+    }
 
     // 取消儲存按鈕
     $("#cancel_btn").click(function(){

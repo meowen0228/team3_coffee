@@ -129,20 +129,18 @@
               <?php endforeach ?>
             </div>
           </div>
+          <br>
         </div>
-        <div class="col-6 mt-4 mx-auto text-center">
+        <div class="col-4 mt-4 mx-auto text-center">
           <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" alt=""></button>
           <input type="hidden" id="img_url_post" name="img_url_post" value="">
         </div>
       </div>
-      
-
-      <br>
       <br>
       <div class="col-12 d-flex justify-content-evenly">
         <div class="col-4 d-flex justify-content-evenly">
-          <button type="submit" class="btn btn-outline-secondary">儲存</button>
-          <button type="button" class="btn btn-outline-secondary" id="cancel_btn">取消</button>
+          <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存</button>
+          <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">取消</button>
         </div>
       </div>
     </form>
