@@ -17,7 +17,7 @@ CREATE TABLE `users`(
   `user_address_3` VARCHAR(100) ,
   `user_phone` VARCHAR(10) NOT NULL UNIQUE,
   `user_nick` VARCHAR(20),
-  `CREATEd_at` TIMESTAMP DEFAULT NOW()
+  `created_at` TIMESTAMP DEFAULT NOW()
 );
 INSERT INTO `users`( `user_name`, `user_birth`,`user_mail`,`user_mail2`,`user_address`,`user_address_2`,`user_address_3`, `user_password`,`user_phone`,`user_nick`)
 VALUES
@@ -62,7 +62,7 @@ CREATE TABLE `user_ask`(
   `main` VARCHAR(25) NOT NULL,
   `ask` VARCHAR(200) NOT NULL,
   `ans` VARCHAR(200),
-  `CREATEd_at` TIMESTAMP DEFAULT NOW(),
+  `created_at` TIMESTAMP DEFAULT NOW(),
   foreign KEY (`fk_user_id`) references users(id)
 );
 INSERT INTO `user_ask`(`fk_user_id`, `main`,`ask`,`ans`)
@@ -249,7 +249,7 @@ CREATE TABLE `orders`(
   `pay` boolean NOT NULL,
   `shipment` boolean NOT NULL,
   `fk_condition_id`  INT NOT NULL,
-  `CREATEd_at` TIMESTAMP DEFAULT NOW(),
+  `created_at` TIMESTAMP DEFAULT NOW(),
   foreign KEY (fk_user_id) references users(id),
   foreign KEY (fk_condition_id) references order_condition(id)
 );
@@ -297,15 +297,14 @@ VALUES('3','1','1'),
 CREATE TABLE `store_serve_icon`(
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   `serve_name` VARCHAR(40) NOT NULL,
-  `serve_EN_name` VARCHAR(40) NOT NULL,
   `icon` VARCHAR(100) NOT NULL
 );
-INSERT INTO `store_serve_icon`( `serve_name`, `serve_EN_name`, `icon`)
+INSERT INTO `store_serve_icon`( `serve_name`, `icon`)
 VALUES
-('無障礙廁所', 'freeman', '<i class="fa-solid fa-wheelchair"></i>'),
-('無線網路', 'wifi','<i class="fa-solid fa-wifi"></i>'),
-('寵物友善', 'pet','<i class="fa-solid fa-paw"></i>'),
-('親子空間', 'babyroom', '<i class="fa-solid fa-baby"></i>');
+('無障礙廁所', '<i class="fa-solid fa-wheelchair"></i>'),
+('無線網路', '<i class="fa-solid fa-wifi"></i>'),
+('寵物友善', '<i class="fa-solid fa-paw"></i>'),
+('親子空間', '<i class="fa-solid fa-baby"></i>');
 
 -- 店家門市
 CREATE TABLE `store`(
@@ -315,7 +314,7 @@ CREATE TABLE `store`(
   `address` VARCHAR(50) NOT NULL,
   `phone` VARCHAR(20) NOT NULL UNIQUE, -- 不重複
   `photo` VARCHAR(200),
-  `CREATEd_at` TIMESTAMP DEFAULT NOW()
+  `created_at` TIMESTAMP DEFAULT NOW()
 );
 INSERT INTO `store`(`store_name`, `city`, `address`, `phone`)
 VALUES
@@ -504,7 +503,7 @@ CREATE TABLE `drink_order`(
   `pay` VARCHAR(20) NOT NULL,
   `fk_store_id` INT UNSIGNED NOT NULL,
   `status` TINYINT NOT NULL,
-   `CREATEd_at` TIMESTAMP DEFAULT NOW(),
+  `created_at` TIMESTAMP DEFAULT NOW(),
   FOREIGN KEY(fk_user_id) REFERENCES users(id),
   FOREIGN KEY(fk_store_id) REFERENCES store(id)
 );
@@ -581,7 +580,6 @@ VALUES
 ('24','1','1');
 
 
-
 --------------------------------------------------------------------------------------------------------------------------------
 -- 首頁橫幅
 CREATE TABLE `banner`(
@@ -603,9 +601,9 @@ CREATE TABLE `news`(
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `title` VARCHAR(50) NOT NULL,
   `contents` VARCHAR(225),
-  `CREATEd_at` DATE NOT NULL
+  `created_at` DATE NOT NULL
 );
-INSERT INTO `news`(`title`,`contents`,`CREATED_at`)
+INSERT INTO `news`(`title`,`contents`,`created_at`)
 VALUES
 ('高雄總店公休公告','高雄總店將於2022年10月10日公休，因店內裝修故閉店一天，敬請見諒。','2022-10-09'),
 ('台北店公休公告','台北店將於2022年10月10日公休，因店內裝修故閉店一天，敬請見諒。','2022-10-09'),
@@ -622,9 +620,9 @@ CREATE TABLE `activity`(
   `discount` VARCHAR(50) NOT NULL,
   `contents` VARCHAR(225) NOT NULL,
   `status` tinyint NOT NULL, 
-  `CREATEd_at` DATE NOT NULL
+  `created_at` DATE NOT NULL
 );
-INSERT INTO `activity`(`title`,`start_time`,`end_time`,`discount`,`contents`,`status`,`CREATED_at`)
+INSERT INTO `activity`(`title`,`start_time`,`end_time`,`discount`,`contents`,`status`,`created_at`)
 VALUES
 ('八五折活動','2021-12-25','2021-12-31','15OFF','為了歡慶新年，從12月25日至12月31日推出黑咖啡系列指定組合優惠價，皆可使用「八五折優惠」,超佛價格一起團購起來！','0','2021-12-24'),
 ('八折活動','2022-01-25','2022-01-31','20OFF','為了歡慶新年，從1月25日至1月31日推出黑咖啡系列指定組合優惠價，皆可使用「八折優惠」,超佛價格一起團購起來！','0','2022-1-24'),
@@ -670,9 +668,9 @@ CREATE TABLE `blogs`(
 	`title` VARCHAR(200) NOT NULL,
 	`content` TEXT NOT NULL,
 	`fk_tag_id` INT NOT NULL,
-	`CREATEd_at` TIMESTAMP DEFAULT NOW(),
+	`created_at` TIMESTAMP DEFAULT NOW(),
   FOREIGN KEY(`fk_type_id`) REFERENCES blog_types(id),
-   FOREIGN KEY(`fk_tag_id`) REFERENCES tags(id)
+  FOREIGN KEY(`fk_tag_id`) REFERENCES tags(id)
 );
 INSERT INTO `blogs`(`fk_type_id`,`title`,`content`,`fk_tag_id`)
 VALUES
@@ -861,11 +859,11 @@ VALUES
 
 
 -- 文章列表
-SELECT blogs.id, url, title,CREATEd_at
+SELECT blogs.id, url, title,created_at
 FROM  blog_photos
 JOIN  blogs
 ON blogs.id = blog_photos.fk_blog_id ;
--- SELECT blogs.id, url, title,CREATEd_at
+-- SELECT blogs.id, url, title,created_at
 -- FROM  blog_photos
 -- JOIN  blogs
 -- ON blogs.id = blog_photos.fk_blog_id  DESC  LIMIT  %s, %s ;
