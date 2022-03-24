@@ -10,40 +10,45 @@ $pagename = 'home';
     .card{
         padding: 50px;
     }
-    .card_number {
-            width: 300PX;
-            text-align:center;
-        }
-    .card_name {
-        width: 150PX;
-        word-wrap:break-word;
-    }
-    .card_photo {
-        width: 300px;
-        text-align:center;
-    }
-    .card_price {
-        width: 150px;
-        text-align:center;
-
-    }
     .card_content {
         width: 300px;
-        text-align:center;
+        height: 100px;
+        overflow:hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 5; 
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        text-overflow: ellipsis;
     }
-    .card_condition {
-        width: 300px;
-        text-align:center;
+    .card_id {
+        width: 50px;
+        text-align: center;
     }
-    .card_revise {
+    .card_name {
+        width: 200px;
+        text-align: center;
+    }
+    .card_status {
         width: 150px;
+        text-align: center;
     }
-    .solid {
-        size: 30px;
+
+    .card_img {
+        width: 200px;
+        text-align: center;
     }
-    .card_revise {
-        
+    .card_price {
+        text-align: center;
     }
+
+
+
+
+
+
+
+
+
 
 
     a {
@@ -111,92 +116,61 @@ $pagename = 'home';
 
 .pagination-outer{ text-align: center; }
 .pagination{
-        font-family: 'Ubuntu', sans-serif;
-        display: inline-flex;
-        position: relative;
-        border: 2px solid #333;
+    font-family: 'Work Sans', sans-serif;
+    display: inline-flex;
 }
 .pagination li a.page-link{
-    color: #333;
-    background-color: #fff;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 37px;
-    height: 38px;
-    width: 42px;
-    padding: 0;
-    margin: 0;
+    color: #555;
+    background-color: #e7e7e7;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin: 0 7px;
     border: none;
-    border-right: 2px solid #333;
+    overflow: hidden;
     position: relative;
     z-index: 1;
-    transition: all 0.3s ease 0s;
 }
-.pagination li:first-child a.page-link{ border-radius: 2px 0 0 2px; }
-.pagination li:last-child a.page-link{
-    border: none;
-    border-radius: 0 2px 2px 0;
-}
+.pagination li.active a.page-link,
 .pagination li a.page-link:hover,
-.pagination li a.page-link:focus,
-.pagination li.active a.page-link:hover,
-.pagination li.active a.page-link{
+.pagination li.active a.page-link:hover{
     color: #fff;
-    background: rgba(255, 171, 157, 0.5);;
-    border-color: #333;
+    background-color: transparent;
+    text-shadow: 0 0 2px #000;
 }
 .pagination li a.page-link:before,
 .pagination li a.page-link:after{
     content: '';
-    background-color: rgba(255, 171, 157, 0.5);;
-    height: 100%;
-    width: 100%;
+    background-color: rgba(255, 171, 157, 0.5);
+    height: 75%;
+    width: 75%;
     opacity: 0;
-    border-bottom: 2px solid #333;
+    transform: translateX(-50%) translateY(-50%);
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 50%;
+    top: 50%;
     z-index: -1;
-    transition: all 0.4s ease 0s;
-}
-.pagination li a.page-link:after{
-    background-color: rgba(255, 171, 157, 0.5);1;
-    height: 0;
-    border: none;
-}
-.pagination li a.page-link:hover:before{
-    border-radius: 0 0 7px 7px;
-    opacity: 1;
-    top: 7px;
+    transition: all 0.3s ease 0s;
 }
 .pagination li.active a.page-link:before,
-.pagination li a.page-link:focus:before{
-    opacity: 0;
-}
-.pagination li a.page-link:focus:after,
-.pagination li.active a.page-link:after{
+.pagination li a.page-link:hover:before{
     opacity: 1;
-    height: 100%;
+    left: 43%;
+    top: 43%;
+}
+.pagination li.active a.page-link:after,
+.pagination li a.page-link:hover:after{
+    opacity: 1;
+    left: 57%;
+    top: 57%;
 }
 @media only screen and (max-width: 480px){
-    .pagination{
-        font-size: 0;
-        border: none;
-        display: inline-block;
-    }
+    .pagination{ display: block; }
     .pagination li{
         display: inline-block;
-        vertical-align: top;
-        margin: 0 5px 10px;
-    }
-    .pagination li a.page-link,
-    .pagination li:last-child a.page-link{
-        line-height: 34px;
-        border: 2px solid #333;
+        margin: 0 0 5px;
     }
 }
-
-
 
 </style>
 </head>
@@ -277,13 +251,13 @@ if ($totalRows) {
                     <thead>  
                         <tr class="oderTitle text-nowrap">
                             <!-- <th scope="col"><input type="checkbox" name="" id="">全選</th> -->
-                            <th class="card_number">編號</th>
-                            <th class="card_name">品名</th>
-                            <th class="card_photo">圖片</th>
-                            <th class="card_price">價格</th>
-                            <th class="card_content">介紹</th>
-                            <th class="card_condition">上架狀態</th>
-                            <th class="card_revise">修改 </th>
+                            <th style="text-align: center">編號</th>
+                            <th style="text-align: center">品名</th>
+                            <th style="text-align: center">圖片</th>
+                            <th style="text-align: center">價格</th>
+                            <th style="text-align: center">介紹</th>
+                            <th style="text-align: center">上架狀態</th>
+                            <th style="text-align: center">修改 </th>
                             
                         </tr>
                     </thead>    <!-- 菜單標題 -->
@@ -293,29 +267,34 @@ if ($totalRows) {
                         <tr>
                             <!-- <td>
                                 <input type="checkbox" name="" id="">
-                            </td> -->  
-                            <th class="card_number"><?= $r['id'] ?></th>  <!--編號-->
-                            <td class="card_name"><?= $r['drink_name'] ?></td>      <!--飲料名稱-->
-                            <td class="card_photo">
+                            </td> -->
+                            <th class="card_id"><div class="card_id"><?= $r['id'] ?></div></th> <!--編號--> 
+                            
+                            <td class="card_name"><div class="card_name"><?= $r['drink_name'] ?></div></td>      <!--飲料名稱-->
+                            <td class="card_img"><div class="card_img">
                                 <img style="width:100px;" src="<?= $r['url'] ?>" alt="">
-                            </td>   
-                            <td class="card_price"><?= $r['price'] ?></td> <!--價格-->
-                            <td class=""><?= $r['content'] ?></td>  <!--介紹-->
+                            </div></td>   
+                            <td><div class="card_price"><?= $r['price'] ?></div></td> <!--價格-->
+                            <td style="width: 300px;"><div class="card_content"><?= $r['content'] ?></div></td>  <!--介紹-->
                             <!--上架狀態-->
                             <?php if ($r['status']){?>
-                            <td class="card_condition" style="color:blue"><img src="dog.gif" alt="" width="100px" height="100px"></td>
+                            <td class="card_status"><img src="open.gif" alt="" width="100px" height="100px"></td>
 
                             <?php }else{?>
-                            <td class="card_condition" style="color:red"><img src="up.gif" alt="" width="100px" height="100px"></td>
+                            <td class="card_status"><img src="closed.gif" alt="" width="100px" height="100px"></td>
                             <?php } ?>
 
-                            <td class="card_revise" style="center "><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
+                            <td style="text-align: center"><a href="drink_menu_revise.php?id= <?= $r['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a></td> <!--修改-->
                         </tr>
                     <?php endforeach ?>
                 </tbody>  <!--菜單內容 -->
 
                 </table>
-</div>
+            </div>
+
+
+
+
                 <div class="d-flex justify-content-center mt-3">
                 <nav class="pagination-outer" aria-label="Page navigation">
             <ul class="pagination">
@@ -337,7 +316,11 @@ if ($totalRows) {
         </nav>  <!-- 頁碼  -->
     </div>
             </div>
+
 </main> 
+
+
+
 </body>
     <!-- Bootstrap JavaScript Libraries -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

@@ -8,6 +8,9 @@ $pagename = 'revise';
 <?php include __DIR__ . '/layout/header.php'; ?>
 
 <style>
+    .card {
+        padding: 50px;
+    }
     .box {
         border: 1px solid black;
         width: 200px;
@@ -26,6 +29,34 @@ $pagename = 'revise';
         border: transparent;
         background-color: transparent;
     }
+        .wrapper {
+  height: 50px;
+  /*This part is important for centering*/
+  display: flex;
+  
+}
+
+.typing-demo {
+  width: 22ch;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
 
 </style>
 </head>
@@ -64,8 +95,13 @@ $row = $pdo->query($sql)->fetch();
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-
-                <h4>菜單管理</h4>
+            <div class="wrapper">
+                    <div class="typing-demo">
+                        菜單管理系統-新增菜單
+                    </div>
+                </div>
+                <div class="card">
+                <div class="card">
                 <form name="form" class="form" method="post" novalidate onsubmit="checkForm(); return false;">
                 <div class="mb-3">
                     <input type="hidden" name="id" value="<?= htmlentities($row['id']) ?>" >
@@ -176,10 +212,23 @@ img_url.onchange = sendData;
             .then(obj => {
                 console.log(obj);
                 if(obj.success){
-                    alert('修改成功');
-                    location.href = 'drink_menu.php';
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '修改成功',
+                        showConfirmButton: false,
+                        timer: 1500  
+                    })
+                        .then(function(){
+                            location.href = "drink_menu.php"})
                 } else {
-                    alert('修改失敗');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '修改失敗',
+                        showConfirmButton: false,
+                        timer: 1500  
+                    });
                 }
             })
         }

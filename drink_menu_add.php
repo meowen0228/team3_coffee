@@ -11,11 +11,16 @@ $pagename = 'home';
 
 
 <style>
+    .card {
+        padding: 50px;
+    }
+
     .box {
         border: 1px solid black;
         width: 200px;
         height: 200px;
         background: #F2F2F2;
+        margin-left: 80px;
     }
 
     .addProduct {
@@ -109,6 +114,7 @@ $row = $pdo->query($sql)->fetchAll();
                         菜單管理系統-新增菜單
                     </div>
                 </div>
+                <div class="card">
                 <form name="form" class="form" method="post" novalidate onsubmit="checkForm(); return false;">
                 <div class="mb-3">
                         <div class="form-check form-check-inline">
@@ -142,11 +148,9 @@ $row = $pdo->query($sql)->fetchAll();
                     </div>
                     <div class="mb-4">圖片上傳：</div>
                     <div class="row g-4 mb-3 align-items-center">
-                        <div class="col-3">
-                            <div class="box" onclick="img_url.click()">
-                                <img id="preview_img1" src="" style="width: 100%;">
-                                <input type="hidden" id="img_url_post" name="img_url_post" value="">
-                            </div>
+                    <div class="col-6 mt-4 mx-auto text-center">
+                        <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" alt=""></button>
+                        <input type="hidden" id="img_url_post" name="img_url_post" value="">
                         </div>
                     </div>
                     <div class="row g-4 mt-4 mb-4 ">
@@ -173,7 +177,7 @@ $row = $pdo->query($sql)->fetchAll();
         <form name="img_form" onsubmit="return false;" style="display: none;">
                     <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
                 </form>
-
+</div>
 
         <div class="col-1"></div>
     </div>
@@ -193,12 +197,30 @@ img_url.onchange = sendData;
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
+                $(".del-img").css("background", "rgb(82, 82, 82)");
                 preview_img1.src = './img/menu/'+ obj.filename;
+                $("#img_url_post").val('./img/menu/'+ obj.filename);
+                $("#preview_img1").css("opacity", "1");
                 $("#img_url_post").val('./img/menu/'+ obj.filename);
             }
         });
     } 
+    function sendData(){
+        const fd = new FormData(document.img_form);
 
+        fetch('store-img-api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                $(".del-img").css("background", "rgb(82, 82, 82)");
+                preview_img1.src = './img/store'+ obj.filename;
+                $("#preview_img1").css("opacity", "1");
+                $("#img_url_post").val('./img/store'+ obj.filename);
+            }
+        });
 
         const name = document.form.name; // DOM element
         const name_msg = name.closest('.mb-3').querySelector('.form-text');
@@ -216,15 +238,17 @@ img_url.onchange = sendData;
             isPass = false;
             name_msg.innerText = '請入正確的姓名'
             location = '#';
+        }else{
+            name_msg.innerText = ''
         }
 
         if(price.value == ''){
             isPass = false;
             price_msg.innerText = '請輸入價格'
             location = '#';
+        }else{
+            price_msg.innerText = ''
         }
-
-        // name_msg.innerText
 
         if(isPass){
             const fd = new FormData(document.form);
