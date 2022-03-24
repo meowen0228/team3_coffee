@@ -28,16 +28,15 @@
     `fk_store_id`,
     store_serve.id AS ssi_id,
     `serve_status`,
-    `serve_name`,
-    `serve_EN_name`
+    `serve_name`
     FROM `store_serve`
     LEFT JOIN `store_serve_icon` ON store_serve.fk_serve_id = store_serve_icon.id
     WHERE `fk_store_id` = $id";
 
-  
+
   $store_row = $pdo->query($store_sql)->fetch();
   $time_row = $pdo->query($time_sql);
-  $serve_row = $pdo->query($serve_sql)->fetchAll();
+  $serve_row = $pdo->query($serve_sql);
 
   if( empty($store_row) || empty($time_row) || empty($serve_row) ){
       header('Location: store-list.php'); // 找不到資炓轉向列表頁
@@ -86,14 +85,14 @@
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="store_name" class="form-label">門市名稱</label>
-                <input type="text" class="form-control" id="store_name" name="store_name" required value="<?= htmlentities($store_row['store_name']) ?>">
+                <input type="text" class="form-control" id="store_name" name="store_name" required value="<?= htmlentities($store_row['store_name']) ?>" maxlength="10">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="city" class="form-label">縣市</label>
-                <input type="text" class="form-control" id="city" name="city" value="<?= $store_row['city'] ?>">
+                <input type="text" class="form-control" id="city" name="city" value="<?= $store_row['city'] ?>" maxlength="3">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
@@ -107,7 +106,7 @@
             <div class="mb-3 d-flex flex-column justify-content-between">
               <div class="mt-0">
                 <label for="phone" class="form-label">電話</label>
-                <input type="text" class="form-control" id="phone" name="phone" value="<?= $store_row['phone'] ?>">
+                <input type="text" class="form-control" id="phone" name="phone" value="<?= $store_row['phone'] ?>" maxlength="11">
               </div>
               <div class="form-text store-form-text justify-content-end"></div>
             </div>
@@ -150,11 +149,11 @@
                   <input type="hidden" name="serve_status[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
                   
                   <?php if( $sr['serve_status'] == '1' ){ ?>
-                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>" checked>
+                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>" checked>
                   <?php } else { ?>
-                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>">
+                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>">
                   <?php } ?>
-                    <label class="" for="<?= $sr['serve_EN_name'] ?>">
+                    <label class="" for="<?= $sr['serve_name'] ?>">
                       <?= $sr['serve_name'] ?>
                     </label>
                   </div>
@@ -162,16 +161,10 @@
             </div>
           </div>
           <br>
-          <br>
-          <br>
-          <div class="d-flex justify-content-evenly">
-            <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存</button>
-            <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">取消</button>
-          </div>
         </div>
 
         <!------------ 上傳圖片 ------------>
-        <div class="col-5 mt-4 mx-auto text-center position-relative">
+        <div class="col-4 mt-4 mx-auto text-center position-relative">
           <?php if ($store_row['photo']== '') { ?>
             <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $store_row['photo'] ?>" style=""></button>
           <?php } else { ?>
@@ -183,7 +176,13 @@
         <!------------ 上傳圖片 ------------>
         
       </div>
-
+      <br>
+      <div class="col-12 d-flex justify-content-evenly">
+        <div class="col-4 d-flex justify-content-evenly">
+          <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存</button>
+          <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">取消</button>
+        </div>
+      </div>
     </form>
 
     <form name="img_form" onsubmit="return false;" style="display: none;">
@@ -211,7 +210,7 @@
                 location.href = 'store-list.php';
             } else {
                 alert("沒有修改");
-                <!-- location.href = 'store-list.php'; -->
+                location.href = 'store-list.php';
             }
         })
     }

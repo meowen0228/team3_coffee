@@ -77,7 +77,10 @@
         </div>
         <div class="d-flex flex-row">
           <div class="col-2.5 store-add-btn">
-            <a href="store-add.php">新增門市 +</a>
+            <a href="store-add.php">新增門市 <i class="fa-solid fa-plus"></i></a>
+          </div>
+          <div class="col-2.5 store-add-btn">
+            <a href="store-serve.php">服務管理 <i class="fa-solid fa-pen"></i></a>
           </div>
           <div class="col-2.5 store-search">
             <input class="store-search-input" name="search-for" placeholder="搜尋門市名稱或地址">

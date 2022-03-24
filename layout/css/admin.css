@@ -125,7 +125,7 @@ body{
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: transparent; 
 }
 ::-webkit-scrollbar-thumb {
     background: #A3A0A0;
@@ -478,7 +478,7 @@ form .mb-3 .form-text {
     width: 76%;
 }
 .store-edit-form input{
-    width: 80%;
+    /* width: 80%; */
     padding: .4rem 1.5rem;
     box-sizing: border-box;
     border-radius: 3rem;
@@ -508,7 +508,7 @@ form .mb-3 .form-text {
     user-select: none;
 }
 .store-edit-btn{
-    width: 5rem;
+    width: 6rem;
     border-radius: 20px;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
 }
@@ -539,7 +539,7 @@ form .mb-3 .form-text {
     border-radius: 50%;
     position: absolute;
     top: 10px;
-    right: 50px;
+    right:20px;
     opacity: 1;
     z-index: 8;
 }
@@ -579,7 +579,7 @@ form .mb-3 .form-text {
     background-size: 80%;
 }
 .store-time-select{
-    width: 9rem;
+    /* width: 9rem; */
     overflow: scroll;
 }
 .store-time-select .select-items{
@@ -594,3 +594,19 @@ form .mb-3 .form-text {
 /* .store-serve-check{
     width: 2rem;
 } */
+.serve_input input{
+    width: 8rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50px;
+    box-shadow: none;
+    outline: none;
+    text-align: center;
+    transition: var(--store-transition);
+}
+.serve_input input:focus{
+    background: #f0f0f0;
+}
+.serve_input .icon_i input{
+    width: 20rem;
+}

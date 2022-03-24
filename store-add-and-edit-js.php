@@ -63,6 +63,7 @@
         dropdown: true,
         scrollbar: true
     });
+    
     // 取消儲存按鈕
     $("#cancel_btn").click(function(){
         location.href='store-list.php'
