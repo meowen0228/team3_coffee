@@ -37,6 +37,7 @@
            <ul>
                <li>
                    <a class="d-block py-2 px-3" href="store-list.php">門市管理</a>
+                   <a class="d-block py-2 px-3" href="store-serve.php">服務管理</a>
                </li>
            </ul>
 
