@@ -24,6 +24,7 @@ if(empty($_POST['user_id']) or empty($_POST['user_name'])){
 
 
 $sql = "UPDATE `users` SET  
+        `user_url`=?,
         `user_name`=?,
         `user_birth`=?,
         `user_phone`=?,
@@ -39,6 +40,7 @@ $sql = "UPDATE `users` SET
 $stmt = $pdo->prepare($sql); 
 
 $stmt->execute([
+    $_POST['img_url_post'] ,
     $_POST['user_name'],
     $_POST['user_birth'],
     $_POST['user_phone'],

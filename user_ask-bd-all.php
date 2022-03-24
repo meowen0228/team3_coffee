@@ -51,7 +51,7 @@
     outline: none;
     background: #fff;
 }
-.userSearch{
+.askSearch{
     border: none;
     outline: none;
 }
@@ -69,12 +69,14 @@
   background-color: #fff;
 }
 
-.userSearchbox > .userSearch {
+.userSearchbox > .askSearch {
   width:70%;
   box-sizing:border-box; /* 使元素的寬度包括padding margin, border*/
   -moz-box-sizing:border-box;
 }
-
+.askSearch{
+    font-size: smaller;
+}
 
 
 
@@ -100,8 +102,8 @@
                       <div class="col-2">
                           <div class="box userSearchbox">
                           &thinsp;
-                              <input type="text" size="6" class="userSearch">
-                              <i class="fa-solid fa-magnifying-glass"></i>
+                              <input type="text" size="6" class="askSearch" name="search-for" placeholder="姓名 案件編號 主旨">
+                              <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
                           </div>
                       </div>
                   </div>
@@ -151,130 +153,41 @@
                         </tr>
                     <?php endforeach ?>
                 </tbody>
-        <!-- <tbody id="ak">
-            <tr class="ask">
-            <th scope="row">90001</th>
-            <th>11001</th>
-            <th>運費問題</th>
-            <td>1997-01-01</td>
-            <td class="ans">未回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90002</th>
-            <th>11002</th>
-            <th>QA2</th>
-            <td>1997-01-01</td>
-            <td class="ans">已回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90003</th>
-            <th>11002</th>
-            <th>QA3</th>
-            <td>1997-01-01</td>
-            <td class="ans">已回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90004</th>
-            <th>11002</th>
-            <th>QA4</th>
-            <td>1997-01-01</td>
-            <td class="ans">已回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90005</th>
-            <th>11002</th>
-            <th>QA5</th>
-            <td>1997-01-01</td>
-            <td class="ans">未回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90006</th>
-            <th>11002</th>
-            <th>QA6</th>
-            <td>1997-01-01</td>
-            <td class="ans">已回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90007</th>
-            <th>11002</th>
-            <th>QA7</th>
-            <td>1997-01-01</td>
-            <td class="ans">已回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90008</th>
-            <th>11002</th>
-            <th>QA8</th>
-            <td>1997-01-01</td>
-            <td class="ans">未回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90009</th>
-            <th>11002</th>
-            <th>QA9</th>
-            <td>1997-01-01</td>
-            <td class="ans">未回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
-
-            <tr class="ask">
-            <th scope="row">90010</th>
-            <th>11002</th>
-            <th>QA10</th>
-            <td>1997-01-01</td>
-            <td class="ans">未回覆</td>
-            <td><a href=""><i class="fa-solid fa-pen-to-square"></a></i></td>
-            </tr>
+       
             
  
 
 
   
-         </tbody> -->
+         </tbody> 
         </table>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
         <script>
-        //找到ask下一層ans中有包含"已"的元素，之後往同層下一個找到td向下找到a再找到i 刪除編輯class，新增眼睛class
-        // $(".ask").children(".ans:contains(已)").next().children().children().removeClass('fa-pen-to-square').addClass('fa-eye');  
         
-        //找到ask下一層ans中有包含"已"的元素，更改CSS              
         $(".ask").children(".ans:contains(未)").css({"color":"red","font-weight":"bolder"});
         
 
-            // $(".ask").children(".ans:contains(已)").next().remove();  
-            // $(".ask").children(".ans:contains(已)").next().prepend("<i class="fa-solid fa-eye"></i>");
+            
             function showAll(){
-            // $(".ask").children(".ans:contains(已)").parent().css("display","");
-            // $(".ask").children(".ans:contains(未)").parent().css("display","");
+          
             window.location.href='user_ask-bd-all.php';
           }
           function showNo(){
-            // $(".ask").children(".ans:contains(已)").parent().css("display","none");
-            // $(".ask").children(".ans:contains(未)").parent().css("display","");
+           
             window.location.href='user_ask-bd-no.php';
           }
           function showYes(){
-            // $(".ask").children(".ans:contains(已)").parent().css("display","");
-            // $(".ask").children(".ans:contains(未)").parent().css("display","none");
+          
             window.location.href='user_ask-bd-yes.php';
           }
+          $(".askSearch").on("keyup mouseup contextmenu", function () {
+              let search = $(this).val();
+              if (search != '') {
+              $(this).next().attr("href", "ask-list-search.php?search-for=" + search);
+              }
+           });
+
         </script>
     </div>
     <div>

@@ -29,7 +29,7 @@ if(empty($_POST['id']) or empty($_POST['p_name'])){
 $sql = "UPDATE `products` SET  
         `status`=?,
         `p_name`=?,
-        `price`=?,
+        `price`=?, 
         `fk_product_types`=?,
         `url`=?,
         `content`=?

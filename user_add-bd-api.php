@@ -24,14 +24,15 @@ if(empty($_POST['user_name'])){
 
 
 $sql = "INSERT INTO `users`(
-    `user_name`, `user_birth`, `user_phone`, `user_mail`,
+    `user_url`,`user_name`, `user_birth`, `user_phone`, `user_mail`,
     `user_mail2`,`user_address`,`user_address_2`,`user_address_3`,
     `user_password`,`user_nick`,`created_at`
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  NOW())";
+      ) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  NOW())";
 
 $stmt = $pdo->prepare($sql); 
 
 $stmt->execute([
+    $_POST['img_url_post'] ,
     $_POST['user_name'],
     $_POST['user_birth'],
     $_POST['user_phone'],

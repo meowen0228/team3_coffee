@@ -72,6 +72,16 @@ td{
 th{
     vertical-align:middle;  
 }
+.box {
+        border: 1px solid #F2F2F2;
+        width: 200px;
+        height: 200px;
+        
+        background: transparent;
+    }
+.user_img{
+    width: 100%;
+}
 
   </style>
 
@@ -116,6 +126,26 @@ th{
     </tr>
     </thead> -->
     <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+    <div class="row">
+                <div class="col-7"></div>
+                <div class="col-3">頭像上傳：
+                        <div class="row g-4 mb-3 align-items-center">
+                       
+                            <div>
+                                <div class="box upImg">
+                                <button type="button" onclick="img_url.click()">更新頭像</button>
+                                <?php if($row['user_url']==''){?>
+                              <img id="preview_img1" src="./img/user-A.jpeg" alt="" class="user_img">
+                              <?php } else{?>
+                                <img id="preview_img1" src="<?= $row['user_url'] ?>" alt="" class="user_img">
+                             <?php } ?>
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?=$row['user_url']?>">
+
+                            </div>
+                        </div>       
+                </div>
+                <div class="col-2"></div>
+    </div>
     <tbody >
   
       <tr class="tbbox">
@@ -249,6 +279,9 @@ th{
             <div class="col-4"></div>
         </div>
         </form>
+        <form name="img_form" onsubmit="return false;" style="display: none;">
+            <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
+         </form>
         <br>
     </div>
     
@@ -257,23 +290,38 @@ th{
   <!-- </div> container--> 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script>
-      
-    //   $(".fa-lock").click(function(){
-          
-    //       $(this).removeClass('fa-lock').addClass('fa-unlock');
-              
-    //         $(this).parent().nextAll().children("input").prop('disabled', false);
-    //         $(this).parent().nextAll().children("input").css("border","2px black solid");
-    //         $(this).parent().parent().css("background-color","#aaa")
-    //     });
-    //   $(".fa-unlock").click(function(){
-          
-    //       $(this).removeClass('fa-unlock').addClass('fa-lock');
-              
-    //         $(this).parent().nextAll().children("input").prop('disabled', false);
-    //         $(this).parent().nextAll().children("input").css("border","2px black solid");
-    //         $(this).parent().parent().css("background-color","#aaa")
-    //     });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var imageTagID = input.getAttribute("targetID");
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = document.getElementById(imageTagID);
+                img.setAttribute("src", e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+</script>
+  <script>
+       function sendData(){
+        const fd = new FormData(document.img_form);
+
+        fetch('user_edit_img_api.php', {
+            method: 'POST',
+            body: fd
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                preview_img1.src = './img/user'+ obj.filename;
+                // console.log('./img/' + obj.filename);
+                $("#img_url_post").val('./img/user'+ obj.filename);
+                // img_url_post.value = './img/'+ obj.filename;
+            }
+        });
+    }
+    img_url.onchange = sendData;
 
       $("#aaa").on("click",".fa-lock",function(){
         $(this).removeClass('fa-lock').addClass('fa-lock-open');

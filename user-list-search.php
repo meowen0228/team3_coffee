@@ -1,35 +1,34 @@
 <?php
+  // 連接資料庫
   require __DIR__ . '/layout/connect_db.php';
-  $title = '會員列表';
-  $pagename = 'userList';
-  $perPage = 5; // 每一頁有幾筆
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;  // 用戶要看的頁碼
-if ($page < 1) {
-    header('Location: user_list-bd.php?page=1');
-    exit;
-}
+  
+  // 頁面資訊
+  $title = '門市管理';
+  $pagename = 'store_list';
 
-$t_sql = "SELECT COUNT(1) FROM users";
-// 取得總筆數
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-$rows = []; // 預設沒有資料
-$totalPages = 0;
-if ($totalRows) {
-    // 總頁數
-    $totalPages = ceil($totalRows / $perPage);
-    if ($page > $totalPages) {
-        header("Location: user_list-bd.php?page=$totalPages");
-        exit;
-    }
+  // 抓取 search text
+  $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
+  
+  $sql =
+  "SELECT * FROM users 
+    WHERE id  LIKE '%$text%' OR `user_name` LIKE '%$text%'
+    GROUP BY id ORDER BY id DESC ";
+    
+  $rows = $pdo -> query($sql) -> fetchAll(); // 拿到分頁資料
+  // $rowsNum = $rows -> rowCount();
 
-    $sql = sprintf("SELECT * FROM users ORDER BY id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-    $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-}
+  $num = array();
+  foreach($rows as $r) {
+      array_push($num, $r['id']);
+  }
+
 ?>
 
-<?php include __DIR__. '/layout/html-head.php';?>
-<?php include __DIR__. '/layout/header.php';?>
-<?php include __DIR__. '/layout/aside.php';?>
+<?php include __DIR__. './layout/html-head.php';?>
+<?php include __DIR__. './layout/header.php';?>
+<?php include __DIR__. './layout/aside.php';?>
+
+
 
 <style>
 
@@ -78,7 +77,16 @@ if ($totalRows) {
   /* vertical-align : middle; */
 }
 
-
+a{
+    color :black;
+    text-decoration:none;
+}
+a:hover{
+    color :black;
+}
+.userSearch{
+    font-size: smaller;
+}
   </style>
 
 
@@ -99,7 +107,7 @@ if ($totalRows) {
                       <div class="col-2">
                           <div class="box userSearchbox">
                           &thinsp;
-                              <input type="text" size="6" class="userSearch"  name="search-for" placeholder="搜尋會員姓名或編號">
+                              <input type="text" size="6" class="userSearch"  name="search-for" placeholder="搜尋姓名或編號">
                               <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
                           </div>
                       </div>
@@ -164,55 +172,29 @@ if ($totalRows) {
     <div class="col-1"></div>
   </div>
   <br>
-  <div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page-1 ?>">
-                        <i class="fa-solid fa-angle-left"></i>
-                        </a>
-                    </li>
-                    <?php for($i=$page-5; $i<=$page+5; $i++): 
-                        if($i>=1 and $i<=$totalPages):
-                        ?>
-                    <li class="page-item <?= $page==$i ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
-                    <?php endif; endfor; ?>
-                    <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page+1 ?>">
-                        <i class="fa-solid fa-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+  <center><button type="submit" class="btn btn-outline-secondary store-edit-btn"><a href="user_list-bd.php">回列表</a></button></center>
   </div>
   <!-- </div> container--> 
     
 </main>
 
-    <?php include __DIR__. '/layout/scripts.php';?>
-    <?php include __DIR__. '/layout//html-foot.php';?>
-    <script>
+<script>
     function del_it(id){
         if(confirm(`確定要刪除編號為 ${id} 的資料嗎?`)){
-
+            
             location.href = 'user_delete-bd.php?id=' + id;
         }
-
+        
     }
     $(".userSearch").on("keyup mouseup contextmenu", function () {
-      let search = $(this).val();
-      if (search != '') {
-        $(this).next().attr("href", "user-list-search.php?search-for=" + search);
-      }
+        let search = $(this).val();
+        if (search != '') {
+            $(this).next().attr("href", "user-list-search.php?search-for=" + search);
+        }
     });
-
-
+    
+    
 </script>
-<?php include __DIR__. './layout/scripts.php';?>
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+
+<?php include __DIR__. '/layout/scripts.php';?>
+<?php include __DIR__. '/layout//html-foot.php';?>
