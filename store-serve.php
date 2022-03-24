@@ -125,11 +125,9 @@
               </tbody>
             </table>
           </div>
-          <div class="d-flex justify-content-between">
-            <div>
-              <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">返回</button>
-              <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存修改</button>
-            </div>
+          <div class="d-flex justify-content-evenly">
+            <button type="button" class="btn btn-outline-secondary store-edit-btn" id="cancel_btn">返回</button>
+            <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存修改</button>
           </div>
         </form>
       </div>
