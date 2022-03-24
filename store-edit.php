@@ -33,10 +33,10 @@
     LEFT JOIN `store_serve_icon` ON store_serve.fk_serve_id = store_serve_icon.id
     WHERE `fk_store_id` = $id";
 
-  
+
   $store_row = $pdo->query($store_sql)->fetch();
   $time_row = $pdo->query($time_sql);
-  $serve_row = $pdo->query($serve_sql)->fetchAll();
+  $serve_row = $pdo->query($serve_sql);
 
   if( empty($store_row) || empty($time_row) || empty($serve_row) ){
       header('Location: store-list.php'); // 找不到資炓轉向列表頁
@@ -149,7 +149,7 @@
                   <input type="hidden" name="serve_status[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
                   
                   <?php if( $sr['serve_status'] == '1' ){ ?>
-                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_EN_name'] ?>" checked>
+                    <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>" checked>
                   <?php } else { ?>
                     <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>">
                   <?php } ?>

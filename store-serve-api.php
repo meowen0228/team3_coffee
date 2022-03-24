@@ -23,7 +23,6 @@ if( empty($_POST['id']) ){
     exit;
 }
 
-// $integerIDs = array_map('intval', $_POST['id']);
 
 // serve icon table update ----------------------------------------------------------
 $serve_icon_sql =

@@ -40,15 +40,18 @@
 }
 .close-btn {
   width: 50px;
-  line-height: 50px;
+  line-height: 40px;
+  color: gray;
+  font-size: 32px;
+  text-decoration: none;
   display: inline-block;
   position: absolute;
   top: 0px;
   right: 0px;
-  text-decoration: none;
+  transition: var(--store-transition);
+}
+.close-btn:hover{
   color: black;
-  line-height: 40px;
-  font-size: 32px;
 }
 
 .transform-in, .transform-out {
