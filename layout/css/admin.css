@@ -32,7 +32,6 @@ body{
     align-items: center;
     right: -5px;
     top: 15px;
-    
     background-color: rgba(255, 0, 0, 0.9);
     color: white;
     font-weight: bolder;
@@ -499,8 +498,9 @@ form .mb-3 .form-text {
 }
 .store-serve-form{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: baseline;
 }
 .store-serve-form label{

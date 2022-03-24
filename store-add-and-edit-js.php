@@ -157,5 +157,3 @@
             phone_msg.innerText = '電話號碼已存在';
         }
     }
-    }
-    </script>

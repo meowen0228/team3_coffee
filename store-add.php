@@ -122,7 +122,7 @@
                   <input type="hidden" name="serve_id[]" value="<?= $sr['ssi_id'] ?>">
                   <input type="hidden" name="serve_status[]" value="<?= $sr['serve_status'] ?>" id="chk_api">
                   <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>">
-                  <label class="" for="<?= $sr['serve_name'] ?>">
+                  <label class="mt-2" for="<?= $sr['serve_name'] ?>">
                     <?= $sr['serve_name'] ?>
                   </label>
                 </div>
@@ -174,7 +174,7 @@
             }
         })
     }
-}
+
 </script>
 <?php include __DIR__. './layout/scripts.php';?>
 <?php include __DIR__. './layout//html-foot.php' ?>

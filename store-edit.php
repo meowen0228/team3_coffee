@@ -153,7 +153,7 @@
                   <?php } else { ?>
                     <input class="" type="checkbox" value="<?= $sr['serve_status'] ?>" id="<?= $sr['serve_name'] ?>">
                   <?php } ?>
-                    <label class="" for="<?= $sr['serve_name'] ?>">
+                    <label class="mt-2" for="<?= $sr['serve_name'] ?>">
                       <?= $sr['serve_name'] ?>
                     </label>
                   </div>

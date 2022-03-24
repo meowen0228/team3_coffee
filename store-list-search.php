@@ -60,6 +60,9 @@
           <div class="col-2.5 store-add-btn">
             <a href="store-add.php">新增門市 +</a>
           </div>
+          <div class="col-2.5 store-add-btn">
+            <a href="store-serve.php">服務管理 <i class="fa-solid fa-pen"></i></a>
+          </div>
           <div class="col-2.5 store-search">
           <input class="store-search-input" name="search-for" placeholder="搜尋門市名稱或地址">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -119,7 +122,9 @@
         </table>
         <div class="text-center"><span></span></div>
       </div>
-      <button type="submit" class="btn btn-outline-secondary store-edit-btn"><a href="store-list.php">回列表</a></button>
+      <div class="mt-5 text-center">
+        <a href="store-list.php"><button type="submit" class="btn btn-outline-secondary store-edit-btn">回列表</button></a>
+      </div>
     </div> <!-- col-10 end  -->
     <div class="col-1"></div>
   </main>
