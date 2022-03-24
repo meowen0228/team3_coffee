@@ -163,7 +163,7 @@
           <br>
         </div>
 
-        <!------------ 上傳圖片 ------------>
+        <!------------ 上傳圖片 判斷是否已有圖片 隨條件設定透明度 ------------>
         <div class="col-4 mt-4 mx-auto text-center position-relative">
           <?php if ($store_row['photo']== '') { ?>
             <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $store_row['photo'] ?>" style=""></button>

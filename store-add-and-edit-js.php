@@ -11,7 +11,6 @@
 <script>
 
     // 上傳照片
-    
     function sendData(){
         const fd = new FormData(document.img_form);
 
@@ -32,7 +31,7 @@
     
     img_url.onchange = sendData;
 
-    // 照片刪除
+    // 照片移除
     $(".del-img").on("click", function(){
         $(this).css("background", "transparent");
         $("#preview_img1").css("opacity", "0");
@@ -103,6 +102,7 @@
         }
     })
 </script>
+
 <script>
     let namePosts = <?php echo json_encode($name); ?>;
     let phonePosts = <?php echo json_encode($phone); ?>;

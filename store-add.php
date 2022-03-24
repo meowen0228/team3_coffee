@@ -137,6 +137,7 @@
         </div>
       </div>
       <br>
+      <!------------------------ 上傳圖片 ------------------------>
       <div class="col-12 d-flex justify-content-evenly">
         <div class="col-4 d-flex justify-content-evenly">
           <button type="submit" class="btn btn-outline-secondary store-edit-btn">儲存</button>
@@ -145,6 +146,7 @@
       </div>
     </form>
 
+    <!------------------------ 上傳圖片用表單 -> api ------------------------>
     <form name="img_form" onsubmit="return false;" style="display: none;">
       <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
     </form>
@@ -153,7 +155,7 @@
     <div class="col-1"></div>
   </main>
 
-
+<!------------------------ add 及 edit 共用 js-link ------------------------>
 <?php include __DIR__. './store-add-and-edit-js.php';?>
 
     if(isPass){
