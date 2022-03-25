@@ -232,12 +232,20 @@ $pagename = 'blog-content-add'; ?>
           <div class="thumbnail">
             <label for="" class="col-2">縮圖</label>
             <button style="top: 20px" id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
-            <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
             <button type="button" class="del-img"></button>
-            <input type="hidden" id="img_url_post" name="photo_alt[]" value="main">
+            <input type="hidden" id="img_url_post" name="img_url_post" value="">
           </div>
 
-          <br>
+
+
+
+
+          <!-- <label for="" class="col-2">縮圖</label>
+            <button style="top: 20px" id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="" alt=""></button>
+            <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+            <button type="button" class="del-img"></button>
+            <input type="hidden" id="img_url_post" name="photo_alt[]" value="main"> -->
+
 
           <div class="sort">
             <label for="" class="col-2">類別</label>
@@ -262,30 +270,30 @@ $pagename = 'blog-content-add'; ?>
           </div>
           <br>
 
-          <div class="upload-imgs">
-            <label for="" class="col-2">匯入圖庫</label>
-            <div class="d-flex flex-column">
-              <button id="imgUpBtn" type="button" class="img-up-btn" data-num="1">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+          <!-- <div class="upload-imgs">
+              <label for="" class="col-2">匯入圖庫</label>
+              <div class="d-flex flex-column">
+                <button id="imgUpBtn" type="button" class="img-up-btn" data-num="1">+<img class="preview_img" src="" alt=""></button>
+                <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
 
-              <input type="text" placeholder="請填入圖片說明">
+                <input type="text" placeholder="請填入圖片說明">
+              </div>
+
+
+              <div class="d-flex flex-column">
+                <button id="imgUpBtn" type="button" class="img-up-btn" data-num="2">+<img class="preview_img" src="" alt=""></button>
+                <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+                <input type="text" placeholder="請填入圖片說明">
+              </div>
+
+
+              <div class="d-flex flex-column">
+                <button id="imgUpBtn" type="button" class="img-up-btn" data-num="3">+<img class="preview_img" src="" alt=""></button>
+                <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
+                <input type="text" placeholder="請填入圖片說明">
+              </div>
             </div>
-
-
-            <div class="d-flex flex-column">
-              <button id="imgUpBtn" type="button" class="img-up-btn" data-num="2">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
-              <input type="text" placeholder="請填入圖片說明">
-            </div>
-
-
-            <div class="d-flex flex-column">
-              <button id="imgUpBtn" type="button" class="img-up-btn" data-num="3">+<img class="preview_img" src="" alt=""></button>
-              <input type="hidden" id="img_url_post" name="img_url_post[]" value="">
-              <input type="text" placeholder="請填入圖片說明">
-            </div>
-          </div>
-          <br>
+            <br> -->
 
           <div class="title">
             <label for="" class="col-2">標題</label>
@@ -331,7 +339,7 @@ $pagename = 'blog-content-add'; ?>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         </form>
-        <form name="img_form" onsubmit="return false;" style="display: none;">
+        <!-- <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
@@ -339,7 +347,7 @@ $pagename = 'blog-content-add'; ?>
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-
+        </form> -->
       </div>
     </div>
   </div>
@@ -354,48 +362,81 @@ $pagename = 'blog-content-add'; ?>
   CKEDITOR.replace('editor01');
 
   $(".back-btn").click(function() {
-    alert("確定要返回嗎?");
     location.href = 'blog.php';
   })
 
+
   function sendData() {
-    const fd = new FormData(document.form1);
+    const fd = new FormData(document.img_form);
+
+    fetch('blog-content-add-img-api.php', {
+        method: 'POST',
+        body: fd
+      }).then(r => r.json())
+      .then(obj => {
+        console.log(obj);
+        if (obj.success && obj.filename) {
+          $(".del-img").css("background", "rgb(82, 82, 82)");
+          preview_img1.src = './img/' + obj.filename;
+          $("#preview_img1").css("opacity", "1");
+          $("#img_url_post").val('/img/' + obj.filename);
+        }
+      });
   }
 
-  $(".img-up-btn").on("click", function() {
-    // console.log($(this));
-    let index = $(this).data("num");
-    let this_img_src = $(".preview_img").eq(index);
-    let this_input_value = $(this).next();
-    console.log(index);
-    console.log(this_img_src);
-    console.log(this_input_value);
-    // console.log(index);
-    // console.log(this_img_src);
-    // console.log(this_input_value);
+  img_url.onchange = sendData;
 
 
-    $(".img_url").eq(index).change(function() {
-      let fd = new FormData(document.img_form[index]);
-      fetch('blog-content-add-img-api.php', {
-          method: 'POST',
-          body: fd
-        }).then(r => r.json())
-        .then(obj => {
-          console.log(obj);
-          if (obj.success && obj.filename) {
-            console.log(this_img_src);
-            console.log(this_img_src);
-            // console.log(this_img_src );
-            // console.log(this_input_value);
-            this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
-            this_input_value.val('./img/' + obj.filename);
-          }
-        });
-    })
-    $(".img_url").eq(index).trigger("click");
 
+
+
+  // 照片移除
+  $(".del-img").on("click", function() {
+    $(this).css("background", "transparent");
+    $("#preview_img1").css("opacity", "0");
+    $("#img_url_post").val('');
+    $("#preview_img1").attr("src", "");
   })
+
+
+
+
+
+
+  // $(".img-up-btn").on("click", function() {
+  //   // console.log($(this));
+  //   let index = $(this).data("num");
+  //   let this_img_src = $(".preview_img").eq(index);
+  //   let this_input_value = $(this).next();
+  //   console.log(index);
+  //   console.log(this_img_src);
+  //   console.log(this_input_value);
+  //   // console.log(index);
+  //   // console.log(this_img_src);
+  //   // console.log(this_input_value);
+
+
+  //   $(".img_url").eq(index).change(function() {
+  //     let fd = new FormData(document.img_form[index]);
+  //     fetch('blog-content-add-img-api.php', {
+  //         method: 'POST',
+  //         body: fd
+  //       }).then(r => r.json())
+  //       .then(obj => {
+  //         console.log(obj);
+  //         if (obj.success && obj.filename) {
+  //           console.log(this_img_src);
+  //           console.log(this_img_src);
+  //           // console.log(this_img_src );
+  //           // console.log(this_input_value);
+  //           this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
+  //           this_input_value.val('./img/' + obj.filename);
+  //         }
+  //       });
+  //   })
+  //   $(".img_url").eq(index).trigger("click");
+
+  // })
 
 
 

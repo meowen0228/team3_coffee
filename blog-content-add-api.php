@@ -27,20 +27,17 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 
 $sql = "INSERT INTO `blogs`(
-    `fk_type_id`, `title`, `CREATEd_at`,`content`, `fk_tag_id`,
-      ) VALUES (?, ?, NOW(), ?, ?)";
+    `fk_type_id`, `title`, `CREATEd_at`,`content`,
+      ) VALUES (?, ?, NOW(), ?)";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
   $_POST['url'] ?? '',
-  $_POST['type'] ?? '',
-  $_POST['url'] ?? '',
-  $_POST['url'] ?? '',
-  $_POST['url'] ?? '',
   $_POST['title'] ?? '',
   $_POST['date'] ?? '',
-  $_POST['content'] ?? '',
+  $_POST['content'] ?? ''
+
 
 ]);
 

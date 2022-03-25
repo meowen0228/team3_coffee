@@ -13,15 +13,16 @@ fk_type_id,
 types_name,
 title,
 CREATEd_at,
-content
+content,
+`url`
 FROM blogs
 left join blog_types on blog_types.id = blogs.fk_type_id WHERE blogs.id = $id";
 $row = $pdo->query($sql)->fetch();
 
-$sql_photo = "SELECT `url`, `photo_alt`, ROW_NUMBER() OVER(ORDER BY id) AS ROWID FROM `blog_photos` WHERE `fk_blog_id` = $id;";
-$row_photo = $pdo->query($sql_photo)->fetch();
+// $sql_photo = "SELECT `url`, `photo_alt`, ROW_NUMBER() OVER(ORDER BY id) AS ROWID FROM `blog_photos` WHERE `fk_blog_id` = $id;";
+// $row_photo = $pdo->query($sql_photo)->fetch();
 
-$row_photo_other = $pdo->query($sql_photo)->fetchAll();
+// $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 ?>
 
 <?php include __DIR__ . './layout/html-head.php'; ?>
@@ -248,11 +249,20 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 
           <div class="thumbnail d-flex">
             <label for="" class="col-2">縮圖</label>
-            <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="<?= $row_photo['url'] ?>" alt="main" style="opacity: 1;"></button>
-            <input type="hidden" id="img_url_post" name="img_url_post[]" value="<?= $row_photo['url'] ?>">
-            <input type="hidden" id="img_url_post" name="photo_alt[]" value="main">
-          </div>
+            <?php if ($row['url'] == '') { ?>
+              <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src=".<?= $row['url'] ?>" style=""></button>
+            <?php } else { ?>
+              <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $row['url'] ?>" style="opacity: 1"></button>
+            <?php } ?>
+            <button type="button" class="del-img"></button>
+            <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row['url'] ?>">
 
+
+            <!-- <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="<?= $row_photo['url'] ?>" alt="main" style="opacity: 1;"></button>
+            <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row_photo['url'] ?>">
+            <input type="hidden" id="img_url_post" name="photo_alt" value="main">
+           -->
+          </div>
           <br>
 
           <div class="sort">
@@ -275,7 +285,7 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
           </div>
           <br>
 
-          <div class="upload-imgs">
+          <!-- <div class="upload-imgs">
             <label for="" class="col-2">匯入圖庫</label>
             <?php $num = 0 ?>
             <?php foreach ($row_photo_other as $r) : ?>
@@ -288,7 +298,7 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
             <?php }
             endforeach ?>
           </div>
-          <br>
+          <br> -->
 
           <div class="title">
             <label for="" class="col-2">標題</label>
@@ -325,6 +335,9 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 
 
         <form name="img_form" onsubmit="return false;" style="display: none;">
+          <input type="file" id="img_url" class="img_url" name="img_url" accept="image/jpeg,image/png">
+        </form>
+        <!-- <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
@@ -332,10 +345,7 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
         </form>
         <form name="img_form" onsubmit="return false;" style="display: none;">
           <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
-        <form name="img_form" onsubmit="return false;" style="display: none;">
-          <input type="file" class="img_url" name="img_url" accept="image/jpeg,image/png">
-        </form>
+        </form> -->
       </div>
     </div>
   </div>
@@ -348,8 +358,40 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 <script>
   CKEDITOR.replace('editor01');
 
+
+  // 上傳照片
+  function sendData() {
+    const fd = new FormData(document.form1);
+
+    fetch('blog-content-edit-img-api.php', {
+        method: 'POST',
+        body: fd
+      }).then(r => r.json())
+      .then(obj => {
+        console.log(obj);
+        if (obj.success && obj.filename) {
+          $(".del-img").css("background", "rgb(82, 82, 82)");
+          preview_img1.src = './img/' + obj.filename;
+          $("#preview_img1").css("opacity", "1");
+          $("#img_url_post").val('/img/' + obj.filename);
+        }
+      });
+  }
+
+  img_url.onchange = sendData;
+
+  // 照片移除
+  $(".del-img").on("click", function() {
+    $(this).css("background", "transparent");
+    $("#preview_img1").css("opacity", "0");
+    $("#img_url_post").val('');
+    $("#preview_img1").attr("src", "");
+  })
+
+
+
+
   $(".back-btn").click(function() {
-    alert("確定要返回嗎?");
     location.href = 'blog.php';
   })
 
@@ -398,33 +440,36 @@ $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 
   }
 
-  $(".img-up-btn").on("click", function() {
-    // console.log($(this));
-    let index = $(this).data("num");
-    let this_img_src = $(".preview_img").eq(index);
-    let this_input_value = $(this).next();
-    console.log(index);
-    console.log(this_img_src);
-    console.log(this_input_value);
 
-    $(".img_url").eq(index).change(function() {
-      let fd = new FormData(document.img_form[index]);
-      fetch('blog-content-edit-img-api.php', {
-          method: 'POST',
-          body: fd
-        }).then(r => r.json())
-        .then(obj => {
-          console.log(obj);
-          if (obj.success && obj.filename) {
-            console.log(this_img_src);
-            console.log(this_input_value);
-            this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
-            this_input_value.val('./img/' + obj.filename);
-          }
-        });
-    })
 
-    $(".img_url").eq(index).trigger("click");
 
-  })
+  // $(".img-up-btn").on("click", function() {
+  //   // console.log($(this));
+  //   let index = $(this).data("num");
+  //   let this_img_src = $(".preview_img").eq(index);
+  //   let this_input_value = $(this).next();
+  //   console.log(index);
+  //   console.log(this_img_src);
+  //   console.log(this_input_value);
+
+  //   $(".img_url").eq(index).change(function() {
+  //     let fd = new FormData(document.img_form[index]);
+  //     fetch('blog-content-edit-img-api.php', {
+  //         method: 'POST',
+  //         body: fd
+  //       }).then(r => r.json())
+  //       .then(obj => {
+  //         console.log(obj);
+  //         if (obj.success && obj.filename) {
+  //           console.log(this_img_src);
+  //           console.log(this_input_value);
+  //           this_img_src.attr("src", "./img/" + obj.filename).css("opacity", "1");
+  //           this_input_value.val('./img/' + obj.filename);
+  //         }
+  //       });
+  //   })
+
+  //   $(".img_url").eq(index).trigger("click");
+
+  // })
 </script>

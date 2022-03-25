@@ -23,10 +23,8 @@ if ($totalRows) {
     exit;
   }
   // SELECT * FROM blog_photos.fk_blog_id ORDER BY url
-  $sql = sprintf(" SELECT blogs.id as id, url, title,CREATEd_at
-  FROM  blog_photos
-  JOIN  blogs
-  ON blogs.id = blog_photos.fk_blog_id ORDER BY blogs.id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+  $sql = sprintf(" SELECT blogs.id as id, `url`, title,CREATEd_at
+  FROM  blogs ORDER BY blogs.id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
   $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
 
@@ -157,8 +155,13 @@ $first = [];
               <tr>
                 <th><input class="ck" type="checkbox" name="checkbox[]" value="全選" id="checkbox_0"></th>
                 <th>縮圖</th>
+                <th></th>
+                <th></th>
                 <th>標題</th>
+                <th></th>
                 <th>時間</th>
+                <th></th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -168,8 +171,12 @@ $first = [];
                   <td><input type="checkbox" name="checkbox[]" value="單項" id="checkbox-1"></td>
                   <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt="">
                   <td>
+                  <td></td>
                   <td><?= $r['title'] ?></td>
+                  <td></td>
                   <td class="date01"><?= $r['CREATEd_at'] ?></td>
+                  <td></td>
+                  <td></td>
                   <td>
                     <button type="button" class="btn btn-light">
                       <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
@@ -182,17 +189,21 @@ $first = [];
 
 
           <ul class=" pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
+            <li class="page-item" <?= $page == 1 ? 'disabled' : '' ?>>
+              <a class="page-link" href="?page=<?= $page - 1 ?>"> <i class="fa-solid fa-angle-left"></i>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
+            <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+              if ($i >= 1 and $i <= $totalPages) :
+            ?>
+                <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                  <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php endif;
+            endfor; ?>
+            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+              <a class="page-link" href="?page=<?= $page + 1 ?>">
+                <i class="fa-solid fa-angle-right"></i>
               </a>
             </li>
           </ul>
@@ -210,16 +221,23 @@ $first = [];
     $("#tabs").head - tabs();
   });
 
-  function checkbox_0(qx) {
-    var ck = document.getElementsByClassName("ck");
-    if (qx.checked) {
-      for (i = 0; i < ck.length; i++) {
-        ck[i].setAttribute("checked", "checked");
-      }
-    } else {
-      for (var i = 0; i < ck.length; i++) {
-        ck[i].removeAttribute("checked");
-      }
+  // function checkbox_0(qx) {
+  //   var ck = document.getElementsByClassName("ck");
+  //   if (qx.checked) {
+  //     for (i = 0; i < ck.length; i++) {
+  //       ck[i].setAttribute("checked", "checked");
+  //     }
+  //   } else {
+  //     for (var i = 0; i < ck.length; i++) {
+  //       ck[i].removeAttribute("checked");
+  //     }
+  //   }
+  // }
+
+
+  function del_it(id) {
+    if (confirm(`確定要刪除第 ${id} 筆的資料嗎?`)) {
+      location.href = 'blog-delete.php?id=' + id;
     }
   }
 </script>

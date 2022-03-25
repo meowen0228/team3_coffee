@@ -25,46 +25,39 @@ if (empty($_POST['id'])) {
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 // TODO: 欄位檢查
-$sql_photo_del = "DELETE FROM `blog_photos` WHERE `fk_blog_id` = ?";
-$stmt_photo_del = $pdo->prepare($sql_photo_del);
-
-$stmt_photo_del->execute([
-  $_POST['id'],
-]);
-
 
 $sql =
   "UPDATE `blogs`
 SET  
-`fk_type_id` = ?,
+`blogs.id` = ?,
 `title` = ?,
 `content` = ?
+`url` = ?
 WHERE `id` = ?";
 
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
+  $_POST['id'],
   $_POST['types'],
   $_POST['title'],
   $_POST['content'],
-  $_POST['id'],
+
+
 ]);
 $count_1 = $stmt->rowCount();
 
-echo $_POST['img_url_post'][0];
+$sql_add = "INSERT INTO `blogs` (`blogs.id`, `url`) VALUES (?, ?)";
+$stmt_add = $pdo->prepare($sql_add);
 
-$sql_photo_add = "INSERT INTO `blog_photos` (`fk_blog_id`, `url`, `photo_alt`) VALUES (?, ?, ?)";
-$stmt_photo_add = $pdo->prepare($sql_photo_add);
 
-for ($i = 0; $i < $_POST['img_url_post']; $i++) {
-  $stmt_photo_add->execute([
-    $_POST['id'],
-    $_POST['img_url_post'][$i],
-    $_POST['photo_alt'][$i]
-  ]);
-  $count_2 += $stmt->rowCount();
-}
+$stmt_add->execute([
+  $_POST['id'],
+  $_POST['img_url_post'],
+]);
+$count_2 = $stmt->rowCount();
+
 
 $output['rowCount'] = $count_1 + $count_2; // 新增資料的筆數
 // echo $output['rowCount'];exit;
