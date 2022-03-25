@@ -1,10 +1,10 @@
 <?php
 // 連接資料庫
-require __DIR__ . '/layout/connect_db.php';
+require './layout/connect_db.php';
 
 // 頁面資訊
 $title = '訂單列表';
-$pagename = 'order_list1';
+$pagename = 'order_list';
 
 // 每一頁有幾筆
 $perPage = 4;
@@ -12,8 +12,8 @@ $perPage = 4;
 // 用戶要看的頁碼
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
-    header('Location: order_list1.php?page=1');
-    exit;
+    header('Location: order_list.php?page=1');
+    
 }
 
 // 取得總筆數
@@ -28,10 +28,10 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = [];
 $totalPages = 0;
 
-if ($page > $totalPages) {
-    header("Location: order_list1.php?page=$totalPages");
-    exit;
-}
+// if ($page > $totalPages) {
+//     header("Location: order_list.php?page=$totalPages");
+//     exit;
+// }
 if ($totalRows) {
     $totalPages = ceil($totalRows / $perPage);
 
@@ -71,15 +71,18 @@ if ($totalRows) {
 
 ?>
 
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include './layout/html-head.php'; ?>
+<?php include './layout/header.php'; ?>
+<?php include './layout/aside.php'; ?>
 <style>
     .icon {
         background: #FFFFFF;
         /* border: #FFFFFF solid 1px; */
         border-radius: 5px;
         border-left: none;
+    }
+    .order-search{
+        border: transparent;
     }
 
     .search {
@@ -98,6 +101,11 @@ if ($totalRows) {
     .act {
         display: none;
     }
+    .select{
+        width: 100px;
+        border-radius: 10px;
+        padding: 5px;
+    }
 </style>
 
 
@@ -114,27 +122,23 @@ if ($totalRows) {
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        <!-- <select name="ship" id="ship">
-                            <option selected>出貨狀態</option>
-                            <option value="1">全選</option>
-                            <option value="2">已出貨</option>
-                            <option value="3">未出貨</option>
-                            <option value="4">完成訂單</option>
-                            <option value="5">取消訂單</option>
-                        </select> -->
+                    <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
+                            <!-- <option selected>出貨狀態</option> -->
+                          <option  selected value="order_list.php">全選</option>
+                            <option value="order_list_onship.php">已出貨</option>
+                            <option value="order_list_nonship.php">未出貨</option>
+                            <option value="order_list_complete.php">完成訂單</option>
+                            <option value="order_list_cancel.php">取消訂單</option>
+                        </select>
 
                     </div>
-
-                    <div class="col-4">
-                        <div class="input-group form-outline ">
-                            <input type="search" class="form-control search" />
-                            <button type="button" class="btn btn-light icon search">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
+                    <div class="col-4 order-search">
+                        <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
+                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
                     </div>
 
                 </div>
+                
 
 
 
@@ -356,7 +360,13 @@ if ($totalRows) {
     //         }
     //     });
     // });
+    $(".ordersearch").on("keyup mouseup contextmenu", function () {
+      let search = $(this).val();
+      if (search != '') {
+        $(this).next().attr("href", "order_list_search.php?search-for=" + search);
+      }
+    });
 </script>
 
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>
