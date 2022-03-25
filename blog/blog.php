@@ -128,13 +128,13 @@ $first = [];
         <br />
         <div class="sort" id="head-tabs">
           <ul class="list-group list-group-horizontal-md">
-            <span>主類別</span>
+            <span class="me-2">主類別</span>
 
-            <li><button class=" btn btn-outline-secondary"><a href="#tab-1" data-target="tab01">咖啡篇</a></button></li>
-            <li><button class="btn btn-outline-secondary"><a href="#tab-2" data-target="tab02">沖煮篇</a></button></li>
-            <li><button class="btn btn-outline-secondary"><a href="#tab-3" data-target="tab03">咖啡豆篇</a></button></li>
-            <li> <button class="btn btn-outline-secondary"><a href="#tab-4" data-target="tab04">名人專欄篇</a></button></li>
-            <li><button class="btn btn-outline-secondary"><a href="#tab-5" data-target="tab05">好物分享篇</a></button></li>
+            <li class="me-2"><a href="#tab-1" data-target="tab01"><button class=" btn btn-outline-secondary">咖啡篇</button></a></li>
+            <li class="me-2"><a href="#tab-2" data-target="tab02"><button class="btn btn-outline-secondary">沖煮篇</button></a></li>
+            <li class="me-2"><a href="#tab-3" data-target="tab03"><button class="btn btn-outline-secondary">咖啡豆篇</button></a></li>
+            <li class="me-2"><a href="#tab-4" data-target="tab04"><button class="btn btn-outline-secondary">名人專欄篇</button></a></li>
+            <li class="me-2"  ><a href="#tab-5" data-target="tab05"><button class="btn btn-outline-secondary">好物分享篇</button></a></li>
           </ul>
         </div>
 
@@ -143,7 +143,7 @@ $first = [];
         <br>
 
         <div>
-          <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</a></button>
+          <a href="blog-content-add.php"><button class="btn btn-outline-secondary">新增文章</button></a>
         </div>
 
 
@@ -166,9 +166,11 @@ $first = [];
                   <td><?= $r['title'] ?></td>
                   <td class="date01"><?= $r['CREATEd_at'] ?></td>
                   <td>
-                    <button type="button" class="btn btn-light">
-                      <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
-                    </button>
+                    <a href="blog-content-edit.php?id=<?= $r['id'] ?>">
+                      <button type="button" class="btn btn-light">
+                      編輯文章
+                      </button>
+                    </a>
                   </td>
                   <td>
                     <button type="button" class="btn btn-light" onclick="del_it(<?= $r['id'] ?>)">
