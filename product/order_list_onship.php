@@ -80,6 +80,9 @@ if ($totalRows) {
         border-radius: 5px;
         border-left: none;
     }
+    .order-search{
+        border: transparent;
+    }
 
     .order-search {
         height: 26px;
@@ -124,25 +127,23 @@ if ($totalRows) {
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
-                            <!-- <option >出貨狀態</option> -->
-                            <option   value="order_list.php">全選</option>
-                            <option selected value="order_list_onship.php">已出貨</option>
+                    <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
+                            <!-- <option selected>出貨狀態</option> -->
+                          <option  selected value="order_list.php">全選</option>
+                            <option value="order_list_onship.php">已出貨</option>
                             <option value="order_list_nonship.php">未出貨</option>
                             <option value="order_list_complete.php">完成訂單</option>
                             <option value="order_list_cancel.php">取消訂單</option>
                         </select>
 
                     </div>
-
-                    <div class="col-1"></div>
-                    <div class="col-3 order-search">
-                        &thinsp;
-                        <input class="ordersearch" size="19" name="search-for" placeholder="搜尋訂單編號">
+                    <div class="col-4 order-search">
+                        <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
                         <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
                     </div>
 
                 </div>
+                
 
 
 
@@ -364,6 +365,12 @@ if ($totalRows) {
     //         }
     //     });
     // });
+    $(".ordersearch").on("keyup mouseup contextmenu", function () {
+      let search = $(this).val();
+      if (search != '') {
+        $(this).next().attr("href", "order_list_search.php?search-for=" + search);
+      }
+    });
 </script>
 
 <?php include '../layout/scripts.php'; ?>
