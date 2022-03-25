@@ -14,8 +14,8 @@ $output = [
   'rowCount' => 0,
 ];
 
-// echo json_encode($_POST);
-// exit;
+// echo json_encode($_POST);exit;
+
 if (empty($_POST['title'])) {
   echo json_encode($output, JSON_UNESCAPED_UNICODE);
   exit;

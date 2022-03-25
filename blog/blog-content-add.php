@@ -11,7 +11,6 @@ $pagename = 'blog-content-add';
 <?php include '../layout/html-head.php'; ?>
 <?php include '../layout/header.php'; ?>
 <?php include '../layout/aside.php'; ?>
-<link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
 <style>
   .blog-content-edit {
 
@@ -279,8 +278,9 @@ $pagename = 'blog-content-add';
 
           <div class="content">
             <label for="" class="col-2">文章內容</label>
-            <textarea id="editor01" name="content" ></textarea>
+            <textarea id="editor01"></textarea>
           </div>
+          <input type="hidden" id="content" name="content" value="">
           <br>
 
 
@@ -289,7 +289,7 @@ $pagename = 'blog-content-add';
           <div class="down-button">
 
             <button type="button" class=" btn btn-outline-secondary col-3 back-btn"><i class="back button fa-solid fa-arrow-rotate-left">返回</i></button>
-            <button type="submit" class=" btn btn-outline-secondary col-3"><i class="fa-solid fa-pencil"> 修改</i></button>
+            <button id="send" type="submit" class=" btn btn-outline-secondary col-3"><i class="fa-solid fa-pencil"> 修改</i></button>
 
           </div>
 
@@ -322,11 +322,16 @@ $pagename = 'blog-content-add';
 <script>
   CKEDITOR.replace('editor01');
 
+  $('#send').click(function() {
+    let value = CKEDITOR.instances['editor01'].getData();
+    $("#content").val(value);
+  });
+
+
 
   // 上傳照片
   function sendData() {
     const fd = new FormData(document.img_form);
-
     fetch('blog-content-edit-img-api.php', {
         method: 'POST',
         body: fd
