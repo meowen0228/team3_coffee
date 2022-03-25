@@ -4,8 +4,8 @@ $pagename = 'home';
 ?>
 
 <head>
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
 <style>
 
 .card{
@@ -161,8 +161,8 @@ a {
 </head>
 
 <body>
-<?php include __DIR__ . '/layout/aside.php'; ?>
-<?php require __DIR__ . '/layout/connect_db.php';
+<?php include '../layout/aside.php'; ?>
+<?php require '../layout/connect_db.php';
 $title = 'drink_menu';
 $pageName = 'drink_menu';
 $perPage = 5; // 每一頁有幾筆
@@ -316,6 +316,6 @@ if ($totalRows) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
 <footer>
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>
 </footer>

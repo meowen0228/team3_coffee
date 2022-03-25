@@ -1,11 +1,12 @@
 <?php
-$title = '後臺管理系統-新增訂單';
-$pagename = 'home';
+$title = '商品修改';
+$pagename = 'revise';
 ?>
 
 <head>
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+
 <style>
 .card {
     padding: 50px;
@@ -15,22 +16,43 @@ $pagename = 'home';
     width: 200px;
     height: 200px;
     background: #F2F2F2;
-    margin-left: 80px;
-    }
+}
+
 .addProduct {
     border-radius: 20px;
-    }
+}
+
 .typing {
     background: #F2F2F2;
-    }
+}
 .upImg{
     border: transparent;
     background-color: transparent;
+}
+.wrapper {
+    height: 50px;
+    /*This part is important for centering*/
+    display: flex;
+}
+.typing-demo {
+    width: 22ch;
+    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 2em;
+}
+@keyframes typing {
+    from {
+    width: 0
     }
-.form-text{
-    display: inline;
-    color: red;
+}  
+@keyframes blink {
+    50% {
+    border-color: transparent
     }
+}
 .img-up-btn1{
     width: 250px;
     height: 250px;
@@ -48,56 +70,27 @@ $pagename = 'home';
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;
     }
-.wrapper {
-    height: 50px;
-    /*This part is important for centering*/
-    display: flex;
-}
-
-.typing-demo {
-    width: 22ch;
-    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid;
-    font-family: monospace;
-    font-size: 2em;
-}
-@keyframes typing {
-    from {
-        width: 0
-    }
-}
-@keyframes blink {
-    50% {
-        border-color: transparent
-    }
-}
 </style>
 </head>
 
 <body>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include '../layout/aside.php'; ?>
 <?php
-require __DIR__ . '/layout/connect_db.php';
+require '../layout/connect_db.php';
 $title = '新增資料';
-$pageName = 'ab-add';
-
+$pageName = 'ab-revise';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $sql = 
 sprintf("SELECT * FROM drink_menu where id=$id");
 
-
-$row = $pdo->query($sql)->fetchAll();
+$row = $pdo->query($sql)->fetch();
 // if (empty($row)) {
 //     header('Location: product_list1.php'); // 找不到資炓轉向列表頁
 //     exit;
 // }
-
 ?>
 
 <main class="admin-main px-5 py-5">
@@ -105,52 +98,53 @@ $row = $pdo->query($sql)->fetchAll();
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <div class="wrapper"> <!-- 打字機效果 -->
-                    <div class="typing-demo">
-                        菜單管理系統-新增菜單
-                    </div>
+                <div class="wrapper">
+                    <div class="typing-demo">菜單管理系統-新增菜單</div>
                 </div>
-
-                <div class="card">  <!-- 卡片內容 -->
+                <div class="card">
                     <form name="form" class="form" method="post" novalidate onsubmit="checkForm(); return false;">
                         <div class="mb-3">
+                            <input type="hidden" name="id" value="<?= htmlentities($row['id']) ?>" >
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="productstatus1" id="productstatus2" value="1">
+                                <input class="form-check-input" type="radio" name="status" id="productstatus2" value="1" <?php if ($row['status'] == 1) { ?> checked <?php } ?>>
                                 <label class="form-check-label" for="productstatus">上架</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="productstatus1" id="productstatus2" value="0">
+                                <input class="form-check-input" type="radio" name="status" id="productstatus2" value="0" <?php if ($row['status'] == 0) { ?> checked <?php } ?>>
                                 <label class="form-check-label" for="productstatus2">下架</label>
                             </div>
                         </div>
+                        <div class="mb-3"></div>
                         <div class="row g-4 mb-3 align-items-center">
                             <div class="col-1">名稱:</div>
                             <div class="col-8">
-                                <input type="text" class="form-control typing" id="name" name="drink_name" required value="" >
-                                <div class="form-text"></div>
+                                <input type="text" class="form-control typing" id="name" name="drink_name" required value="<?= htmlentities($row['drink_name']) ?>" >
                             </div>
                         </div>
+
                         <div class="row g-4 mb-3 align-items-center">
                             <div class="col-1">價格:</div>
                             <div class="col-8">
-                                <input type="int" id="price" name="price" class="form-control typing" value="">
-                                <div class="form-text"></div>
+                                <input type="int" id="price" name="price" class="form-control typing" value="<?= htmlentities($row['price']) ?>">
                             </div>
                         </div>
+
                         <div class="mb-4">圖片上傳：</div>
                         <div class="row g-4 mb-3 align-items-center">
                             <div class="col-10 mt-1 mx-auto ">
-                                <button id="imgUpBtn" type="button" class="img-up-btn1" onclick="img_url.click()">+<img id="preview_img1" src="" alt=""></button>
-                                <input type="hidden" id="img_url_post" name="img_url_post" value="">
+                                <button id="imgUpBtn" type="button" class="img-up-btn1" onclick="img_url.click()">+<img id="preview_img1" src="<?=$row['url'] ?>" alt=""></button>
+                                <input type="hidden" id="img_url_post" name="img_url_post" value="<?=$row['url']?>">
                             </div>
                         </div>
+
                         <div class="row g-4 mt-4 mb-4 ">
                             <div class="col-1" id="content">介紹:</div>
                             <div class=" col-8 form-floating  ">
-                                <textarea class="form-control typing" placeholder="" id="textarea" name="content" style="height: 100px"></textarea>
+                                <textarea class="form-control typing" placeholder="" name="content" id="textarea" style="height: 100px"><?= htmlentities($row['content']) ?></textarea>
                                 <label for="textarea"></label>
                             </div>
                         </div>
+
                         <div class="row g-4 mb-3 align-items-center">
                             <div class="col-10"></div>
                             <div class="col-2">
@@ -159,16 +153,16 @@ $row = $pdo->query($sql)->fetchAll();
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> 
             <form name="img_form" onsubmit="return false;" style="display: none;">
                 <input type="file" id="img_url" name="img_url" accept="image/jpeg,image/png">
             </form>
+            <div class="col-1"></div>
         </div>
     </div>
-    <div class="col-1"></div>
 </main>
-
 <script>
+    
 img_url.onchange = sendData;
 
     function sendData(){
@@ -180,52 +174,27 @@ img_url.onchange = sendData;
         .then(obj=>{
             console.log(obj);
             if(obj.success && obj.filename){
-                $(".del-img").css("background", "rgb(82, 82, 82)");
                 preview_img1.src = './img/menu/'+ obj.filename;
-                $("#img_url_post").val('./img/menu/'+ obj.filename);
-                $("#preview_img1").css("opacity", "1");
                 $("#img_url_post").val('./img/menu/'+ obj.filename);
             }
         });
     } 
 
-    const name = document.form.name; // DOM element
-    const name_msg = name.closest('.mb-3').querySelector('.form-text');
-    const price = document.form.price;
-    const price_msg = price.closest('.mb-3').querySelector('.form-text');
-
     function checkForm(){
-        let isPass = true; // 有沒有通過檢查
-
-        if(name.value == ''){
-            isPass = false;
-            name_msg.innerText = '請入正確的姓名'
-            location = '#';
-        }else{
-            name_msg.innerText = ''
-        }
-
-        if(price.value == ''){
-            isPass = false;
-            price_msg.innerText = '請輸入價格'
-            location = '#';
-        }else{
-            price_msg.innerText = ''
-        }
-
+        let isPass = true;   // 有沒有通過檢查
         if(isPass){
             const fd = new FormData(document.form);
-            fetch('drink_menu_add_api.php', {
+            fetch('drink_menu_revie_api.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
             .then(obj => {
                 console.log(obj);
-                if(obj.success){                    
+                if(obj.success){
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: '新增成功',
+                        title: '修改成功',
                         showConfirmButton: false,
                         timer: 1500  
                     })
@@ -235,7 +204,7 @@ img_url.onchange = sendData;
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
-                        title: '新增失敗',
+                        title: '修改失敗',
                         showConfirmButton: false,
                         timer: 1500  
                     });
@@ -245,8 +214,8 @@ img_url.onchange = sendData;
     }
 
 </script>
-
+</body>
 <footer>
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>
 </footer>

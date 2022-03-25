@@ -29,10 +29,10 @@
     border-radius: 20px;
 } */
 </style>
-<?php include __DIR__. './layout/html-head.php';?>
-<?php include __DIR__. './layout/header.php';?>
-<?php include __DIR__. './layout/aside.php';?>
-<?php require __DIR__ . '/layout/connect_db.php';
+<?php include '../layout/html-head.php';?>
+<?php include '../layout/header.php';?>
+<?php include '../layout/aside.php';?>
+<?php require '../layout/connect_db.php';
 $title = 'drink_oder';
 $pageName = 'drink_oder';
 $perPage = 5; // 每一頁有幾筆
@@ -228,5 +228,5 @@ $sql = sprintf("SELECT users.id AS u_id,
 
 </main>
 
-    <?php include __DIR__. './layout/scripts.php';?>
-    <?php include __DIR__. './layout//html-foot.php';?>
+    <?php include '../layout/scripts.php';?>
+    <?php include '../layout//html-foot.php';?>
