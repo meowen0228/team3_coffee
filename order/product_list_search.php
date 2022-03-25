@@ -7,14 +7,14 @@ $title = '商品列表';
 $pagename = 'product_list';
 
 // 抓取 search text
-$text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
+$text = isset($_GET['search-for']) ? strval($_GET['search-for']) : 0;
 
 
 
-    $sql = "SELECT * FROM products 
+$sql = "SELECT * FROM products 
     WHERE p_name  LIKE '%$text%' OR `id` LIKE '%$text%'
     ORDER BY id ";
-    $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+$rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 
 ?>
@@ -34,8 +34,11 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
         padding: 20px;
 
     }
-    .product-search{
-        border: transparent;
+
+    .product-search {
+        border-radius: 50px;
+        outline: none;
+        background: #fff;
     }
 
     .icon {
@@ -61,7 +64,8 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
     .act {
         display: none;
     }
-    .select{
+
+    .select {
         width: 70px;
         border-radius: 10px;
         padding: 5px;
@@ -80,7 +84,7 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                         <h4>商品項目管理</h4>
                     </div>
                     <div class="col-3"></div>
-                   
+
                     <div class="col-2"><a href="product_new.php?>" class="btn btn-light addProduct">+新增商品</a></div>
                     <div class="col-1">
                     </div>
@@ -88,8 +92,8 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
           <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
           </div> 
-<!-- 
-          <div class="col-4">
+
+                    <!-- <div class="col-4">
                         <div class="input-group form-outline ">
                             <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
                             <button type="button" class="btn btn-light icon search">
@@ -98,65 +102,66 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                         </div>
                     </div> -->
 
-          
 
 
-                <div class="list ">
 
-                    <table class="table">
-                        <thead>
-                            <div class="row">
-                                <tr>
-                                    <th class="col-2">商品編號</th>
-                                    <th class="col-3">商品縮圖</th>
-                                    <th class="col-4">商品名稱</th>
-                                    <!-- <th class="col-2">商品狀態</th> -->
-                                    <th class="col-2">
-                                        <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select">
-                                            <!-- <option selected>商品狀態</option> -->
-                                            <option selected value="product_list.php">全選</option>
-                                            <option value="product_list_up.php">上架</option>
-                                            <option value="product_list_down.php">下架</option>
-                                        </select></th>
-                                    <th class="col-2">編輯</th>
-                                </tr>
-                            </div>
-                        </thead>
-                        <tbody>
-                            <!-- 假資料 -->
-                            <!-- <tr class="up">
+                    <div class="list ">
+
+                        <table class="table">
+                            <thead>
+                                <div class="row">
+                                    <tr>
+                                        <th class="col-2">商品編號</th>
+                                        <th class="col-3">商品縮圖</th>
+                                        <th class="col-4">商品名稱</th>
+                                        <!-- <th class="col-2">商品狀態</th> -->
+                                        <th class="col-2">
+                                            <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select">
+                                                <!-- <option selected>商品狀態</option> -->
+                                                <option selected value="product_list.php">全選</option>
+                                                <option value="product_list_up.php">上架</option>
+                                                <option value="product_list_down.php">下架</option>
+                                            </select>
+                                        </th>
+                                        <th class="col-2">編輯</th>
+                                    </tr>
+                                </div>
+                            </thead>
+                            <tbody>
+                                <!-- 假資料 -->
+                                <!-- <tr class="up">
                                 <th>99</th>
                                 <td>淺中焙｜衣索比亞 耶加雪菲 孔加 日曬處理法 一公斤 咖啡豆</td>
                                 <td>上架</td>
                                 <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
                             </tr> -->
-                            <!-- 連接資料庫 -->
-                            
+                                <!-- 連接資料庫 -->
+
                                 <tr class="up">
-                                <?php foreach ($rows as $r) : ?>
-                                    <th><?= $r['id'] ?></th>
-                                    <th><img style="width:100%;" src="<?= $r['url'] ?>" alt=""></th>
-                                    <td><?= $r['p_name'] ?></td>
-                                    <?php if ($r['status'] == 1) { ?>
-                                        <td>上架</td> 
-                                    <?php } else { ?>
-                                        <td>下架</td>
-                                    <?php } ?>
-                                    <td><a href="product_edit.php?id=<?= $r['id'] ?>">
-                                            <i class="fa-solid fa-pen-to-square"></i></a></td>
+                                    <?php foreach ($rows as $r) : ?>
+                                        <th><?= $r['id'] ?></th>
+                                        <th><img style="width:100%;" src="<?= $r['url'] ?>" alt=""></th>
+                                        <td><?= $r['p_name'] ?></td>
+                                        <?php if ($r['status'] == 1) { ?>
+                                            <td>上架</td>
+                                        <?php } else { ?>
+                                            <td>下架</td>
+                                        <?php } ?>
+                                        <td><a href="product_edit.php?id=<?= $r['id'] ?>">
+                                                <i class="fa-solid fa-pen-to-square"></i></a></td>
 
                                 </tr>
                             <?php endforeach ?>
-                        </tbody>
-                    </table>
-                  
+                            </tbody>
+                        </table>
 
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    
+
 
 
     <div class="col-1"></div>
@@ -195,21 +200,19 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
     //         window.location.href='product-all.php';
     //       }
     //       function showup(){
-           
+
     //         window.location.href='product-up.php';
     //       }
     //       function showdown(){
-            
+
     //         window.location.href='product-down.php';
     //       }
-    $(".productsearch").on("keyup mouseup contextmenu", function () {
-      let search = $(this).val();
-      if (search != '') {
-        $(this).next().attr("href", "product_list_search.php?search-for=" + search);
-      }
+    $(".productsearch").on("keyup mouseup contextmenu", function() {
+        let search = $(this).val();
+        if (search != '') {
+            $(this).next().attr("href", "product_list_search.php?search-for=" + search);
+        }
     });
-
-
 </script>
 
 
