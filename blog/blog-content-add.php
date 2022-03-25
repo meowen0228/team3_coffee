@@ -267,8 +267,8 @@ $pagename = 'blog-content-add';
           <br>
 
           <div class="date">
-            <label for="" class="col-2">發佈日期</label>
-            <input type="text" name="time" readonly value="">
+            <!-- <label for="" class="col-2">發佈日期</label> -->
+            <input type="hidden" name="time" readonly value="">
           </div>
           <br>
 

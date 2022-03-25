@@ -17,7 +17,7 @@ if ($page < 1) {
 }
 
 // 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM products where `status` IN (0)";
+$t_sql = "SELECT COUNT(1) FROM products where `status` IN (0)"; 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 // 預設沒有資料
