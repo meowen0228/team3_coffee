@@ -7,7 +7,7 @@ $pagename = 'activity-add';
 <?php include  '../layout/html-head.php'; ?>
 <?php include  '../layout/header.php'; ?>
 <?php include  '../layout/aside.php'; ?>
-<link rel="stylesheet" href="./layout/css/admin.css">
+<link rel="stylesheet" href="../layout/css/admin.css">
  
 
 

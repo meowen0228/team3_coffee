@@ -1,6 +1,6 @@
 <?php
   // 連接資料庫
-  require __DIR__ . '/layout/connect_db.php';
+  require  '../layout/connect_db.php';
   
   // 頁面資訊
   $title = '門市新增';
@@ -45,9 +45,9 @@
   
 ?>
 
-<?php include __DIR__. './layout/html-head.php';?>
-<?php include __DIR__. './layout/header.php';?>
-<?php include __DIR__. './layout/aside.php';?>
+<?php include  '../layout/html-head.php';?>
+<?php include  '../layout/header.php';?>
+<?php include  '../layout/aside.php';?>
 
 
   <main class="admin-main px-5 py-5 d-flex">

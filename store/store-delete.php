@@ -1,5 +1,5 @@
 <?php
-  require __DIR__ . '/layout/connect_db.php';
+  require  '../layout/connect_db.php';
 
   header('Content-Type: application/json');
 

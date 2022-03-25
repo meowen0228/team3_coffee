@@ -30,8 +30,7 @@ if ($totalRows) {
 <?php include  '../layout/html-head.php';?>
 <?php include  '../layout/header.php';?>
 <?php include  '../layout/aside.php';?>
-<img src="./bootstrap/js/" alt="">
-<link rel="stylesheet" href="/layout/css/admin.css">
+<link rel="stylesheet" href="../layout/css/admin.css">
 
 <main class="admin-main px-5 py-5 d-flex">
   <div class="col-1"></div>

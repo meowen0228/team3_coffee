@@ -1,6 +1,6 @@
 <?php
   // 連接資料庫
-  require __DIR__ . '/layout/connect_db.php';
+  require  '../layout/connect_db.php';
   
   // 頁面資訊
   $title = '門市服務管理';
@@ -12,9 +12,9 @@
 
 ?>
 
-<?php include __DIR__. './layout/html-head.php';?>
-<?php include __DIR__. './layout/header.php';?>
-<?php include __DIR__. './layout/aside.php';?>
+<?php include  '../layout/html-head.php';?>
+<?php include  '../layout/header.php';?>
+<?php include  '../layout/aside.php';?>
 
 <style>
 .popup-wrap {
@@ -171,7 +171,7 @@
   <!------------------------ script link ------------------------>
 
   <!-- jquery -->
-  <script src="./jquery/jquery-3.6.0.min.js"></script>
+  <script src="../jquery/jquery-3.6.0.min.js"></script>
 
   <!------------------------ script ------------------------>
   <script>
@@ -318,5 +318,5 @@
 
   </script>
   
-<?php include __DIR__. './layout/scripts.php';?>
-<?php include __DIR__. './layout//html-foot.php';?>
+<?php include  '../layout/scripts.php';?>
+<?php include  '../layout//html-foot.php';?>

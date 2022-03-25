@@ -1,70 +1,51 @@
 <?php
   // 連接資料庫
-  require __DIR__ . '/layout/connect_db.php';
+  require  '../layout/connect_db.php';
   
   // 頁面資訊
   $title = '門市管理';
   $pagename = 'store_list';
 
-  // 每一頁有幾筆
-  $perPage = 10;
+  // 抓取 search text
+  $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
   
-  // 用戶要看的頁碼
-  $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-  if ($page < 1) {
-      header('Location: store-list.php?page=1');
-      exit;
+  $sql =
+    "SELECT
+    store.id,
+    `store_name`,
+    `city`,
+    `address`,
+    `phone`,
+    group_concat( DISTINCT dow, ':', `status_name`, ' ', LEFT(start_time, 5), '-', LEFT(end_time, 5) ORDER BY store_time.id) AS `time`,
+    group_concat( DISTINCT `icon` ORDER BY ss_ssi.ssi_id) AS `icon_group`,
+    group_concat( DISTINCT `serve_name` ORDER BY ss_ssi.ssi_id) AS `serve_name`
+    FROM `store`
+    LEFT JOIN `store_time` ON store_time.fk_store_id = store.id
+    LEFT JOIN 
+    (SELECT
+    `fk_store_id`,
+    store_serve_icon.id as ssi_id,
+    `icon`,
+    `serve_name`
+    FROM `store_serve`
+    LEFT JOIN `store_serve_icon` on `fk_serve_id` = store_serve_icon.id
+    WHERE serve_status = 1) AS ss_ssi ON ss_ssi.fk_store_id = store.id
+    WHERE store_name  LIKE '%$text%' OR `address` LIKE '%$text%'
+    GROUP BY store.id ORDER BY id";
+    
+  $rows = $pdo -> query($sql) -> fetchAll(); // 拿到分頁資料
+  // $rowsNum = $rows -> rowCount();
+
+  $num = array();
+  foreach($rows as $r) {
+      array_push($num, $r['id']);
   }
-
-  // 取得總筆數
-  $t_sql = "SELECT COUNT(1) FROM store";
-  $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-  
-  // 預設沒有資料
-  $rows = [];
-  $totalPages = 0;
-
-  if ($totalRows) {
-      $totalPages = ceil($totalRows / $perPage);
-      if ( $page > $totalPages ) {
-          header( "Location: store-list.php?page=$totalPages" );
-          exit;
-      }
-
-      $sql = sprintf(
-      "SELECT
-      store.id,
-      `store_name`,
-      `city`,
-      `address`,
-      `phone`,
-      group_concat( DISTINCT dow, ':', `status_name`, ' ', LEFT(start_time, 5), '-', LEFT(end_time, 5) ORDER BY store_time.id) AS `time`,
-      group_concat( DISTINCT `icon` order by ss_ssi.ssi_id) AS `icon_group`,
-      group_concat( DISTINCT `serve_name` order by ss_ssi.ssi_id) AS `serve_name`
-      FROM `store`
-      LEFT JOIN `store_time` ON store_time.fk_store_id = store.id
-      LEFT JOIN 
-      (SELECT
-      `fk_store_id`,
-      store_serve_icon.id as ssi_id,
-      `icon`,
-      `serve_name`
-      FROM `store_serve`
-      LEFT JOIN `store_serve_icon` on `fk_serve_id` = store_serve_icon.id
-      WHERE serve_status = 1) AS ss_ssi ON ss_ssi.fk_store_id = store.id
-      GROUP BY store.id ORDER BY id LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-      $rows = $pdo -> query($sql) -> fetchAll(); // 拿到分頁資料
-
-      // 存取 store_name 進入陣列提供 js 做驗證使用
-      
-  }
-
 
 ?>
 
-<?php include __DIR__. './layout/html-head.php';?>
-<?php include __DIR__. './layout/header.php';?>
-<?php include __DIR__. './layout/aside.php';?>
+<?php include  '../layout/html-head.php';?>
+<?php include  '../layout/header.php';?>
+<?php include  '../layout/aside.php';?>
 
 
 
@@ -77,13 +58,13 @@
         </div>
         <div class="d-flex flex-row">
           <div class="col-2.5 store-add-btn">
-            <a href="store-add.php">新增門市 <i class="fa-solid fa-plus"></i></a>
+            <a href="store-add.php">新增門市 +</a>
           </div>
           <div class="col-2.5 store-add-btn">
             <a href="store-serve.php">服務管理 <i class="fa-solid fa-pen"></i></a>
           </div>
           <div class="col-2.5 store-search">
-            <input class="store-search-input" name="search-for" placeholder="搜尋門市名稱或地址">
+          <input class="store-search-input" name="search-for" placeholder="搜尋門市名稱或地址">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
           </div>
         </div>
@@ -105,9 +86,7 @@
           </thead>
           <tbody>
             <!-- 撈資料庫 -->
-            <?php $num = 0 ?>
             <?php foreach ($rows as $r) : ?>
-              <?php $num += 0 ?>
               <tr>
                 <td scope="col"><?= $r['id'] ?></td>
                 <td scope="row"><?= $r['store_name'] ?></td>
@@ -141,25 +120,10 @@
             <?php endforeach ?>
           </tbody>
         </table>
+        <div class="text-center"><span></span></div>
       </div>
-      <div class="d-flex justify-content-center mt-3">
-          <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                  <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
-                      <a class="page-link" href="?page=<?= $page-1 ?>"><i class="fa-solid fa-angle-left"></i></a>
-                  </li>
-                  <?php for($i=$page-5; $i<=$page+5; $i++): 
-                      if($i>=1 and $i<=$totalPages):
-                      ?>
-                  <li class="page-item <?= $page==$i ? 'active' : '' ?>">
-                      <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                  </li>
-                  <?php endif; endfor; ?>
-                  <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
-                      <a class="page-link" href="?page=<?= $page+1 ?>"><i class="fa-solid fa-angle-right"></i></a>
-                  </li>
-              </ul>
-          </nav>
+      <div class="mt-5 text-center">
+        <a href="store-list.php"><button type="submit" class="btn btn-outline-secondary store-edit-btn">回列表</button></a>
       </div>
     </div> <!-- col-10 end  -->
     <div class="col-1"></div>
@@ -171,44 +135,31 @@
   <!------------------------ script link ------------------------>
 
   <!-- jquery -->
-  <script src="./jquery/jquery-3.6.0.min.js"></script>
-
+  <script src="../jquery/jquery-3.6.0.min.js"></script>
+  
   <!------------------------ script ------------------------>
   <script>
-
+    
     function del_it(id){
       if(confirm(`確定要刪除編號為 ${id} 的資料嗎?`)){
           location.href = 'store-delete.php?id=' + id;
       }
-    };
+    }
 
-    // $(".store-search-input").keyup(function () {
-    //   let search = $(this).val();
-    //   if (search != '') {
-    //     $(this).next().attr("href", "store-list-search.php?search-for=" + search);
-    //   }
-    // });
-
-    $(".store-search-input").on("keyup mouseup contextmenu", function () {
+    $('.store-search-input').keyup(function () {
       let search = $(this).val();
       if (search != '') {
         $(this).next().attr("href", "store-list-search.php?search-for=" + search);
       }
     });
 
-    // $(document).ready(function () {
-    //   load_data();
-    //   function load_data(query) {
-    //     $.ajax({
-    //         url: "store-list-search.php",
-    //         method: "GET",
-    //         data: {
-    //             s: query
-    //         }
-    //     });
-    //   }
-    // });
+    let num = <?php echo json_encode($num); ?>;
+    console.log(num);
+
+    if (num == ""){
+      $(".store-table").find("span").text("查詢資料無結果");
+    }
   </script>
   
-<?php include __DIR__. './layout/scripts.php';?>
-<?php include __DIR__. './layout//html-foot.php';?>
+<?php include  '../layout/scripts.php';?>
+<?php include  '../layout//html-foot.php';?>
