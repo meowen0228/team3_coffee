@@ -231,15 +231,12 @@ $pagename = 'blog-content-add';
 
           <div class="thumbnail d-flex">
             <label for="" class="col-2">縮圖</label>
-            <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" style=""></button>
+            <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="" ></button>
             <button type="button" class="del-img"></button>
             <input type="hidden" id="img_url_post" name="img_url_post" value="">
 
 
-            <!-- <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="<?= $row_photo['url'] ?>" alt="main" style="opacity: 1;"></button>
-            <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row_photo['url'] ?>">
-            <input type="hidden" id="img_url_post" name="photo_alt" value="main">
-           -->
+            
           </div>
           <br>
 
