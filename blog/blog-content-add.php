@@ -2,27 +2,10 @@
 
 require '../layout/connect_db.php';
 
-$title = '文章後台-編輯文章';
-$pagename = 'blog-content-edit';
+$title = '文章後台-新增文章';
+$pagename = 'blog-content-add';
 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$sql = "SELECT
-blogs.id as blogs_id,
-fk_type_id,
-types_name,
-title,
-CREATEd_at,
-content,
-`url`
-FROM blogs
-left join blog_types on blog_types.id = blogs.fk_type_id WHERE blogs.id = $id";
-$row = $pdo->query($sql)->fetch();
-
-// $sql_photo = "SELECT `url`, `photo_alt`, ROW_NUMBER() OVER(ORDER BY id) AS ROWID FROM `blog_photos` WHERE `fk_blog_id` = $id;";
-// $row_photo = $pdo->query($sql_photo)->fetch();
-
-// $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 ?>
 
 <?php include '../layout/html-head.php'; ?>
@@ -369,8 +352,9 @@ $row = $pdo->query($sql)->fetch();
     $("#preview_img1").attr("src", "");
   })
 
-
-
+  $(".back-btn").click(function() {
+    location.href = 'blog.php';
+  })
 
   $(".back-btn").click(function() {
     location.href = 'blog.php';

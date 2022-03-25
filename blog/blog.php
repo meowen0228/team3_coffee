@@ -41,7 +41,6 @@ $first = [];
 <?php include '../layout/html-head.php'; ?>
 <?php include '../layout/header.php'; ?>
 <?php include '../layout/aside.php'; ?>
-<img src="./bootstrap/js/" alt="">
 <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -143,7 +142,7 @@ $first = [];
         <br>
 
         <div>
-          <a href="blog-content-add.php"><button class="btn btn-outline-secondary">新增文章</button></a>
+          <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</a></button>
         </div>
 
 

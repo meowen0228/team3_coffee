@@ -1,6 +1,6 @@
 <?php
 
-require  'connect-db.php';
+require '../layout/connect_db.php';
 
 
 header('Content-Type: application/json');
