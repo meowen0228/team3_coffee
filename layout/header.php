@@ -8,11 +8,7 @@ $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
 ?>
   <header class="admin-header d-flex shadow fixed-top row">
     <div class="col-1 admin-header">
-<<<<<<< HEAD
-        <a href="../home_.php">
-=======
         <a href="../home/home_.php">
->>>>>>> ed538a7c0b25a617c4780213ffb9b192fdaf74c5
           <img src="../layout/icon/coffee_bean.png" alt="">
         </a>
     </div>
