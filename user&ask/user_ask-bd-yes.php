@@ -78,6 +78,11 @@
 .askSearch{
     font-size: smaller;
 }
+.select {
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+}
 
 
 
@@ -94,12 +99,15 @@
                   <div class="row userNav">
                       <div class="col-2 userNavlift">提問列表</div>
                       <div class="col-5"></div>
-                      <div class="col-3">
-                            <input type="radio" name="ask" id="shall" onclick="showAll()" value="全選" ><label for="shall">全選</label> 
-                            <input type="radio" name="ask" id="shno"  onclick="showNo()" value="未回復"><label for="shno">未回復</label> 
-                            <input type="radio" name="ask" id="shys"  onclick="showYes()" value="已回答" checked><label for="shys" >已回答</label> 
+                      <div class="col-2">
+                            <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select" >
+                                                    
+                                <option value="user_ask-bd-all.php">全選</option>
+                                <option selected value="user_ask-bd-yes.php">已回覆</option>
+                                <option value="user_ask-bd-no.php">未回覆</option>
+                            </select>
                       </div>
-                      
+                      <div class="col-1"></div>
                       <div class="col-2">
                       <div class="box userSearchbox">
                           &thinsp;
@@ -163,15 +171,7 @@
         $(".ask").children(".ans:contains(未)").css({"color":"red","font-weight":"bolder"});
         
 
-            function showAll(){
-            window.location.href='user_ask-bd-all.php';
-          }
-          function showNo(){
-            window.location.href='user_ask-bd-no.php';
-          }
-          function showYes(){
-            window.location.href='user_ask-bd-yes.php';
-          }
+            
           $(".askSearch").on("keyup mouseup contextmenu", function () {
               let search = $(this).val();
               if (search != '') {
