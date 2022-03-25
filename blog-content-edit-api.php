@@ -2,10 +2,8 @@
 
 require 'connect-db.php';
 
-// echo var_dump($_POST);
-// echo json_encode($_POST); exit;
-
 header('Content-Type: application/json');
+
 // 輸出的資料格式
 $output = [
   'success' => false,
@@ -16,10 +14,14 @@ $output = [
   'rowCount' => 0,
 ];
 
-// if (empty($_POST['id'])) {
-//   echo json_encode($output, JSON_UNESCAPED_UNICODE);
-//   exit;
-// }
+
+// echo var_dump($_POST);
+// echo json_encode($_POST); exit;
+
+if ( empty($_POST['blogs_id']) ) {
+  echo json_encode($output, JSON_UNESCAPED_UNICODE);
+  exit;
+}
 
 
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
@@ -32,22 +34,19 @@ SET
 `fk_type_id` = ?,
 `title` = ?,
 `content` = ?,
-`CREATEd_at` = ?,
 `url` = ?
 WHERE `id` = ?";
-
-var_dump($_POST);
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-  $_POST['blogs_id'],
-  $_POST['img_url_post'],
   $_POST['types'],
   $_POST['title'],
-  $_POST['time'],
-  $_POST['content']
+  $_POST['content'],
+  $_POST['img_url_post'],
+  $_POST['blogs_id'],
 ]);
+
 $count_1 = $stmt->rowCount();
 
 // $sql_add = "INSERT INTO `blogs` (`blogs.id`, `url`) VALUES (?, ?)";

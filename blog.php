@@ -93,7 +93,7 @@ $first = [];
   }
 
   .date01 {
-    width: 50px;
+    width: 250px;
   }
 
   .table {
@@ -112,12 +112,12 @@ $first = [];
 </style>
 
 <main class=" admin-main px-5 py-5">
-  <div class="blog container">
+  <div class="blog container col-12">
     <div class="row">
       <h2>文章/類別管理</h2>
 
 
-      <form class="blog-form">
+      <form class="blog-form p-5">
 
 
         <!-- <div class="assort">
@@ -144,7 +144,6 @@ $first = [];
 
         <div>
           <button class="btn btn-outline-secondary"><a href="blog-content-add.php">新增文章</a></button>
-          <button type="submit" class="btn btn-outline-secondary">刪除文章</button>
         </div>
 
 
@@ -153,33 +152,27 @@ $first = [];
           <table class="table">
             <thead>
               <tr>
-                <th><input class="ck" type="checkbox" name="checkbox[]" value="全選" id="checkbox_0"></th>
                 <th>縮圖</th>
-                <th></th>
-                <th></th>
                 <th>標題</th>
-                <th></th>
                 <th>時間</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>編輯</th>
+                <th>刪除</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($rows as $r) : ?>
                 <tr>
-                  <td><input type="checkbox" name="checkbox[]" value="單項" id="checkbox-1"></td>
-                  <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt="">
-                  <td>
-                  <td></td>
+                  <td class="thumbnail"> <img style="width: 100px;" src="<?= $r['url'] ?>" alt=""></td>
                   <td><?= $r['title'] ?></td>
-                  <td></td>
                   <td class="date01"><?= $r['CREATEd_at'] ?></td>
-                  <td></td>
-                  <td></td>
                   <td>
                     <button type="button" class="btn btn-light">
                       <a href="blog-content-edit.php?id=<?= $r['id'] ?>">編輯文章</a>
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-light" onclick="del_it(<?= $r['id'] ?>)">
+                      刪除文章
                     </button>
                   </td>
                 </tr>
@@ -217,9 +210,9 @@ $first = [];
 <?php include __DIR__ . './layout//html-foot.php'; ?>
 
 <script>
-  $(document).ready(function() {
-    $("#tabs").head - tabs();
-  });
+  // $(document).ready(function() {
+  //   $("#tabs").head - tabs();
+  // });
 
   // function checkbox_0(qx) {
   //   var ck = document.getElementsByClassName("ck");
@@ -236,7 +229,7 @@ $first = [];
 
 
   function del_it(id) {
-    if (confirm(`確定要刪除第 ${id} 筆的資料嗎?`)) {
+    if (confirm(`確定要刪除第 ${id} 筆的文章嗎?`)) {
       location.href = 'blog-delete.php?id=' + id;
     }
   }

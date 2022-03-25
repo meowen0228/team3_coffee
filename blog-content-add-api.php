@@ -2,8 +2,6 @@
 
 require  'connect-db.php';
 
-// echo json_encode($_POST);
-// exit;
 
 header('Content-Type: application/json');
 // 輸出的資料格式
@@ -16,6 +14,8 @@ $output = [
   'rowCount' => 0,
 ];
 
+// echo json_encode($_POST);
+// exit;
 if (empty($_POST['title'])) {
   echo json_encode($output, JSON_UNESCAPED_UNICODE);
   exit;
@@ -27,18 +27,16 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 
 $sql = "INSERT INTO `blogs`(
-    `fk_type_id`, `title`, `CREATEd_at`,`content`,
-      ) VALUES (?, ?, NOW(), ?)";
+    `fk_type_id`, `title`, `CREATEd_at`,`content`, `url`
+      ) VALUES (?, ?, NOW(), ?, ?)";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-  $_POST['url'] ?? '',
+  $_POST['types'] ?? '',
   $_POST['title'] ?? '',
-  $_POST['date'] ?? '',
-  $_POST['content'] ?? ''
-
-
+  $_POST['content'] ?? '',
+  $_POST['img_url_post'] ?? ''
 ]);
 
 $output['insertId'] = $pdo->lastInsertId(); // 取得最近加入資料的 PK

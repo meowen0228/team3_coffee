@@ -119,7 +119,7 @@ CREATE TABLE `products`(
 `price` INT NOT NULL,
 `content` VARCHAR(1000) NOT NULL,
 `status` boolean NOT NULL,
-`fk_product_types` INT(20) NOT NULL,
+`fk_product_types` INT NOT NULL,
 `url`  varchar(300),
 foreign KEY (fk_product_types) references product_types(id)
 );

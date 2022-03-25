@@ -240,7 +240,7 @@ $row = $pdo->query($sql)->fetch();
 
   <div class="blog-content-edit container col-20">
     <div class="row">
-      <div>
+      <div> 
         <h2>文章/類別管理/編輯文章</h2>
 
         <form name="form1" class="blog-content-edit-form" method="post" novalidate onsubmit="checkForm(); return false;">
@@ -250,18 +250,13 @@ $row = $pdo->query($sql)->fetch();
           <div class="thumbnail d-flex">
             <label for="" class="col-2">縮圖</label>
             <?php if ($row['url'] == '') { ?>
-              <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src=".<?= $row['url'] ?>" style=""></button>
+              <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $row['url'] ?>" style=""></button>
             <?php } else { ?>
               <button id="imgUpBtn" type="button" class="img-up-btn" onclick="img_url.click()">+<img id="preview_img1" src="<?= $row['url'] ?>" style="opacity: 1"></button>
             <?php } ?>
             <button type="button" class="del-img"></button>
             <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row['url'] ?>">
 
-
-            <!-- <button id="imgUpBtn" type="button" class="img-up-btn" data-num="0">+<img class="preview_img" src="<?= $row_photo['url'] ?>" alt="main" style="opacity: 1;"></button>
-            <input type="hidden" id="img_url_post" name="img_url_post" value="<?= $row_photo['url'] ?>">
-            <input type="hidden" id="img_url_post" name="photo_alt" value="main">
-           -->
           </div>
           <br>
 
@@ -285,21 +280,6 @@ $row = $pdo->query($sql)->fetch();
           </div>
           <br>
 
-          <!-- <div class="upload-imgs">
-            <label for="" class="col-2">匯入圖庫</label>
-            <?php $num = 0 ?>
-            <?php foreach ($row_photo_other as $r) : ?>
-              <?php if ($r['ROWID'] != 1) { ?>
-                <div class="d-flex flex-column">
-                  <button id="imgUpBtn" type="button" class="img-up-btn" data-num="<?= $num += 1 ?>">+<img class="preview_img" src="<?= $r['url'] ?>" alt="<?= $r['photo_alt'] ?>" style="opacity: 1;"></button>
-                  <input type="hidden" id="img_url_post" name="img_url_post[]" value="<?= $r['url'] ?>">
-                  <input type="text" name="photo_alt[]" value="<?= $r['photo_alt'] ?>" placeholder="請填入圖片說明">
-                </div>
-            <?php }
-            endforeach ?>
-          </div>
-          <br> -->
-
           <div class="title">
             <label for="" class="col-2">標題</label>
             <input type="text" placeholder="請輸入文章標題" name="title" value="<?= $row['title'] ?>">
@@ -315,7 +295,7 @@ $row = $pdo->query($sql)->fetch();
 
           <div class="content">
             <label for="" class="col-2">文章內容</label>
-            <textarea id="editor01" name="content" ><?= $row['content'] ?></textarea>
+            <textarea type="text" id="editor" name="content"><?= $row['content'] ?></textarea>
           </div>
           <br>
 
@@ -354,26 +334,34 @@ $row = $pdo->query($sql)->fetch();
 <?php include __DIR__ . './layout/scripts.php'; ?>
 <?php include __DIR__ . './layout//html-foot.php'; ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
 <script>
-  CKEDITOR.replace('editor01');
 
+ClassicEditor
+    .create( document.querySelector( '#editor' ) )
+    .then( editor => {
+        console.log( editor );
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
 
   // 上傳照片
   function sendData() {
-    const fd = new FormData(document.form1);
+    const fd = new FormData(document.img_form);
 
     fetch('blog-content-edit-img-api.php', {
         method: 'POST',
         body: fd
-      }).then(r => r.text())
+      }).then(r => r.json())
       .then(obj => {
         console.log(obj);
         if (obj.success && obj.filename) {
           $(".del-img").css("background", "rgb(82, 82, 82)");
           preview_img1.src = './img/' + obj.filename;
           $("#preview_img1").css("opacity", "1");
-          $("#img_url_post").val('/img/' + obj.filename);
+          $("#img_url_post").val('./img/' + obj.filename);
         }
       });
   }
