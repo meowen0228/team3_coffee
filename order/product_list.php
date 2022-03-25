@@ -1,6 +1,6 @@
 <?php
 // 連接資料庫
-require __DIR__ . '/layout/connect_db.php';
+require '../layout/connect_db.php';
 
 // 頁面資訊
 $title = '商品列表';
@@ -17,7 +17,7 @@ if ($page < 1) {
 }
 
 // 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM products where `status` IN (1)";
+$t_sql = "SELECT COUNT(1) FROM products";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 // 預設沒有資料
@@ -31,15 +31,15 @@ if ($totalRows) {
         exit;
     }
 
-    $sql = sprintf("SELECT * FROM products where `status` IN (1) ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM products ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
 
 ?>
 
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 
 <style>
     .admin-main {
@@ -52,24 +52,25 @@ if ($totalRows) {
         padding: 20px;
 
     }
-
-    .product-search {
+    .product-search{
+        border: transparent;
         border-radius: 50px;
         outline: none;
         background: #fff;
     }
 
-    .icon {
+
+    /* .icon {
         background: #FFFFFF;
-        /* border: #FFFFFF solid 1px; */
+        border: #FFFFFF solid 1px;
         border-radius: 5px;
         border-left: none;
-    }
+    } */
 
-    .search {
+    /* .search {
         border: none;
         border-radius: 20px;
-    }
+    } */
 
     .pagetext a {
         color: black;
@@ -108,18 +109,17 @@ if ($totalRows) {
                     <div class="col-3 product-search">
           <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
             <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-          </div> 
-
-                    <!-- <div class="col-4">
+          </div>
+          <!-- <div class="col-4">
                         <div class="input-group form-outline ">
                             <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
                             <button type="button" class="btn btn-light icon search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
-                    </div> -->
+                    </div>
 
-                </div>
+                </div> -->
 
 
                 <div class="list ">
@@ -135,8 +135,8 @@ if ($totalRows) {
                                     <th class="col-2">
                                         <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select">
                                             <!-- <option selected>商品狀態</option> -->
-                                            <option  value="product_list.php">全選</option>
-                                            <option selected value="product_list_up.php">上架</option>
+                                            <option selected value="product_list.php">全選</option>
+                                            <option value="product_list_up.php">上架</option>
                                             <option value="product_list_down.php">下架</option>
                                         </select></th>
                                     <th class="col-2">編輯</th>
@@ -244,8 +244,16 @@ if ($totalRows) {
             
     //         window.location.href='product-down.php';
     //       }
+    $(".productsearch").on("keyup mouseup contextmenu", function () {
+      let search = $(this).val();
+      if (search != '') {
+        $(this).next().attr("href", "product_list_search.php?search-for=" + search);
+      }
+    });
+
+
 </script>
 
 
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout/html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout/html-foot.php'; ?>

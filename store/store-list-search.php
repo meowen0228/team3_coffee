@@ -1,6 +1,6 @@
 <?php
   // 連接資料庫
-  require  '../layout/connect_db.php';
+  require '../layout/connect_db.php';
   
   // 頁面資訊
   $title = '門市管理';
@@ -43,9 +43,9 @@
 
 ?>
 
-<?php include  '../layout/html-head.php';?>
-<?php include  '../layout/header.php';?>
-<?php include  '../layout/aside.php';?>
+<?php include '../layout/html-head.php';?>
+<?php include '../layout/header.php';?>
+<?php include '../layout/aside.php';?>
 
 
 
@@ -161,5 +161,5 @@
     }
   </script>
   
-<?php include  '../layout/scripts.php';?>
-<?php include  '../layout//html-foot.php';?>
+<?php include '../layout/scripts.php';?>
+<?php include '../layout//html-foot.php';?>

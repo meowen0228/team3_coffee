@@ -565,6 +565,7 @@ form .mb-3 .form-text {
 .store-serve-form input[type=checkbox]{
     opacity: 0;
 }
+/* -------- store-serve -------- */
 .store-serve-form label::before{
     content: '';
     display: inline-block;
@@ -587,13 +588,6 @@ form .mb-3 .form-text {
     border-radius: 20px;
     text-align: center;
 }
-/* .store-img-upload{
-    width: 100%;
-    height: 30%;
-} */
-/* .store-serve-check{
-    width: 2rem;
-} */
 .serve_input input{
     width: 8rem;
     height: 2.5rem;
@@ -609,4 +603,69 @@ form .mb-3 .form-text {
 }
 .serve_input .icon_i input{
     width: 20rem;
+}
+/* store-serve 彈跳視窗 */
+.store-popup-wrap {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.4);
+}
+.store-popup-box {
+    padding: 50px 50px;
+    -webkit-transform: translate(-50%, -50%) scale(.6);
+    transform: translate(-50%, -50%) scale(.6);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    background: #fff;
+    text-align: center;
+}
+.store-close-btn {
+    width: 50px;
+    line-height: 40px;
+    color: gray;
+    font-size: 32px;
+    text-decoration: none;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    transition: var(--store-transition);
+}
+.store-close-btn:hover{
+    color: black;
+}
+
+.store-transform-in, .store-transform-out {
+    display: block;
+    -webkit-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+.store-transform-in {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.store-transform-out {
+    -webkit-transform: translate(-50%, -50%) scale(.6);
+    transform: translate(-50%, -50%) scale(.6);
+}
+.store-new_form input{
+    width: 20rem;
+    padding: .5rem 2rem;
+    background: #F2F2F2;;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    transition: var(--store-transition);
+}
+.store-new_form input:focus{
+    outline: 1.5px solid gray;
 }

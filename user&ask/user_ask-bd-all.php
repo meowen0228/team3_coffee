@@ -1,5 +1,5 @@
 <?php
- require  '/layout/connect_db.php';
+ require  '../layout/connect_db.php';
   $title = '提問列表';
   $pagename = 'askList';
   $perPage = 10; // 每一頁有幾筆

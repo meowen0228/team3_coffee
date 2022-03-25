@@ -1,6 +1,6 @@
 <?php
   // 連接資料庫
-  require  '../layout/connect_db.php';
+  require '../layout/connect_db.php';
   
   // 頁面資訊
   $title = '門市服務管理';
@@ -12,76 +12,9 @@
 
 ?>
 
-<?php include  '../layout/html-head.php';?>
-<?php include  '../layout/header.php';?>
-<?php include  '../layout/aside.php';?>
-
-<style>
-.popup-wrap {
-  width: 100%;
-  height: 100%;
-  display: none;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  background: rgba(0, 0, 0, 0.4);
-}
-.popup-box {
-  padding: 50px 50px;
-  -webkit-transform: translate(-50%, -50%) scale(.6);
-  transform: translate(-50%, -50%) scale(.6);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  background: #fff;
-  text-align: center;
-}
-.close-btn {
-  width: 50px;
-  line-height: 40px;
-  color: gray;
-  font-size: 32px;
-  text-decoration: none;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  transition: var(--store-transition);
-}
-.close-btn:hover{
-  color: black;
-}
-
-.transform-in, .transform-out {
-  display: block;
-  -webkit-transition: all ease 0.5s;
-  transition: all ease 0.5s;
-}
-
-.transform-in {
-  -webkit-transform: translate(-50%, -50%) scale(1);
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.transform-out {
-  -webkit-transform: translate(-50%, -50%) scale(.6);
-  transform: translate(-50%, -50%) scale(.6);
-}
-.new_form input{
-  width: 20rem;
-  padding: .5rem 2rem;
-  background: #F2F2F2;;
-  border: none;
-  border-radius: 50px;
-  outline: none;
-  transition: var(--store-transition);
-}
-.new_form input:focus{
-  outline: 1.5px solid gray;
-}
-</style>
+<?php include '../layout/html-head.php';?>
+<?php include '../layout/header.php';?>
+<?php include '../layout/aside.php';?>
 
   <main class="admin-main px-5 py-5 d-flex">
     <div class="col-2"></div>
@@ -92,7 +25,7 @@
             <h4>門市服務管理</h4>
           </div>
           <div class="col-2.5 store-add-btn d-flex me-0">
-            <a href="#popup-wrap" class="popup-btn">新增服務 <i class="fa-solid fa-plus"></i></a>
+            <a href="#store-popup-wrap" class="popup-btn">新增服務 <i class="fa-solid fa-plus"></i></a>
           </div>
         </div>
       </div>
@@ -136,9 +69,9 @@
     </div> <!-- col-10 end  -->
     <div class="col-2"></div>
 
-    <div class="popup-wrap" id="popup-wrap">
-      <div class="popup-box">
-        <form name="new_form" class="new_form d-flex flex-column text-start" method="post" novalidate onsubmit="checkNewForm(); return false;">
+    <div class="store-popup-wrap" id="store-popup-wrap">
+      <div class="store-popup-box">
+        <form name="store-new_form" class="store-new_form d-flex flex-column text-start" method="post" novalidate onsubmit="checkNewForm(); return false;">
           <h5>新增服務項目</h5>
           <div class="mt-3">
             <label for="new_serve_name" class="me-3">服務名稱</label>
@@ -155,7 +88,7 @@
           <div>
             <p class="new_alert text-center link-danger"></p>
           </div>
-          <a class="close-btn popup-close text-center mt-3 me-2" href="#"><i class="fa-solid fa-xmark"></i></a>
+          <a class="store-close-btn popup-close text-center mt-3 me-2" href="#"><i class="fa-solid fa-xmark"></i></a>
           <div class="text-center">
             <button type="submit" class="btn btn-outline-secondary store-edit-btn">新增</button>
           </div>
@@ -180,15 +113,15 @@
     $(".popup-btn").click(function() {
       let href = $(this).attr("href")
       $(href).fadeIn(250);
-      $(".popup-box").removeClass("transform-out").addClass("transform-in");
+      $(".store-popup-box").removeClass("store-transform-out").addClass("store-transform-in");
       event.preventDefault();
     });
     $(".popup-close").click(function() {
       closeWindow();
     });
     function closeWindow(){
-      $(".popup-wrap").fadeOut(200);
-      $(".popup-box").removeClass("transform-in").addClass("transform-out");
+      $(".store-popup-wrap").fadeOut(200);
+      $(".store-popup-box").removeClass("store-transform-in").addClass("store-transform-out");
       event.preventDefault();
     }
 
@@ -275,7 +208,7 @@
       }
 
       if(isPass){
-          const fd = new FormData(document.new_form);
+          const fd = new FormData(document.store-new_form);
 
           fetch('store-new-serve-api.php', {
               method: 'POST',
@@ -318,5 +251,5 @@
 
   </script>
   
-<?php include  '../layout/scripts.php';?>
-<?php include  '../layout//html-foot.php';?>
+<?php include '../layout/scripts.php';?>
+<?php include '../layout//html-foot.php';?>
