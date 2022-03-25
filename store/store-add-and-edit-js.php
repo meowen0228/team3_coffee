@@ -2,7 +2,7 @@
 <!------------------------ script link ------------------------>
 
 <!-- jquery -->
-<script src="./jquery/jquery-3.6.0.min.js"></script>
+<script src="../jquery/jquery-3.6.0.min.js"></script>
 
 <!-- jquery timepicker -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
