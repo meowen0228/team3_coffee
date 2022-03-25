@@ -6,6 +6,7 @@ $total_o = $pdo->query($o_sql)->fetch(PDO::FETCH_NUM)[0];
 $u_sql = "SELECT COUNT(1) FROM user_ask WHERE ans IN ('')";
 $total_u = $pdo->query($u_sql)->fetch(PDO::FETCH_NUM)[0];
 ?>
+
   <header class="admin-header d-flex shadow fixed-top row">
     <div class="col-1 admin-header">
         <a href="../home/home_.php">
