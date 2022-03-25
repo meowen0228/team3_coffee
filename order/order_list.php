@@ -1,6 +1,6 @@
 <?php
 // 連接資料庫
-require __DIR__ . '/layout/connect_db.php';
+require '../layout/connect_db.php';
 
 // 頁面資訊
 $title = '訂單列表';
@@ -17,7 +17,11 @@ if ($page < 1) {
 }
 
 // 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM orders where `fk_condition_id` IN (1)";
+$t_sqlaa= "SELECT max(*) FROM orders";
+$t_nun = (int)$t_sqlaa;
+
+
+$t_sql = "SELECT COUNT(1) FROM orders";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 // 預設沒有資料
@@ -58,10 +62,7 @@ if ($totalRows) {
         price
         FROM order_detail
         left join products on products.id = order_detail.fk_product_id) AS detail on detail.od_fkid = orders.id
-        where `fk_condition_id` IN (1)
-        GROUP BY orders.id 
-       
-        ORDER BY o_id LIMIT %s, %s ;",
+        GROUP BY orders.id ORDER BY o_id LIMIT %s, %s ;",
         ($page - 1) * $perPage,
         $perPage
     );
@@ -70,15 +71,18 @@ if ($totalRows) {
 
 ?>
 
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 <style>
     .icon {
         background: #FFFFFF;
         /* border: #FFFFFF solid 1px; */
         border-radius: 5px;
         border-left: none;
+    }
+    .order-search{
+        border: transparent;
     }
 
     .search {
@@ -118,27 +122,23 @@ if ($totalRows) {
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                        <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
-                            <!-- <option >出貨狀態</option> -->
-                            <option   value="order_list.php">全選</option>
-                            <option  value="order_list_onship.php">已出貨</option>
-                            <option selected value="order_list_nonship.php">未出貨</option>
+                    <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
+                            <!-- <option selected>出貨狀態</option> -->
+                          <option  selected value="order_list.php">全選</option>
+                            <option value="order_list_onship.php">已出貨</option>
+                            <option value="order_list_nonship.php">未出貨</option>
                             <option value="order_list_complete.php">完成訂單</option>
                             <option value="order_list_cancel.php">取消訂單</option>
                         </select>
 
                     </div>
-
-                    <div class="col-4">
-                        <div class="input-group form-outline ">
-                            <input type="search" class="form-control search" />
-                            <button type="button" class="btn btn-light icon search">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
+                    <div class="col-4 order-search">
+                        <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
+                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
                     </div>
 
                 </div>
+                
 
 
 
@@ -360,7 +360,13 @@ if ($totalRows) {
     //         }
     //     });
     // });
+    $(".ordersearch").on("keyup mouseup contextmenu", function () {
+      let search = $(this).val();
+      if (search != '') {
+        $(this).next().attr("href", "order_list_search.php?search-for=" + search);
+      }
+    });
 </script>
 
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>

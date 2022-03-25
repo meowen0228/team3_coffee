@@ -1,45 +1,27 @@
 <?php
 // 連接資料庫
-require __DIR__ . '/layout/connect_db.php';
+require '../layout/connect_db.php';
 
 // 頁面資訊
 $title = '商品列表';
 $pagename = 'product_list';
 
-// 每一頁有幾筆
-$perPage = 10;
+// 抓取 search text
+$text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
 
-// 用戶要看的頁碼
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-if ($page < 1) {
-    header('Location: product_list.php?page=1');
-    exit;
-}
 
-// 取得總筆數
-$t_sql = "SELECT COUNT(1) FROM products where `status` IN (1)";
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
-// 預設沒有資料
-$rows = [];
-$totalPages = 0;
-
-if ($totalRows) {
-    $totalPages = ceil($totalRows / $perPage);
-    if ($page > $totalPages) {
-        header("Location: product_list1.php?page=$totalPages");
-        exit;
-    }
-
-    $sql = sprintf("SELECT * FROM products where `status` IN (1) ORDER BY id  LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = "SELECT * FROM products 
+    WHERE p_name  LIKE '%$text%' OR `id` LIKE '%$text%'
+    ORDER BY id ";
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-}
+
 
 ?>
 
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 
 <style>
     .admin-main {
@@ -51,6 +33,9 @@ if ($totalRows) {
         background: #FFFFFF;
         padding: 20px;
 
+    }
+    .product-search{
+        border: transparent;
     }
 
     .icon {
@@ -97,16 +82,23 @@ if ($totalRows) {
                     <div class="col-3"></div>
                    
                     <div class="col-2"><a href="product_new.php?>" class="btn btn-light addProduct">+新增商品</a></div>
-                    <div class="col-4">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3 product-search">
+          <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
+            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+          </div> 
+<!-- 
+          <div class="col-4">
                         <div class="input-group form-outline ">
-                            <input type="search" class="form-control search" />
+                            <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
                             <button type="button" class="btn btn-light icon search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
-                </div>
+          
 
 
                 <div class="list ">
@@ -122,8 +114,8 @@ if ($totalRows) {
                                     <th class="col-2">
                                         <select onChange="location = this.options[this.selectedIndex].value;" name="status" id="status" class="select">
                                             <!-- <option selected>商品狀態</option> -->
-                                            <option  value="product_list.php">全選</option>
-                                            <option selected value="product_list_up.php">上架</option>
+                                            <option selected value="product_list.php">全選</option>
+                                            <option value="product_list_up.php">上架</option>
                                             <option value="product_list_down.php">下架</option>
                                         </select></th>
                                     <th class="col-2">編輯</th>
@@ -157,35 +149,14 @@ if ($totalRows) {
                             <?php endforeach ?>
                         </tbody>
                     </table>
-                    <div class="container">
-
-                    </div>
+                  
 
                 </div>
             </div>
         </div>
     </div>
     </div>
-    <div class="d-flex justify-content-center mt-3">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
-                </li>
-                <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                    if ($i >= 1 and $i <= $totalPages) :
-                ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                <?php endif;
-                endfor; ?>
-                <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    
 
 
     <div class="col-1"></div>
@@ -231,8 +202,16 @@ if ($totalRows) {
             
     //         window.location.href='product-down.php';
     //       }
+    $(".productsearch").on("keyup mouseup contextmenu", function () {
+      let search = $(this).val();
+      if (search != '') {
+        $(this).next().attr("href", "product_list_search.php?search-for=" + search);
+      }
+    });
+
+
 </script>
 
 
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout/html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout/html-foot.php'; ?>

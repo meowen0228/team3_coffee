@@ -1,6 +1,6 @@
 <?php
 // 連接資料庫
-require __DIR__ . '/layout/connect_db.php';
+require '../layout/connect_db.php';
 
 // 頁面資訊
 $title = '訂單列表';
@@ -44,9 +44,9 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 ?>
 
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 <style>
     .icon {
         background: #FFFFFF;
@@ -325,5 +325,5 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
     });
 </script>
 
-<?php include __DIR__ . '/layout/scripts.php'; ?>
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>

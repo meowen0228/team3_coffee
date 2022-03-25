@@ -5,10 +5,10 @@
            <div class="d-block py-1 px-3 maindir" >商品</div>
            <ul>
                <li>
-                   <a class="d-block py-2 px-3" href="C:product_list.php">商品管理</a>
+                   <a class="d-block py-2 px-3" href="../order/product_list.php">商品管理</a>
                </li>
                <li>
-                   <a class="d-block py-2 px-3" href="order_list.php">訂單管理</a>
+                   <a class="d-block py-2 px-3" href="../order/order_list.php">訂單管理</a>
                </li>
           
               

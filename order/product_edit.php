@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/layout/connect_db.php';
+require '../layout/connect_db.php';
 
 $title = '商品管理';
 $pageName = 'product1_';
@@ -29,9 +29,9 @@ if (empty($id )) {
 // $row2 = $pdo->query($sql2)->fetchAll();
 ?>
 
-<?php include __DIR__ . '/layout/html-head.php'; ?>
-<?php include __DIR__ . '/layout/header.php'; ?>
-<?php include __DIR__ . '/layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 <style>
     .admin-main {
         background: #F2F2F2;
@@ -212,7 +212,7 @@ if (empty($id )) {
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<?php include __DIR__ . '/layout/scripts.php'; ?>
+<?php include '../layout/scripts.php'; ?>
 <script>
 
     function sendData(){
@@ -279,4 +279,4 @@ if (empty($id )) {
 </script>
 
 
-<?php include __DIR__ . '/layout//html-foot.php'; ?>
+<?php include '../layout//html-foot.php'; ?>
