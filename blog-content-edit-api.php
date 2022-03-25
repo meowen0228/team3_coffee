@@ -16,10 +16,10 @@ $output = [
   'rowCount' => 0,
 ];
 
-if (empty($_POST['id'])) {
-  echo json_encode($output, JSON_UNESCAPED_UNICODE);
-  exit;
-}
+// if (empty($_POST['id'])) {
+//   echo json_encode($output, JSON_UNESCAPED_UNICODE);
+//   exit;
+// }
 
 
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
@@ -28,38 +28,40 @@ $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
 
 $sql =
   "UPDATE `blogs`
-SET  
-`blogs.id` = ?,
+SET 
+`fk_type_id` = ?,
 `title` = ?,
-`content` = ?
+`content` = ?,
+`CREATEd_at` = ?,
 `url` = ?
 WHERE `id` = ?";
 
+var_dump($_POST);
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-  $_POST['id'],
+  $_POST['blogs_id'],
+  $_POST['img_url_post'],
   $_POST['types'],
   $_POST['title'],
-  $_POST['content'],
-
-
+  $_POST['time'],
+  $_POST['content']
 ]);
 $count_1 = $stmt->rowCount();
 
-$sql_add = "INSERT INTO `blogs` (`blogs.id`, `url`) VALUES (?, ?)";
-$stmt_add = $pdo->prepare($sql_add);
+// $sql_add = "INSERT INTO `blogs` (`blogs.id`, `url`) VALUES (?, ?)";
+// $stmt_add = $pdo->prepare($sql_add);
 
 
-$stmt_add->execute([
-  $_POST['id'],
-  $_POST['img_url_post'],
-]);
-$count_2 = $stmt->rowCount();
+// $stmt_add->execute([
+//   $_POST['id'],
+//   $_POST['img_url_post'],
+// ]);
+// $count_2 = $stmt->rowCount();
 
 
-$output['rowCount'] = $count_1 + $count_2; // 新增資料的筆數
+$output['rowCount'] = $count_1 ; // 新增資料的筆數
 // echo $output['rowCount'];exit;
 if ($output['rowCount'] > 0) {
   $output['error'] = '';

@@ -8,7 +8,7 @@ $pagename = 'blog-content-edit';
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $sql = "SELECT
-blogs.id as id,
+blogs.id as blogs_id,
 fk_type_id,
 types_name,
 title,
@@ -245,7 +245,7 @@ $row = $pdo->query($sql)->fetch();
 
         <form name="form1" class="blog-content-edit-form" method="post" novalidate onsubmit="checkForm(); return false;">
 
-          <input type="hidden" name="id" value="<?= $row['id'] ?>">
+          <input type="hidden" name="blogs_id" value="<?= $row['blogs_id'] ?>">
 
           <div class="thumbnail d-flex">
             <label for="" class="col-2">縮圖</label>
@@ -308,14 +308,14 @@ $row = $pdo->query($sql)->fetch();
 
           <div class="date">
             <label for="" class="col-2">發佈日期</label>
-            <input type="text" name="time" value="<?= $row['CREATEd_at'] ?>">
+            <input type="text" name="time" readonly value="<?= $row['CREATEd_at'] ?>">
           </div>
           <br>
 
 
           <div class="content">
             <label for="" class="col-2">文章內容</label>
-            <textarea id="editor01" name="content" value="<?= $row['content'] ?>"><?= $row['content'] ?>"</textarea>
+            <textarea id="editor01" name="content" ><?= $row['content'] ?></textarea>
           </div>
           <br>
 
@@ -366,7 +366,7 @@ $row = $pdo->query($sql)->fetch();
     fetch('blog-content-edit-img-api.php', {
         method: 'POST',
         body: fd
-      }).then(r => r.json())
+      }).then(r => r.text())
       .then(obj => {
         console.log(obj);
         if (obj.success && obj.filename) {
@@ -422,7 +422,7 @@ $row = $pdo->query($sql)->fetch();
       fetch('blog-content-edit-api.php', {
           method: 'POST',
           body: fd
-        }).then(r => r.text())
+        }).then(r => r.json())
         .then(obj => {
           console.log(obj);
           if (obj.success) {
