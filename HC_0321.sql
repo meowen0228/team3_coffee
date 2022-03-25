@@ -503,6 +503,7 @@ CREATE TABLE `drink_order`(
   `fk_user_id` INT NOT NULL,
   `pay` VARCHAR(20) NOT NULL,
   `fk_store_id` INT UNSIGNED NOT NULL,
+  `CREATEd_at` TIMESTAMP DEFAULT NOW(),
   `status` TINYINT NOT NULL,
   FOREIGN KEY(fk_user_id) REFERENCES users(id),
   FOREIGN KEY(fk_store_id) REFERENCES store(id)

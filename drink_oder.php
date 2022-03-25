@@ -3,41 +3,36 @@
   $pagename = 'home';
 ?>
 <style>
-        .title {
-            position: absolute;
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 22px;
-            line-height: 130%;
-        }
-
-        .card {
-            position: absolute;
-            background: #FFFFFF;
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 24px;
-            line-height: 130%;
-        }
-
-        .commodityImg {
-            max-width: 60px;
-        }
-
-        /* .newBotton,
-        .deleteBotton {
-            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
-            border-radius: 20px;
-        } */
-    </style>
+.title {
+    position: absolute;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 130%;
+}
+.card {
+    position: absolute;
+    background: #FFFFFF;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 130%;
+}
+.commodityImg {
+    max-width: 60px;
+}
+/* .newBotton,
+.deleteBotton {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+} */
 </style>
 <?php include __DIR__. './layout/html-head.php';?>
 <?php include __DIR__. './layout/header.php';?>
 <?php include __DIR__. './layout/aside.php';?>
-<?php
-require __DIR__ . '/layout/connect_db.php';
+<?php require __DIR__ . '/layout/connect_db.php';
 $title = 'drink_oder';
 $pageName = 'drink_oder';
 $perPage = 5; // 每一頁有幾筆
