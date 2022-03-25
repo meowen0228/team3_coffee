@@ -1,6 +1,6 @@
 <?php
 
-require 'connect-db.php';
+require '../layout/connect_db.php';
 
 $title = '文章後台-編輯文章';
 $pagename = 'blog-content-edit';
@@ -25,9 +25,9 @@ $row = $pdo->query($sql)->fetch();
 // $row_photo_other = $pdo->query($sql_photo)->fetchAll();
 ?>
 
-<?php include __DIR__ . './layout/html-head.php'; ?>
-<?php include __DIR__ . './layout/header.php'; ?>
-<?php include __DIR__ . './layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
 <style>
   .blog-content-edit {
@@ -331,8 +331,8 @@ $row = $pdo->query($sql)->fetch();
   </div>
 </main>
 
-<?php include __DIR__ . './layout/scripts.php'; ?>
-<?php include __DIR__ . './layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> -->
 <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>

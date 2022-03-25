@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/connect-db.php';
+require '../layout/connect_db.php';
 $title = '文章後台';
 $pagename = 'blog';
 $perPage = 5; // 每一頁有幾筆
@@ -38,9 +38,9 @@ $first = [];
 ?>
 
 
-<?php include __DIR__ . './layout/html-head.php'; ?>
-<?php include __DIR__ . './layout/header.php'; ?>
-<?php include __DIR__ . './layout/aside.php'; ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
 <img src="./bootstrap/js/" alt="">
 <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
@@ -206,8 +206,8 @@ $first = [];
   </div>
 </main>
 
-<?php include __DIR__ . './layout/scripts.php'; ?>
-<?php include __DIR__ . './layout//html-foot.php'; ?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>
 
 <script>
   // $(document).ready(function() {

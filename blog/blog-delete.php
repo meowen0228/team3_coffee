@@ -1,7 +1,7 @@
 <?php
 // $arr = $_POST["item"];
 
-require 'connect-db.php';
+require '../layout/connect_db.php';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
