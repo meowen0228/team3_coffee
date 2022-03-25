@@ -132,14 +132,13 @@ if ($totalRows) {
                         </select>
 
                     </div>
-                    <div class="col-1"></div>
-
-                    <div class="col-3 order-search">
-          <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
-            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-          </div>
+                    <div class="col-4 order-search">
+                        <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
+                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </div>
 
                 </div>
+                
 
 
 

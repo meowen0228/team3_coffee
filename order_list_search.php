@@ -7,10 +7,10 @@ $title = '訂單列表';
 $pagename = 'order_list';
 
 // 抓取 search text
-$text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
+$text = isset($_GET['search-for']) ? strval($_GET['search-for']) : 0;
 
-    $sql = 
-        "SELECT
+$sql =
+    "SELECT
         users.id AS u_id,
         user_name,
         orders.id AS o_id,
@@ -36,11 +36,11 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
         price
         FROM order_detail
         left join products on products.id = order_detail.fk_product_id) AS detail on detail.od_fkid = orders.id
-        WHERE `o_id` LIKE '%$text%'
+        WHERE orders.id LIKE '%$text%'
         GROUP BY orders.id ORDER BY o_id ";
-        
-    
-    $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+
+
+$rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 ?>
 
@@ -54,7 +54,8 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
         border-radius: 5px;
         border-left: none;
     }
-    .order-search{
+
+    .order-search {
         border: transparent;
     }
 
@@ -75,7 +76,8 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
     .act {
         display: none;
     }
-    .select{
+
+    .select {
         width: 100px;
         border-radius: 10px;
         padding: 5px;
@@ -96,9 +98,9 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                     </div>
                     <div class="col-3"></div>
                     <div class="col-2">
-                    <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
+                        <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
                             <!-- <option selected>出貨狀態</option> -->
-                          <option  selected value="order_list.php">全選</option>
+                            <option selected value="order_list.php">全選</option>
                             <option value="order_list_onship.php">已出貨</option>
                             <option value="order_list_nonship.php">未出貨</option>
                             <option value="order_list_complete.php">完成訂單</option>
@@ -106,14 +108,15 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                         </select>
 
                     </div>
-                    <div class="col-1"></div>
 
-                    <div class="col-3 order-search">
-          <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
-            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-          </div>
+                    <div class="col-4 order-search">
+                        <input class="ordersearch" name="search-for" placeholder="搜尋訂單編號">
+                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </div>
 
                 </div>
+               
+
 
 
 
@@ -121,7 +124,7 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item nonship">
                         <h2 class="accordion-header" id="flush-headingOne">
-                
+
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <table class="table table-sm table-responsive ">
@@ -137,17 +140,17 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                                         <th></th>
                                     </tr>
                                 </thead>
-                               
+
                             </table>
                         </div>
                     </div>
-                    <?php $num=0; ?>
+                    <?php $num = 0; ?>
                     <?php foreach ($rows as $r) : ?>
-                        <?php $num+=1?>
-                        <?php $n=$num?>
+                        <?php $num += 1 ?>
+                        <?php $n = $num ?>
                         <!-- 連接資料庫 -->
-                        
-                                      
+
+
                         <div class="accordion-item onship">
                             <h2 class="accordion-header" id="flush-heading<?= $n ?>">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<?= $n ?>" aria-expanded="false" aria-controls="flush-collapse<?= $n ?>">
@@ -183,16 +186,16 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                                                 <?php if ($r['oc_id'] == 1) { ?>
                                                     <td>未出貨</td>
                                                 <?php }   ?>
-                                                    <?php if ($r['oc_id'] == 2) { ?>
-                                                        <td>已出貨</td>
-                                                    <?php }  ?>
-                                                        <?php if ($r['oc_id'] == 3) { ?>
-                                                            <td>完成訂單</td>
-                                                        <?php }  ?>
-                                                        <?php if ($r['oc_id'] == 4) { ?>
-                                                            <td>取消訂單</td>
-                                                        <?php } ?>
-                                                    
+                                                <?php if ($r['oc_id'] == 2) { ?>
+                                                    <td>已出貨</td>
+                                                <?php }  ?>
+                                                <?php if ($r['oc_id'] == 3) { ?>
+                                                    <td>完成訂單</td>
+                                                <?php }  ?>
+                                                <?php if ($r['oc_id'] == 4) { ?>
+                                                    <td>取消訂單</td>
+                                                <?php } ?>
+
 
                                                 <td><?= $r['otime'] ?></td>
                                                 <td></td>
@@ -206,7 +209,7 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                             </h2>
                             <div id="flush-collapse<?= $n ?>" class="accordion-collapse collapse" aria-labelledby="flush-heading<?= $n ?>">
                                 <table class="table table-sm table-responsive ">
-                                  
+
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -220,30 +223,30 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
+                                        <?php
                                         $productid = explode(',', $r['p_id']) ?>
-                                         <?php 
+                                        <?php
                                         $productname = explode(',', $r['p_name']) ?>
-                                         <?php 
+                                        <?php
                                         $qty = explode(',', $r['qty']) ?>
-                                        <?php 
+                                        <?php
                                         $price = explode(',', $r['price']) ?>
-                                        <?php 
+                                        <?php
                                         $sum = 0 ?>
-                                        <?php 
-                                        for ($i=0; $i<count($productid); $i++) {
-                                            $sum=$sum+($qty[$i]*$price[$i]);?>
-                                        <tr>
-                                            <th></th>
-                                            <td><?= $i+1 ?></td>
-                                            <td><?= $productid[$i] ?></td>
-                                            <td><?= $productname[$i] ?></td>
-                                            <td><?= $qty[$i] ?></td>
-                                            <td><?= $price[$i] ?></td>
-                                            <td><?= $qty[$i]*$price[$i] ?></td>
-                                            <td></td>
+                                        <?php
+                                        for ($i = 0; $i < count($productid); $i++) {
+                                            $sum = $sum + ($qty[$i] * $price[$i]); ?>
+                                            <tr>
+                                                <th></th>
+                                                <td><?= $i + 1 ?></td>
+                                                <td><?= $productid[$i] ?></td>
+                                                <td><?= $productname[$i] ?></td>
+                                                <td><?= $qty[$i] ?></td>
+                                                <td><?= $price[$i] ?></td>
+                                                <td><?= $qty[$i] * $price[$i] ?></td>
+                                                <td></td>
                                             </tr>
-                                            <?php  }?>
+                                        <?php  } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -265,7 +268,7 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
                 </div>
 
             </div>
-            
+
             <div class="col-1"></div>
         </div>
 
@@ -276,8 +279,6 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
     //給collapse
 </script>
 <script>
-    
-    
     // $(function() {
     //     $("#ship").change(function() {
     //         switch (
@@ -316,11 +317,11 @@ $text = isset( $_GET['search-for'] ) ? strval($_GET['search-for']) : 0;
     //         }
     //     });
     // });
-    $(".ordersearch").on("keyup mouseup contextmenu", function () {
-      let search = $(this).val();
-      if (search != '') {
-        $(this).next().attr("href", "order_list_search.php?search-for=" + search);
-      }
+    $(".ordersearch").on("keyup mouseup contextmenu", function() {
+        let search = $(this).val();
+        if (search != '') {
+            $(this).next().attr("href", "order_list_search.php?search-for=" + search);
+        }
     });
 </script>
 
