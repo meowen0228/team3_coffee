@@ -53,6 +53,12 @@ if ($totalRows) {
 
     }
 
+    .product-search {
+        border-radius: 50px;
+        outline: none;
+        background: #fff;
+    }
+
     .icon {
         background: #FFFFFF;
         /* border: #FFFFFF solid 1px; */
@@ -97,14 +103,21 @@ if ($totalRows) {
                     <div class="col-3"></div>
                    
                     <div class="col-2"><a href="product_new.php?>" class="btn btn-light addProduct">+新增商品</a></div>
-                    <div class="col-4">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3 product-search">
+          <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
+            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+          </div> 
+
+                    <!-- <div class="col-4">
                         <div class="input-group form-outline ">
-                            <input type="search" class="form-control search" />
+                            <input class="productsearch" name="search-for" placeholder="搜尋名稱或編號">
                             <button type="button" class="btn btn-light icon search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
 

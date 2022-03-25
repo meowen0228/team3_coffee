@@ -54,20 +54,23 @@ if ($totalRows) {
     }
     .product-search{
         border: transparent;
+        border-radius: 50px;
+        outline: none;
+        background: #fff;
     }
 
 
-    .icon {
+    /* .icon {
         background: #FFFFFF;
-        /* border: #FFFFFF solid 1px; */
+        border: #FFFFFF solid 1px;
         border-radius: 5px;
         border-left: none;
-    }
+    } */
 
-    .search {
+    /* .search {
         border: none;
         border-radius: 20px;
-    }
+    } */
 
     .pagetext a {
         color: black;
