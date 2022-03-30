@@ -17,7 +17,7 @@ FR12519 徐仁婕 / 首頁
 
 
 ## 使用工具及語言
-- 前端：HTML5、CSS3、JavaScript ES6、Bootstrap5、jQuery  
+- 前端：HTML5（HTML、CSS3、JS API）、JavaScript ES6、Bootstrap5、jQuery  
 - 後端：php  
 - 資料庫：Mysql  
 - 伺服器：xampp  
@@ -26,7 +26,7 @@ FR12519 徐仁婕 / 首頁
   
 ## 開發過程中學習  
 - ajax 與 HTTP 基本協定，利用 GET 與 POST 向後端請求資料，並了解兩者差異  
-- 表單驗證設計及重要性  
+- 表單驗證設計及其重要性  
 - 資料庫正規化  
 - 出錯時如何運用開發者模式找尋錯誤並解決  
 
