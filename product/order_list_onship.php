@@ -129,8 +129,8 @@ if ($totalRows) {
                     <div class="col-2">
                     <select onChange="location = this.options[this.selectedIndex].value;" name="ship" id="ship" class="select">
                             <!-- <option selected>出貨狀態</option> -->
-                          <option  selected value="order_list.php">全選</option>
-                            <option value="order_list_onship.php">已出貨</option>
+                          <option   value="order_list.php">全選</option>
+                            <option selected value="order_list_onship.php">已出貨</option>
                             <option value="order_list_nonship.php">未出貨</option>
                             <option value="order_list_complete.php">完成訂單</option>
                             <option value="order_list_cancel.php">取消訂單</option>
