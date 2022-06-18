@@ -5,7 +5,7 @@ $db_user = 'root';
 
 $db_pass = 'Passw0rd!';
 
-$db_name = 'team3';
+$db_name = 'team3_midterm';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 
