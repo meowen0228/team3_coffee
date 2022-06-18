@@ -1,37 +1,43 @@
 <?php
-  $title = '後台首頁';
-  $pagename = 'home';
+$title = '後台首頁';
+$pagename = 'home';
 ?>
+<?php include '../layout/html-head.php'; ?>
+<?php include '../layout/header.php'; ?>
+<?php include '../layout/aside.php'; ?>
+<link rel="stylesheet" href="../layout/css/admin.css">
+
 <style>
-.title {
-    position: absolute;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 130%;
-}
-.card {
-    position: absolute;
-    background: #FFFFFF;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 130%;
-}
-.commodityImg {
-    max-width: 60px;
-}
-/* .newBotton,
+    .title {
+        position: absolute;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 22px;
+        line-height: 130%;
+    }
+
+    .card {
+        position: absolute;
+        background: #FFFFFF;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 130%;
+    }
+
+    .commodityImg {
+        max-width: 60px;
+    }
+
+    /* .newBotton,
 .deleteBotton {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
 } */
 </style>
-<?php include '../layout/html-head.php';?>
-<?php include '../layout/header.php';?>
-<?php include '../layout/aside.php';?>
+
 <?php require '../layout/connect_db.php';
 $title = 'drink_oder';
 $pageName = 'drink_oder';
@@ -54,7 +60,7 @@ if ($totalRows) {
         header("Location: drink_oder_body.php?page=$totalPages");
         exit;
     }
-$sql = sprintf("SELECT users.id AS u_id,
+    $sql = sprintf("SELECT users.id AS u_id,
                 drink_order.id AS do_id, 
                 pay,
                 store_name, 
@@ -90,7 +96,7 @@ $sql = sprintf("SELECT users.id AS u_id,
 
 
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-    
+
 }
 ?>
 
@@ -118,115 +124,115 @@ $sql = sprintf("SELECT users.id AS u_id,
                     </div>
 
                 </div>
-                <?php $num=0; ?>
-                <?php foreach ($rows as $r) : ?> 
-                    <?php $num +=1?>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item nonship">
-                        <h2 class="accordion-header" id="flush-heading<?= $num ?>">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<?= $num ?>" aria-expanded="false" aria-controls="flush-collapse<?= $num ?>">
-                                <table class="table  table-responsive table-borderless">
+                <?php $num = 0; ?>
+                <?php foreach ($rows as $r) : ?>
+                    <?php $num += 1 ?>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item nonship">
+                            <h2 class="accordion-header" id="flush-heading<?= $num ?>">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<?= $num ?>" aria-expanded="false" aria-controls="flush-collapse<?= $num ?>">
+                                    <table class="table  table-responsive table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">會員編號</th>
+                                                <th scope="col">訂單編號</th>
+                                                <th scope="col">付款方式</th>
+                                                <th scope="col">用餐地點</th>
+                                                <th scope="col">餐點狀態</th>
+                                                <th scope="col">建立時間</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><?= $r['u_id'] ?></th>
+                                                <td><?= $r['do_id'] ?></td>
+                                                <td><?= $r['pay'] ?></td>
+                                                <td><?= $r['store_name'] ?></td>
+                                                <?php if ($r['status']) { ?>
+                                                    <td style="color:blue">準備中</td>
+                                                <?php } else { ?>
+                                                    <td style="color:red">可取餐</td>
+                                                <?php } ?>
+                                                <td><?= $r['CREATEd_at'] ?></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </button>
+                            </h2>
+                            <div id="flush-collapse<?= $num ?>" class=" collapse" aria-labelledby="flush-heading<?= $num ?>" data-bs-parent="#accordionFlushExample">
+                                <table class="table table-sm table-responsive ">
                                     <thead>
                                         <tr>
-                                            <th scope="col">會員編號</th>
-                                            <th scope="col">訂單編號</th>
-                                            <th scope="col">付款方式</th>
-                                            <th scope="col">用餐地點</th>
-                                            <th scope="col">餐點狀態</th>
-                                            <th scope="col">建立時間</th>
+                                            <th>項次</th>
+                                            <th>商品編號</th>
+                                            <th>商品名稱</th>
+                                            <th>數量</th>
+                                            <th>金額</th>
+                                            <th>小計</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th><?= $r['u_id'] ?></th>
-                                            <td><?= $r['do_id'] ?></td>
-                                            <td><?= $r['pay'] ?></td>
-                                            <td><?= $r['store_name'] ?></td>
-                                            <?php if ($r['status']){?>
-                                            <td  style="color:blue">準備中</td>
-                                            <?php }else{?>
-                                            <td style="color:red">可取餐</td>
-                                            <?php } ?>
-                                            <td><?= $r['CREATEd_at'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </button>
-                        </h2>
-                        <div id="flush-collapse<?= $num ?>" class=" collapse" aria-labelledby="flush-heading<?= $num ?>" data-bs-parent="#accordionFlushExample">
-                            <table class="table table-sm table-responsive ">
-                                <thead>
-                                    <tr>
-                                        <th>項次</th>
-                                        <th>商品編號</th>
-                                        <th>商品名稱</th>
-                                        <th>數量</th>
-                                        <th>金額</th>
-                                        <th>小計</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $a = 1  ?>
-                                    <?php $menuId = explode (',',$r['drink_name']) ?>
-                                    <?php $total_fk_drink_menu_id = explode (',',$r['total_fk_drink_menu_id']) ?>
-                                    <?php $total_qty = explode (',',$r['total_qty']) ?>
-                                    <?php $total_price = explode (',',$r['total_price']) ?>
-                                    <?php $sum=0;
-                                    for ($i=0; $i<count($menuId); $i++) { 
-                                        $sum=$sum+($total_qty[$i] * $total_price[$i])?>
-                                        
-                                        <tr>
-                                        <td><?= $a+$i ?></td>
-                                        <td><?= $total_fk_drink_menu_id[$i] ?></td>
-                                        <td><?= $menuId[$i] ?></td>
-                                        <td><?= $total_qty[$i] ?></td>
-                                        <td><?= $total_price[$i] ?></td>
-                                        <td><?= $total_qty[$i] * $total_price[$i]?>
-                                        </tr>
+                                        <?php $a = 1  ?>
+                                        <?php $menuId = explode(',', $r['drink_name']) ?>
+                                        <?php $total_fk_drink_menu_id = explode(',', $r['total_fk_drink_menu_id']) ?>
+                                        <?php $total_qty = explode(',', $r['total_qty']) ?>
+                                        <?php $total_price = explode(',', $r['total_price']) ?>
+                                        <?php $sum = 0;
+                                        for ($i = 0; $i < count($menuId); $i++) {
+                                            $sum = $sum + ($total_qty[$i] * $total_price[$i]) ?>
+
+                                            <tr>
+                                                <td><?= $a + $i ?></td>
+                                                <td><?= $total_fk_drink_menu_id[$i] ?></td>
+                                                <td><?= $menuId[$i] ?></td>
+                                                <td><?= $total_qty[$i] ?></td>
+                                                <td><?= $total_price[$i] ?></td>
+                                                <td><?= $total_qty[$i] * $total_price[$i] ?>
+                                            </tr>
                                         <?php  } ?>
-                                        
+
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td>總計</td>
                                         <td><?= $sum ?></td>
-                                </tbody>   
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                <?php endforeach ?>
+                <div class="d-flex justify-content-center mt-3">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
+                            </li>
+                            <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                                if ($i >= 1 and $i <= $totalPages) :
+                            ?>
+                                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                    </li>
+                            <?php endif;
+                            endfor; ?>
+                            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav> <!-- 頁碼  -->
                 </div>
-            <?php endforeach ?>
-            <div class="d-flex justify-content-center mt-3">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
-                </li>
-                <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                    if ($i >= 1 and $i <= $totalPages) :
-                ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                <?php endif;
-                endfor; ?>
-                <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </nav>  <!-- 頁碼  -->
-    </div>
-            <div class="col-1"></div>
+                <div class="col-1"></div>
+            </div>
         </div>
-    </div>
 
 
 </main>
 
 </main>
 
-    <?php include '../layout/scripts.php';?>
-    <?php include '../layout//html-foot.php';?>
+<?php include '../layout/scripts.php'; ?>
+<?php include '../layout//html-foot.php'; ?>

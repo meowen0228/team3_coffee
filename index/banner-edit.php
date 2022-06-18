@@ -1,6 +1,7 @@
 <?php
 require  '../layout/connect_db.php';
 
+
 $title = '首頁/橫幅修改';
 $pageName = 'banner-edit';
 
@@ -14,6 +15,10 @@ if (empty($row)) {
 }
 
 ?>
+<?php include  '../layout/html-head.php'; ?>
+<?php include  '../layout/header.php'; ?>
+<?php include  '../layout/aside.php'; ?>
+<link rel="stylesheet" href="../layout/css/admin.css">
 
 <style>
     .form .mb-3 .form-text {
@@ -34,9 +39,8 @@ if (empty($row)) {
 </style>
 
 
-<?php include  '../layout/html-head.php';?>
-<?php include  '../layout/header.php';?>
-<?php include  '../layout/aside.php';?>
+
+
 
 
 <main class="admin-main px-5 py-5 d-flex">

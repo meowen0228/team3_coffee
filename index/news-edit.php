@@ -13,14 +13,16 @@ if (empty($row)) {
     exit;
 }
 ?>
+<?php include  '../layout/html-head.php'; ?>
+<?php include  '../layout/header.php'; ?>
+<?php include  '../layout/aside.php'; ?>
+<link rel="stylesheet" href="../layout/css/admin.css">
+
 <style>
     form .mb-3 .form-text {
         color: red;
     }
 </style>
-<?php include  '../layout/html-head.php';?>
-<?php include  '../layout/header.php';?>
-<?php include  '../layout/aside.php';?>
 
 
 
@@ -47,11 +49,11 @@ if (empty($row)) {
 
             <div class="grid rows-2 mb-3">
                 <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;" action="">
-                        <div class="mb-3">
-                            <label class="form-label" for="title">標題：</label>
-                            <input type="text" class="form-control" id="title" name="title" required value="<?= $row['title'] ?>">
-                            <div class="form-text"></div>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="title">標題：</label>
+                        <input type="text" class="form-control" id="title" name="title" required value="<?= $row['title'] ?>">
+                        <div class="form-text"></div>
+                    </div>
 
                     <div class="mb-3">
                         <label for="contents" class="form-label">內容：</label><br>

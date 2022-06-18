@@ -5,7 +5,7 @@ $db_user = 'root';
 
 $db_pass = 'Passw0rd!';
 
-$db_name = 'team3';
+$db_name = 'team3_midterm';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 
@@ -18,6 +18,6 @@ $pdo_options = [
 
 $pdo = new PDO($dsn, $db_user, $db_pass, $pdo_options);
 
-if(! isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }

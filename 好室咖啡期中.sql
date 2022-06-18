@@ -1,6 +1,7 @@
-drop database team3;
-create schema team3;
-use team3;
+-- 此為期中版本的SQL
+-- drop database team3_midterm;
+create schema team3_midterm;
+use team3_midterm;
 
 
 

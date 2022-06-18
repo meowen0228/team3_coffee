@@ -13,14 +13,15 @@ if (empty($row)) {
     exit;
 }
 ?>
+<?php include  '../layout/html-head.php'; ?>
+<?php include  '../layout/header.php'; ?>
+<?php include  '../layout/aside.php'; ?>
+<link rel="stylesheet" href="../layout/css/admin.css">
 <style>
     form .mb-3 .form-text {
         color: red;
     }
 </style>
-<?php include  '../layout/html-head.php';?>
-<?php include  '../layout/header.php';?>
-<?php include  '../layout/aside.php';?>
 
 
 <main class="admin-main px-5 py-5 d-flex">
@@ -54,7 +55,7 @@ if (empty($row)) {
                         </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">公告期間：</label>
-                            <input type="date" class="form-control" id="start-time" name="start-time" value="<?= $row['start_time'] ?>" required> 
+                            <input type="date" class="form-control" id="start-time" name="start-time" value="<?= $row['start_time'] ?>" required>
                             <input type="date" class="form-control" id="end-time" name="end-time" value="<?= $row['end_time'] ?>" required>
                             <div class="form-text"></div>
                         </div>
@@ -67,8 +68,8 @@ if (empty($row)) {
 
                     <div class="activity-textarea mb-3">
                         <label for="contents" class="form-label">內容：</label><br>
-                        <textarea class="form-control" name="contents" id="contents" rows="3"><?= $row['contents']?></textarea>
-                                                                                                             <!-- +"至"+$row['end_time']+$row['contents']  -->
+                        <textarea class="form-control" name="contents" id="contents" rows="3"><?= $row['contents'] ?></textarea>
+                        <!-- +"至"+$row['end_time']+$row['contents']  -->
                         <div class="form-text"></div>
                     </div>
                     <input type="hidden" id="id" name="id" value="<?= $row['id'] ?>">
